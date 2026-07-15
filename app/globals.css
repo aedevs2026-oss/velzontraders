@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand palette */
+  --velzon-ivory: #faf8f3;
+  --velzon-white: #ffffff;
+  --velzon-gold-dark: #b8860b;
+  --velzon-gold: #d4af37;
+  --velzon-gold-light: #f0c75e;
+  --velzon-silver: #9ca3af;
+  --velzon-graphite: #4b5563;
+  --velzon-charcoal: #1f2937;
+  --velzon-ink: #111827;
+
+  --gradient-gold: linear-gradient(
+    135deg,
+    #b8860b 0%,
+    #d4af37 50%,
+    #f0c75e 100%
+  );
+
+  --shadow-soft: 0 4px 24px rgba(184, 134, 11, 0.1);
+  --shadow-card: 0 2px 12px rgba(17, 24, 39, 0.06);
+
+  --background: var(--velzon-ivory);
+  --foreground: var(--velzon-charcoal);
+}
+
+@theme inline {
+  --color-ivory: var(--velzon-ivory);
+  --color-white: var(--velzon-white);
+  --color-gold-dark: var(--velzon-gold-dark);
+  --color-gold: var(--velzon-gold);
+  --color-gold-light: var(--velzon-gold-light);
+  --color-silver: var(--velzon-silver);
+  --color-graphite: var(--velzon-graphite);
+  --color-charcoal: var(--velzon-charcoal);
+  --color-ink: var(--velzon-ink);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-display: var(--font-cormorant);
+  --font-sans: var(--font-source);
+
+  --shadow-soft: var(--shadow-soft);
+  --shadow-card: var(--shadow-card);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+}
+
+.bg-gradient-gold {
+  background-image: var(--gradient-gold);
+}
+
+.text-gradient-gold {
+  background-image: var(--gradient-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.rule-gold {
+  height: 1px;
+  background-image: var(--gradient-gold);
+  border: none;
+}
+
+.rule-gold-center {
+  height: 1px;
+  width: 4rem;
+  margin-inline: auto;
+  background-image: var(--gradient-gold);
+  border: none;
+}
+
+.focus-gold:focus-visible {
+  outline: 2px solid var(--velzon-gold-dark);
+  outline-offset: 2px;
+}

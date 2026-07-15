@@ -1,0 +1,199 @@
+/**
+ * One-time mapper: public/products/* → product/category slugs,
+ * plus public/projects/* and public/gallery/* for project/gallery seeds.
+ * Writes supabase/seed-local-images.sql.
+ *
+ * Usage: node scripts/seed-local-images.mjs
+ */
+
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const productsDir = path.join(root, "public", "products");
+const projectsDir = path.join(root, "public", "projects");
+const galleryDir = path.join(root, "public", "gallery");
+
+const CATEGORIES = [
+  "roofing-sheets",
+  "puff-sheets",
+  "decking-sheet-gi",
+  "mangalore-tile-sheet",
+  "spanish-tile-sheet",
+  "liner-sheet",
+  "aluminium-sheet",
+  "upvc-sheet",
+];
+
+const PRODUCTS = [
+  "galvalume-roofing-sheets",
+  "puff-roof-panel",
+  "puff-wall-panel",
+  "gi-decking-sheet",
+  "mangalore-tile-profile",
+  "spanish-tile-profile",
+  "liner-sheet-product",
+  "aluminium-sheet-071",
+  "upvc-tile-sheets",
+];
+
+/** Explicit project slug → local filename (must exist under public/projects/) */
+const PROJECT_FILES = {
+  government:
+    "photorealistic_industrial_photography_of_a_large_public_sector_building_under.png",
+  warehouse:
+    "photorealistic_photography_of_a_large_modern_warehouse_exterior_with_a_long.png",
+  "retail-work-home":
+    "photorealistic_photography_of_a_small_modern_commercial_residential_building.png",
+  "shops-franchisee":
+    "photorealistic_photography_of_a_row_of_retail_storefronts_with_matching_metal.png",
+};
+
+/** Explicit gallery title → local filename (must exist under public/gallery/) */
+const GALLERY_FILES = [
+  { title: "Warehouse roof package", file: "warehouse-roof.png" },
+  { title: "Fabrication panel prep", file: "fabrication-panels.png" },
+  { title: "Retail canopy finish", file: "retail-canopy.png" },
+  { title: "PUFF wall cladding", file: "puff-wall.png" },
+  { title: "Mangalore tile residence", file: "mangalore-tile-roof.png" },
+  { title: "GI decking mezzanine", file: "decking-mezzanine.png" },
+  { title: "Government cladding supply", file: "government-cladding.png" },
+  { title: "Franchisee roof cover", file: "shops-franchisee-cover.png" },
+];
+
+function normalize(s) {
+  return String(s)
+    .toLowerCase()
+    .replace(/\.[a-z0-9]+$/i, "")
+    .replace(/[^a-z0-9]/g, "");
+}
+
+const files = fs
+  .readdirSync(productsDir)
+  .filter((f) => /\.(jpe?g|png|webp)$/i.test(f));
+
+const byNorm = new Map();
+for (const file of files) {
+  byNorm.set(normalize(file), file);
+}
+
+function matchSlug(slug) {
+  const file = byNorm.get(normalize(slug));
+  return file ? `/products/${file}` : null;
+}
+
+const catMatches = [];
+const catMisses = [];
+for (const slug of CATEGORIES) {
+  const url = matchSlug(slug);
+  if (url) catMatches.push({ slug, url });
+  else catMisses.push(slug);
+}
+
+const prodMatches = [];
+const prodMisses = [];
+for (const slug of PRODUCTS) {
+  const url = matchSlug(slug);
+  if (url) prodMatches.push({ slug, url });
+  else prodMisses.push(slug);
+}
+
+const projectFilesOnDisk = new Set(
+  fs.readdirSync(projectsDir).filter((f) => /\.(jpe?g|png|webp)$/i.test(f)),
+);
+const galleryFilesOnDisk = new Set(
+  fs.readdirSync(galleryDir).filter((f) => /\.(jpe?g|png|webp)$/i.test(f)),
+);
+
+const projectMatches = [];
+const projectMisses = [];
+for (const [slug, file] of Object.entries(PROJECT_FILES)) {
+  if (projectFilesOnDisk.has(file)) {
+    projectMatches.push({ slug, url: `/projects/${file}` });
+  } else {
+    projectMisses.push(slug);
+  }
+}
+
+const galleryMatches = [];
+const galleryMisses = [];
+for (const row of GALLERY_FILES) {
+  if (galleryFilesOnDisk.has(row.file)) {
+    galleryMatches.push({ title: row.title, url: `/gallery/${row.file}` });
+  } else {
+    galleryMisses.push(row.title);
+  }
+}
+
+const used = new Set(
+  [...catMatches, ...prodMatches].map((m) => path.basename(m.url)),
+);
+const unusedFiles = files.filter((f) => !used.has(f));
+
+console.log("=== Category matches ===");
+catMatches.forEach((m) => console.log(`  ${m.slug} → ${m.url}`));
+if (catMisses.length) console.log("  NO MATCH:", catMisses.join(", "));
+
+console.log("\n=== Product matches ===");
+prodMatches.forEach((m) => console.log(`  ${m.slug} → ${m.url}`));
+if (prodMisses.length) console.log("  NO MATCH:", prodMisses.join(", "));
+
+console.log("\n=== Project matches ===");
+projectMatches.forEach((m) => console.log(`  ${m.slug} → ${m.url}`));
+if (projectMisses.length) console.log("  NO MATCH:", projectMisses.join(", "));
+
+console.log("\n=== Gallery matches ===");
+galleryMatches.forEach((m) => console.log(`  ${m.title} → ${m.url}`));
+if (galleryMisses.length) console.log("  NO MATCH:", galleryMisses.join(", "));
+
+if (unusedFiles.length) {
+  console.log("\n=== Unused files in public/products/ ===");
+  unusedFiles.forEach((f) => console.log(`  ${f}`));
+}
+
+const lines = [
+  "-- Generated by scripts/seed-local-images.mjs — review before running",
+  "-- Only fills empty image_url for products/categories (won't overwrite admin-uploaded URLs)",
+  "-- Projects/gallery updates force local public/ paths from scanned filenames",
+  "",
+];
+
+for (const m of catMatches) {
+  lines.push(
+    `update public.product_categories set image_url = '${m.url}' where slug = '${m.slug}' and (image_url is null or image_url = '');`,
+  );
+}
+lines.push("");
+for (const m of prodMatches) {
+  lines.push(
+    `update public.products set image_url = '${m.url}' where slug = '${m.slug}' and (image_url is null or image_url = '');`,
+  );
+}
+lines.push("");
+lines.push("-- Projects: actual files under public/projects/");
+for (const m of projectMatches) {
+  lines.push(
+    `update public.projects set image_url = '${m.url}' where slug = '${m.slug}';`,
+  );
+}
+lines.push("");
+lines.push("-- Gallery: actual files under public/gallery/");
+for (const m of galleryMatches) {
+  const title = m.title.replace(/'/g, "''");
+  lines.push(
+    `update public.gallery_images set image_url = '${m.url}' where title = '${title}' and (image_url like '/gallery/%' or image_url like '/placeholders/%' or image_url is null);`,
+  );
+}
+
+if (prodMisses.length || catMisses.length || projectMisses.length || galleryMisses.length) {
+  lines.push("");
+  lines.push(`-- Unmatched categories: ${catMisses.join(", ") || "(none)"}`);
+  lines.push(`-- Unmatched products: ${prodMisses.join(", ") || "(none)"}`);
+  lines.push(`-- Unmatched projects: ${projectMisses.join(", ") || "(none)"}`);
+  lines.push(`-- Unmatched gallery: ${galleryMisses.join(", ") || "(none)"}`);
+}
+
+const out = path.join(root, "supabase", "seed-local-images.sql");
+fs.writeFileSync(out, lines.join("\n") + "\n");
+console.log(`\nWrote ${out}`);

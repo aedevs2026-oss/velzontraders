@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Placeholder gallery image 2">
+  <rect width="800" height="600" fill="#FAF8F3"/>
+  <rect x="40" y="40" width="720" height="520" fill="#FFFFFF" stroke="#D4AF37" stroke-width="2"/>
+  <text x="400" y="280" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#111827">Velzon Project Photo</text>
+  <text x="400" y="320" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#4B5563">Placeholder 2  replace with real install photo</text>
+</svg>
