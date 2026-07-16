@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-label="Down Take Pipe — Velzon Trade Enterprise">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#B8860B"/>
+      <stop offset="50%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#F0C75E"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="#FAF8F3"/>
+  <rect x="32" y="32" width="736" height="436" fill="#FFFFFF" stroke="url(#g)" stroke-width="3"/>
+  <rect x="32" y="32" width="736" height="8" fill="url(#g)"/>
+  <text x="400" y="220" text-anchor="middle" font-family="Georgia, serif" font-size="34" fill="#111827">Down Take Pipe</text>
+  <text x="400" y="265" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#B8860B">Roofing Accessories</text>
+  <text x="400" y="310" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#4B5563">Velzon Trade Enterprise · Coimbatore</text>
+  <text x="400" y="350" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#9CA3AF">Original placeholder — replace with your photo</text>
+</svg>

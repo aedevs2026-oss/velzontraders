@@ -120,9 +120,12 @@ body {
   outline-offset: 2px;
 }
 
-/* Swiper — roofing accessories */
+/* Swiper — roofing accessories (autoplay only, no arrows) */
 .accessories-swiper .swiper-button-prev,
-.accessories-swiper .swiper-button-next,
+.accessories-swiper .swiper-button-next {
+  display: none !important;
+}
+
 .swiper-button-prev,
 .swiper-button-next {
   color: var(--velzon-gold-dark);

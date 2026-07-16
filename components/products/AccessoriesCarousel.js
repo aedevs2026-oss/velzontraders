@@ -2,13 +2,12 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Navigation, Pagination, A11y } from "swiper/modules";
+import { Autoplay, Pagination, A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Button } from "@/components/ui/Button";
 import { EntityImage } from "@/components/ui/EntityImage";
 
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 export function AccessoriesCarousel({ items = [] }) {
@@ -36,16 +35,23 @@ export function AccessoriesCarousel({ items = [] }) {
   return (
     <div className="mt-10">
       <Swiper
-        modules={[Navigation, Pagination, A11y]}
+        modules={[Autoplay, Pagination, A11y]}
         spaceBetween={20}
         slidesPerView={1.15}
-        navigation
+        loop={items.length >= 3}
+        speed={700}
+        autoplay={{
+          delay: 3500,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }}
         pagination={{ clickable: true }}
         breakpoints={{
           640: { slidesPerView: 2.1 },
           1024: { slidesPerView: 3 },
         }}
         className="!pb-12 accessories-swiper"
+        aria-label="Roofing accessories"
       >
         {items.map((item) => (
           <SwiperSlide key={item.slug}>

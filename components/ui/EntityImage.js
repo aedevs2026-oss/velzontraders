@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { isRemoteImageSrc, normalizeImageSrc } from "@/lib/media/image-url";
+import { isRemoteImageSrc, isSvgImageSrc, normalizeImageSrc } from "@/lib/media/image-url";
 
 /**
  * Renders a real image when src is set; otherwise a labeled gray placeholder
@@ -17,7 +17,7 @@ export function EntityImage({ src, alt, label, sizes = "100vw", className = "" }
         src={resolved}
         alt={alt || label || ""}
         fill
-        unoptimized={isRemoteImageSrc(resolved)}
+        unoptimized={isRemoteImageSrc(resolved) || isSvgImageSrc(resolved)}
         className={`object-cover ${className}`.trim()}
         sizes={sizes}
       />

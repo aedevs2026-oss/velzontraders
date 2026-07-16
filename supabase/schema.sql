@@ -311,7 +311,7 @@ create policy "Admin delete gallery"
 insert into public.settings (key, value) values
   ('phone', '9600065505'),
   ('phone_secondary', '9600065503'),
-  ('address', 'No 36/48, Thudiyalur Road, Velappanaikan Pudur, Saravanampatty, Coimbatore, 641035'),
+  ('address', 'Velzon Trade Enterprise, No 36/48, Thudiyalur Road, Velappanaikan Pudur, Saravanampatty, Coimbatore, 641035'),
   ('tagline', 'Confidence | Growth | Trust'),
   ('company_name', 'Velzon Trade Enterprise'),
   ('email', '')

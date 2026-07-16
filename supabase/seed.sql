@@ -64,7 +64,7 @@ insert into public.product_categories (name, slug, description, sort_order, imag
   'roofing-accessories',
   'Flashings, fasteners, ventilators, sealants, and structural accessories that complete metal roofing and cladding systems across Tamil Nadu.',
   9,
-  '/products/roofing-sheets.jpg'
+  '/products/accessories/ridge-cap.svg'
 )
 on conflict (slug) do nothing;
 

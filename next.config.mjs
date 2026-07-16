@@ -39,6 +39,10 @@ const nextConfig = {
     // Local Windows/DNS64 can resolve *.supabase.co via 64:ff9b::… which Next 16
     // treats as private and blocks in the image optimizer during `next dev`.
     dangerouslyAllowLocalIP: process.env.NODE_ENV === "development",
+    // Velzon accessory placeholders under /public/products/accessories/*.svg
+    dangerouslyAllowSVG: true,
+    contentDispositionType: "attachment",
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns,
   },
 };

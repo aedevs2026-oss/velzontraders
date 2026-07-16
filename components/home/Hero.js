@@ -32,14 +32,16 @@ export function Hero({
             {SITE.serviceArea}
           </p>
           <div className="mt-4 flex items-center gap-4">
-            <Image
-              src="/logo.jpg"
-              alt="Velzon Trade Enterprise — Coimbatore"
-              width={88}
-              height={88}
-              className="h-16 w-16 object-contain sm:h-20 sm:w-20"
-              priority
-            />
+            <span className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-gold/25 bg-white p-1.5 shadow-soft sm:h-24 sm:w-24">
+              <Image
+                src="/logo.jpg"
+                alt="Velzon Trade Enterprise — Coimbatore"
+                width={96}
+                height={96}
+                className="h-full w-full object-contain"
+                priority
+              />
+            </span>
             <div>
               <h1 className="font-display text-4xl font-bold tracking-wide text-ink sm:text-5xl lg:text-[3.25rem]">
                 <span className="text-gradient-gold">VELZON</span>
@@ -76,13 +78,13 @@ export function Hero({
 
         <div className="relative mx-auto w-full max-w-md lg:max-w-none">
           <div className="absolute -inset-3 rounded-full bg-gradient-gold opacity-20 blur-2xl" aria-hidden />
-          <div className="relative overflow-hidden rounded-full border border-gold/25 bg-white p-8 shadow-soft sm:p-12">
+          <div className="relative overflow-hidden rounded-full border border-gold/25 bg-white p-6 shadow-soft sm:p-10">
             <Image
               src="/logo.jpg"
               alt="Velzon Trade Enterprise logo — Confidence, Growth, Trust"
               width={480}
               height={480}
-              className="mx-auto h-auto w-full max-w-xs object-contain"
+              className="mx-auto h-auto w-full max-w-sm object-contain"
               priority
             />
           </div>

@@ -1,14 +1,16 @@
 import { AccessoriesManager } from "@/components/admin/AccessoriesManager";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { requireAdmin } from "@/lib/admin/auth";
+import { CATEGORIES } from "@/lib/constants";
+import { accessoriesAsProducts } from "@/lib/data/accessories-catalog";
 
 export const metadata = { title: "Roofing Accessories" };
 
 export default async function AdminAccessoriesPage() {
   const { demo, supabase } = await requireAdmin();
 
-  let categories = [];
-  let accessories = [];
+  let categories = CATEGORIES.map((c) => ({ ...c, id: null, is_active: true }));
+  let accessories = accessoriesAsProducts();
 
   if (!demo && supabase) {
     const [cats, prods] = await Promise.all([
@@ -25,6 +27,11 @@ export default async function AdminAccessoriesPage() {
         ...p,
         category_slug: p.product_categories?.slug,
         category_name: p.product_categories?.name,
+        // Prefer CMS image; fall back to local Velzon placeholder by slug
+        image_url:
+          p.image_url ||
+          p.images?.[0]?.url ||
+          `/products/accessories/${p.slug}.svg`,
       }));
     }
   }

@@ -4,6 +4,7 @@ import { FeaturedMaterials } from "@/components/home/FeaturedMaterials";
 import { FeaturedProducts } from "@/components/home/FeaturedProducts";
 import { Hero } from "@/components/home/Hero";
 import { ProjectTypes } from "@/components/home/ProjectTypes";
+import { RoofingAccessoriesSection } from "@/components/home/RoofingAccessoriesSection";
 import { Testimonials } from "@/components/home/Testimonials";
 import { TrustStrip } from "@/components/home/TrustStrip";
 import { FaqSection } from "@/components/ui/FaqSection";
@@ -26,7 +27,14 @@ export default async function HomePage() {
 
   const phones = resolvePhones(settings, SITE);
 
-  const featuredProducts = (allProducts || []).slice(0, 8).map((p) => ({
+  const materialProducts = (allProducts || []).filter(
+    (p) => p.category_slug !== "roofing-accessories",
+  );
+  const accessories = (allProducts || []).filter(
+    (p) => p.category_slug === "roofing-accessories",
+  );
+
+  const featuredProducts = materialProducts.slice(0, 8).map((p) => ({
     ...p,
     category_name:
       p.category_name ||
@@ -97,10 +105,12 @@ export default async function HomePage() {
   };
 
   const teaserBySlug = Object.fromEntries(CATEGORIES.map((c) => [c.slug, c.teaser]));
-  const categoriesWithTeaser = categories.map((c) => ({
-    ...c,
-    teaser: c.teaser || teaserBySlug[c.slug] || "View specs",
-  }));
+  const categoriesWithTeaser = categories
+    .filter((c) => c.slug !== "roofing-accessories")
+    .map((c) => ({
+      ...c,
+      teaser: c.teaser || teaserBySlug[c.slug] || "View specs",
+    }));
 
   const projectsWithTeaser = projects.map((p) => ({
     ...p,
@@ -122,6 +132,7 @@ export default async function HomePage() {
       />
       <FeaturedMaterials categories={categoriesWithTeaser} />
       <FeaturedProducts products={featuredProducts} />
+      <RoofingAccessoriesSection accessories={accessories} />
       <ProjectTypes projects={projectsWithTeaser} />
       <TrustStrip tagline={settings.tagline} />
       <Testimonials />

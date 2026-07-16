@@ -8,10 +8,7 @@ export async function SiteShell({ children }) {
 
   return (
     <>
-      <Navbar
-        phone={settings.phone}
-        phoneSecondary={settings.phone_secondary}
-      />
+      <Navbar />
       <main className="flex-1">{children}</main>
       <Footer
         phone={settings.phone}

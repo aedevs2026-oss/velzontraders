@@ -6,7 +6,7 @@ import { useRef, useState, useTransition } from "react";
 import { deleteAccessory, upsertAccessory } from "@/app/admin/actions";
 import { MediaUploader } from "@/components/admin/MediaUploader";
 import { Button } from "@/components/ui/Button";
-import { isRemoteImageSrc, normalizeImageSrc } from "@/lib/media/image-url";
+import { isRemoteImageSrc, isSvgImageSrc, normalizeImageSrc } from "@/lib/media/image-url";
 
 function linesFromArray(arr) {
   return (arr || []).join("\n");
@@ -43,7 +43,7 @@ const EMPTY_RELATED = [
   { name: "Standing Seam", href: "/contact?product=Standing%20Seam", image_url: "" },
   { name: "Decking Sheets", href: "/products/decking-sheet-gi", image_url: "/products/decking-sheet-gi.jpg" },
   { name: "C & Z Purlins", href: "/contact?product=C%20%26%20Z%20Purlins", image_url: "" },
-  { name: "Turbo Ventilators", href: "/products/roofing-accessories/turbo-ventilator", image_url: "" },
+  { name: "Turbo Ventilators", href: "/products/roofing-accessories/turbo-ventilator", image_url: "/products/accessories/turbo-ventilator.svg" },
 ];
 
 export function AccessoriesManager({ categories = [], accessories = [], demo }) {
@@ -360,7 +360,7 @@ export function AccessoriesManager({ categories = [], accessories = [], demo }) 
                         src={normalizeImageSrc(thumb)}
                         alt=""
                         fill
-                        unoptimized={isRemoteImageSrc(thumb)}
+                        unoptimized={isRemoteImageSrc(thumb) || isSvgImageSrc(thumb)}
                         className="object-cover"
                         sizes="64px"
                       />
@@ -415,8 +415,9 @@ export function AccessoriesManager({ categories = [], accessories = [], demo }) 
           })}
           {!accessories.length ? (
             <li className="py-4 text-sm text-graphite">
-              No accessories yet. Run <code>supabase/seed-roofing-accessories.sql</code> or add one
-              above.
+              No accessories yet. Catalogue loads from{" "}
+              <code>lib/data/accessories-catalog.js</code> in demo mode; for Supabase run{" "}
+              <code>supabase/seed-roofing-accessories.sql</code> or add one above.
             </li>
           ) : null}
         </ul>

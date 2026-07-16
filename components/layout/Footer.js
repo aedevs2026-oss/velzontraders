@@ -19,24 +19,28 @@ export function Footer({
 
   return (
     <footer className="mt-auto border-t border-gold/20 bg-white">
-      <Container className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
+      <Container className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-3">
         <div className="sm:col-span-2 lg:col-span-1">
-          <Link href="/" className="inline-flex items-center gap-2 focus-gold rounded-sm">
-            <Image
-              src="/logo.jpg"
-              alt="Velzon Trade Enterprise — Coimbatore"
-              width={40}
-              height={40}
-              className="h-10 w-10 object-contain"
-            />
-            <span className="font-display text-xl font-semibold text-ink">VELZON</span>
+          <Link href="/" className="inline-flex items-center gap-3 focus-gold rounded-sm">
+            <span className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-md border border-gold/20 bg-white p-1 shadow-card sm:h-16 sm:w-16">
+              <Image
+                src="/logo.jpg"
+                alt="Velzon Trade Enterprise — Coimbatore"
+                width={64}
+                height={64}
+                className="h-full w-full object-contain"
+              />
+            </span>
+            <span className="font-display text-xl font-semibold text-ink sm:text-2xl">
+              VELZON
+            </span>
           </Link>
           <p className="mt-3 text-sm uppercase tracking-[0.16em] text-gold-dark">
             {tagline}
           </p>
-          <p className="mt-3 max-w-xs text-sm text-graphite">
-            Roofing and fabrication materials — sourced, customised, and supplied from{" "}
-            {address}. {SITE.serviceArea}.
+          <p className="mt-3 max-w-sm text-sm text-graphite">
+            Roofing and fabrication materials — sourced, customised, and supplied.
+            {SITE.serviceArea}.
           </p>
         </div>
 
@@ -67,7 +71,7 @@ export function Footer({
                 linkClassName="hover:text-gold-dark focus-gold rounded-sm"
               />
             </li>
-            <li>{address}</li>
+            <li className="leading-relaxed">{address}</li>
             <li>
               <a
                 href={SITE.whatsappHref}
@@ -79,19 +83,6 @@ export function Footer({
               </a>
             </li>
           </ul>
-        </div>
-
-        <div>
-          <h3 className="font-display text-lg font-semibold text-ink">Admin</h3>
-          <p className="mt-3 text-sm text-graphite">
-            Staff login for catalogue and enquiry management.
-          </p>
-          <Link
-            href="/admin/login"
-            className="mt-2 inline-block text-sm font-medium text-gold-dark hover:underline focus-gold rounded-sm"
-          >
-            Admin login
-          </Link>
         </div>
       </Container>
 

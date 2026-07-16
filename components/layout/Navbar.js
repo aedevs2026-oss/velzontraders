@@ -5,41 +5,33 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { NAV_LINKS, SITE } from "@/lib/constants";
-import { resolvePhones } from "@/lib/phone";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { PhoneLinks } from "@/components/ui/PhoneLinks";
 import { MobileNav } from "@/components/layout/MobileNav";
 
-export function Navbar({
-  phone = SITE.phone,
-  phoneSecondary = SITE.phoneSecondary,
-}) {
+export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const phones = resolvePhones(
-    { phone, phone_secondary: phoneSecondary },
-    SITE
-  );
-  const primaryHref = phones[0]?.href || SITE.phoneHref;
 
   return (
     <header className="sticky top-0 z-50 border-b border-gold/20 bg-ivory/95 backdrop-blur-md">
-      <Container className="flex h-16 items-center justify-between gap-4 sm:h-[4.25rem]">
-        <Link href="/" className="flex items-center gap-2.5 focus-gold rounded-sm">
-          <Image
-            src="/logo.jpg"
-            alt="Velzon Trade Enterprise — Coimbatore"
-            width={44}
-            height={44}
-            className="h-10 w-10 object-contain sm:h-11 sm:w-11"
-            priority
-          />
+      <Container className="flex h-[4.5rem] items-center justify-between gap-4 sm:h-[5rem]">
+        <Link href="/" className="flex items-center gap-3 focus-gold rounded-sm">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-md border border-gold/25 bg-white p-1 shadow-card sm:h-14 sm:w-14">
+            <Image
+              src="/logo.jpg"
+              alt="Velzon Trade Enterprise — Coimbatore"
+              width={56}
+              height={56}
+              className="h-full w-full object-contain"
+              priority
+            />
+          </span>
           <span className="hidden flex-col leading-tight min-[420px]:flex">
-            <span className="font-display text-lg font-semibold tracking-wide text-ink sm:text-xl">
+            <span className="font-display text-xl font-semibold tracking-wide text-ink sm:text-2xl">
               VELZON
             </span>
-            <span className="text-[0.65rem] font-medium uppercase tracking-[0.14em] text-graphite">
+            <span className="text-[0.7rem] font-medium uppercase tracking-[0.14em] text-graphite">
               Trade Enterprise
             </span>
           </span>
@@ -68,20 +60,6 @@ export function Navbar({
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <PhoneLinks
-            phones={phones}
-            className="hidden text-xs font-medium text-charcoal lg:inline"
-            linkClassName="hover:text-gold-dark focus-gold rounded-sm whitespace-nowrap"
-            separator=" · "
-          />
-          <Button
-            href={primaryHref}
-            variant="secondary"
-            size="sm"
-            className="hidden sm:inline-flex lg:hidden"
-          >
-            Call Now
-          </Button>
           <Button href="/contact" size="sm" className="hidden min-[380px]:inline-flex">
             Get a Quote
           </Button>
@@ -109,7 +87,6 @@ export function Navbar({
         open={open}
         onClose={() => setOpen(false)}
         pathname={pathname}
-        phones={phones}
       />
     </header>
   );
