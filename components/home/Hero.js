@@ -1,10 +1,20 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { PhoneLinks } from "@/components/ui/PhoneLinks";
 import { SITE } from "@/lib/constants";
+import { resolvePhones } from "@/lib/phone";
 
-export function Hero({ tagline = SITE.tagline, phone = SITE.phone }) {
-  const phoneHref = `tel:+91${String(phone).replace(/\D/g, "").slice(-10)}`;
+export function Hero({
+  tagline = SITE.tagline,
+  phone = SITE.phone,
+  phoneSecondary = SITE.phoneSecondary,
+}) {
+  const phones = resolvePhones(
+    { phone, phone_secondary: phoneSecondary },
+    SITE
+  );
+  const primaryHref = phones[0]?.href || SITE.phoneHref;
 
   return (
     <section className="relative overflow-hidden border-b border-gold/15 bg-ivory">
@@ -19,7 +29,7 @@ export function Hero({ tagline = SITE.tagline, phone = SITE.phone }) {
       <Container className="relative grid items-center gap-10 py-14 sm:py-20 lg:grid-cols-2 lg:gap-12 lg:py-24">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-dark">
-            Coimbatore · Tamil Nadu
+            {SITE.serviceArea}
           </p>
           <div className="mt-4 flex items-center gap-4">
             <Image
@@ -43,19 +53,25 @@ export function Hero({ tagline = SITE.tagline, phone = SITE.phone }) {
             {tagline}
           </p>
           <p className="mt-5 max-w-xl text-base text-charcoal sm:text-lg">
-            We source roofing and fabrication materials from manufacturers, customise
-            them for your project, and supply sellers, builders, and end clients across
-            the Coimbatore region — with wiring coordination support when your build
+            We source premium branded roofing and fabrication materials, customise
+            them for your project, and supply sellers, builders, and end clients
+            across Tamil Nadu — with wiring coordination support when your build
             needs it.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button href="/contact" size="lg">
               Get a Quote
             </Button>
-            <Button href={phoneHref} variant="secondary" size="lg">
+            <Button href={primaryHref} variant="secondary" size="lg">
               Call Now
             </Button>
           </div>
+          <p className="mt-4 text-sm text-graphite">
+            <PhoneLinks
+              phones={phones}
+              linkClassName="font-medium text-gold-dark hover:underline focus-gold rounded-sm"
+            />
+          </p>
         </div>
 
         <div className="relative mx-auto w-full max-w-md lg:max-w-none">

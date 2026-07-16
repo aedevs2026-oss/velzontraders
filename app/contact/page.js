@@ -2,23 +2,29 @@ import { SiteShell } from "@/components/layout/SiteShell";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { FaqSection } from "@/components/ui/FaqSection";
+import { PhoneLinks } from "@/components/ui/PhoneLinks";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { SITE } from "@/lib/constants";
+import { CONTACT_FAQS, SITE } from "@/lib/constants";
+import { resolvePhones, whatsappHref } from "@/lib/phone";
 import { getProjects, getSettings } from "@/lib/data/queries";
 
 export const metadata = {
   title: "Contact",
   description:
-    "Contact Velzon Trade Enterprise in Coimbatore — call 9080937360, WhatsApp, or send a project enquiry.",
+    "Contact Velzon Trade Enterprise in Coimbatore — call +91 96000 65505 or +91 96000 65503 for roofing sheets, PUF panels, and fabrication across Tamil Nadu.",
 };
 
 export default async function ContactPage({ searchParams }) {
   const params = await searchParams;
   const product = typeof params?.product === "string" ? params.product : "";
   const [settings, projects] = await Promise.all([getSettings(), getProjects()]);
-  const phone = settings.phone || SITE.phone;
-  const phoneHref = `tel:+91${String(phone).replace(/\D/g, "").slice(-10)}`;
-  const wa = `https://wa.me/91${String(phone).replace(/\D/g, "").slice(-10)}`;
+  const phones = resolvePhones(settings, SITE);
+  const primary = phones[0];
+  const wa = whatsappHref(
+    primary?.raw || SITE.phone,
+    "Hello Velzon Trade Enterprise, I would like to enquire about materials."
+  );
 
   return (
     <SiteShell>
@@ -27,25 +33,34 @@ export default async function ContactPage({ searchParams }) {
           <SectionHeading
             eyebrow="Get in touch"
             title="Contact our Coimbatore desk"
-            description="Share your project type and material needs. We respond with availability and next steps."
+            description={`${SITE.serviceArea}. Share your project type and material needs — we respond with availability and next steps.`}
           />
 
           <div className="mt-10 grid gap-10 lg:grid-cols-5">
             <div className="space-y-6 lg:col-span-2">
               <div className="rounded-lg border border-gold/20 bg-white p-6 shadow-card">
                 <h2 className="font-display text-xl font-semibold text-ink">Call</h2>
-                <a
-                  href={phoneHref}
-                  className="mt-2 block font-display text-2xl font-semibold text-gold-dark focus-gold"
-                >
-                  {phone}
-                </a>
-                <p className="mt-2 text-sm text-graphite">{settings.address}</p>
+                <div className="mt-3 space-y-1 font-display text-xl font-semibold text-gold-dark sm:text-2xl">
+                  <PhoneLinks
+                    phones={phones}
+                    className="flex flex-col gap-1"
+                    separator=""
+                    linkClassName="focus-gold rounded-sm hover:underline"
+                  />
+                </div>
+                <p className="mt-3 text-sm text-graphite">{settings.address}</p>
+                <p className="mt-2 text-sm text-graphite">{SITE.serviceArea}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
-                  <Button href={phoneHref} size="sm">
+                  <Button href={primary?.href || SITE.phoneHref} size="sm">
                     Call Now
                   </Button>
-                  <Button href={wa} variant="whatsapp" size="sm" target="_blank" rel="noopener noreferrer">
+                  <Button
+                    href={wa}
+                    variant="whatsapp"
+                    size="sm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     WhatsApp
                   </Button>
                 </div>
@@ -75,6 +90,13 @@ export default async function ContactPage({ searchParams }) {
           </div>
         </Container>
       </section>
+
+      <FaqSection
+        items={CONTACT_FAQS}
+        includeJsonLd
+        title="Before you call"
+        description="Thicknesses, premium brands, and how we work with roofing contractors across Tamil Nadu."
+      />
     </SiteShell>
   );
 }

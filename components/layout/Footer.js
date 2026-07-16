@@ -1,14 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { NAV_LINKS, SITE } from "@/lib/constants";
+import { resolvePhones } from "@/lib/phone";
 import { Container } from "@/components/ui/Container";
+import { PhoneLinks } from "@/components/ui/PhoneLinks";
 
 export function Footer({
   phone = SITE.phone,
+  phoneSecondary = SITE.phoneSecondary,
   address = SITE.address,
   tagline = SITE.tagline,
 }) {
-  const phoneHref = `tel:+91${String(phone).replace(/\D/g, "").slice(-10)}`;
+  const phones = resolvePhones(
+    { phone, phone_secondary: phoneSecondary },
+    SITE
+  );
   const year = new Date().getFullYear();
 
   return (
@@ -30,7 +36,7 @@ export function Footer({
           </p>
           <p className="mt-3 max-w-xs text-sm text-graphite">
             Roofing and fabrication materials — sourced, customised, and supplied from{" "}
-            {address}.
+            {address}. {SITE.serviceArea}.
           </p>
         </div>
 
@@ -54,9 +60,12 @@ export function Footer({
           <h3 className="font-display text-lg font-semibold text-ink">Contact</h3>
           <ul className="mt-3 space-y-2 text-sm text-graphite">
             <li>
-              <a href={phoneHref} className="hover:text-gold-dark focus-gold rounded-sm">
-                {phone}
-              </a>
+              <PhoneLinks
+                phones={phones}
+                className="flex flex-col gap-1"
+                separator=""
+                linkClassName="hover:text-gold-dark focus-gold rounded-sm"
+              />
             </li>
             <li>{address}</li>
             <li>
@@ -89,9 +98,9 @@ export function Footer({
       <div className="border-t border-gold/10">
         <Container className="flex flex-col gap-2 py-4 text-xs text-graphite sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {SITE.name}. All rights reserved.
+            © {year} {SITE.name}. All rights reserved. Est. {SITE.established}.
           </p>
-          <p>Serving Coimbatore & surrounding regions · Tamil Nadu</p>
+          <p>{SITE.serviceArea}</p>
         </Container>
       </div>
     </footer>

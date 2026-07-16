@@ -8,7 +8,7 @@ import { getCategories } from "@/lib/data/queries";
 export const metadata = {
   title: "Products & Materials",
   description:
-    "Roofing sheets, PUFF panels, decking, tile profiles, liner, aluminium, and UPVC — thickness options from Velzon Trade Enterprise, Coimbatore.",
+    "Metal roofing sheets, PUF panels, decking, and more — thicknesses and premium brands from Velzon Trade Enterprise, roofing material supplier across Tamil Nadu.",
 };
 
 export default async function ProductsPage() {
@@ -21,7 +21,7 @@ export default async function ProductsPage() {
           <SectionHeading
             eyebrow="Materials"
             title="Products & categories"
-            description="Browse by category. Each page lists available thicknesses and use cases — enquire with the product name pre-filled."
+            description="Browse by category for thicknesses, premium brands, and use cases. Enquire with the product name pre-filled — supply and fabrication across Tamil Nadu."
           />
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((cat) => (

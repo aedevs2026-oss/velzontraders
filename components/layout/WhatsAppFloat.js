@@ -1,10 +1,11 @@
 import { SITE } from "@/lib/constants";
+import { whatsappHref } from "@/lib/phone";
 
 export function WhatsAppFloat({ phone = SITE.phone }) {
-  const digits = String(phone).replace(/\D/g, "");
-  const href = `https://wa.me/91${digits.slice(-10)}?text=${encodeURIComponent(
+  const href = whatsappHref(
+    phone,
     "Hello Velzon Trade Enterprise, I would like to enquire about materials."
-  )}`;
+  );
 
   return (
     <a

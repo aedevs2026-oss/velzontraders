@@ -26,7 +26,8 @@ export function SettingsForm({ settings, demo }) {
       {[
         ["company_name", "Company name"],
         ["tagline", "Tagline"],
-        ["phone", "Phone"],
+        ["phone", "Primary phone"],
+        ["phone_secondary", "Secondary phone"],
         ["email", "Email"],
         ["address", "Address"],
       ].map(([key, label]) => (

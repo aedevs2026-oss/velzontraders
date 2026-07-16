@@ -53,8 +53,41 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
+@keyframes float-subtle {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.02);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .font-display {
   font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+}
+
+.animate-float {
+  animation: float-subtle 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-subtle 8s ease-in-out infinite;
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s ease-out both;
 }
 
 .bg-gradient-gold {
@@ -85,4 +118,49 @@ body {
 .focus-gold:focus-visible {
   outline: 2px solid var(--velzon-gold-dark);
   outline-offset: 2px;
+}
+
+/* Swiper — roofing accessories */
+.accessories-swiper .swiper-button-prev,
+.accessories-swiper .swiper-button-next,
+.swiper-button-prev,
+.swiper-button-next {
+  color: var(--velzon-gold-dark);
+}
+
+.accessories-swiper .swiper-pagination-bullet-active {
+  background: var(--velzon-gold-dark);
+}
+
+.featured-products-swiper .swiper-pagination-bullet {
+  background: rgba(17, 24, 39, 0.2);
+  opacity: 1;
+}
+
+.featured-products-swiper .swiper-pagination-bullet-active {
+  background: var(--velzon-gold-dark);
+}
+
+.featured-products-swiper .swiper-button-prev,
+.featured-products-swiper .swiper-button-next {
+  color: var(--velzon-gold-dark);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 9999px;
+  width: 2.75rem;
+  height: 2.75rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.featured-products-swiper .swiper-button-prev:after,
+.featured-products-swiper .swiper-button-next:after {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.featured-products-swiper .swiper-slide {
+  transition: transform 0.35s ease;
+}
+
+.featured-products-swiper .swiper-slide-active {
+  transform: translateY(-2px);
 }

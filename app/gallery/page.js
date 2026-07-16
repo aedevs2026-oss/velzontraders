@@ -7,7 +7,7 @@ import { getGallery } from "@/lib/data/queries";
 export const metadata = {
   title: "Gallery",
   description:
-    "Project and installation gallery from Velzon Trade Enterprise — roofing and fabrication work across Coimbatore.",
+    "Project and installation gallery from Velzon Trade Enterprise — warehouse roofing, PUF panels, and fabrication work across Tamil Nadu.",
 };
 
 export default async function GalleryPage() {

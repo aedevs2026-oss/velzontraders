@@ -5,14 +5,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { NAV_LINKS, SITE } from "@/lib/constants";
+import { resolvePhones } from "@/lib/phone";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { PhoneLinks } from "@/components/ui/PhoneLinks";
 import { MobileNav } from "@/components/layout/MobileNav";
 
-export function Navbar({ phone = SITE.phone }) {
+export function Navbar({
+  phone = SITE.phone,
+  phoneSecondary = SITE.phoneSecondary,
+}) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const phoneHref = `tel:+91${String(phone).replace(/\D/g, "").slice(-10)}`;
+  const phones = resolvePhones(
+    { phone, phone_secondary: phoneSecondary },
+    SITE
+  );
+  const primaryHref = phones[0]?.href || SITE.phoneHref;
 
   return (
     <header className="sticky top-0 z-50 border-b border-gold/20 bg-ivory/95 backdrop-blur-md">
@@ -58,8 +67,19 @@ export function Navbar({ phone = SITE.phone }) {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
-          <Button href={phoneHref} variant="secondary" size="sm" className="hidden sm:inline-flex">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <PhoneLinks
+            phones={phones}
+            className="hidden text-xs font-medium text-charcoal lg:inline"
+            linkClassName="hover:text-gold-dark focus-gold rounded-sm whitespace-nowrap"
+            separator=" · "
+          />
+          <Button
+            href={primaryHref}
+            variant="secondary"
+            size="sm"
+            className="hidden sm:inline-flex lg:hidden"
+          >
             Call Now
           </Button>
           <Button href="/contact" size="sm" className="hidden min-[380px]:inline-flex">
@@ -85,7 +105,12 @@ export function Navbar({ phone = SITE.phone }) {
         </div>
       </Container>
 
-      <MobileNav open={open} onClose={() => setOpen(false)} pathname={pathname} phoneHref={phoneHref} />
+      <MobileNav
+        open={open}
+        onClose={() => setOpen(false)}
+        pathname={pathname}
+        phones={phones}
+      />
     </header>
   );
 }

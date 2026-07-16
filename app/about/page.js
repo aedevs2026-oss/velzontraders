@@ -8,7 +8,7 @@ import { getSettings } from "@/lib/data/queries";
 export const metadata = {
   title: "About Us",
   description:
-    "Learn how Velzon Trade Enterprise sources, fabricates, and supplies roofing materials across Coimbatore, Tamil Nadu — Confidence, Growth, Trust.",
+    "Velzon Trade Enterprise — established 11 June 2024 in Coimbatore. Roofing material supplier and fabricator offering supply & fabrication services across Tamil Nadu.",
 };
 
 export default async function AboutPage() {
@@ -21,7 +21,7 @@ export default async function AboutPage() {
           <SectionHeading
             eyebrow="Our story"
             title="Trading strength. Fabrication care."
-            description={`${settings.company_name || SITE.name} is a Coimbatore-based trading house for roofing and fabrication materials. We do not manufacture — we source from mills and makers, fabricate and customise to your drawings, and supply sellers, builders, and end clients.`}
+            description={`${settings.company_name || SITE.name} is a Coimbatore-based trading house for roofing and fabrication materials, established on ${SITE.established}. We do not manufacture — we source premium branded materials from mills and makers, fabricate and customise to your drawings, and supply sellers, builders, and end clients.`}
           />
         </Container>
       </section>
@@ -31,11 +31,11 @@ export default async function AboutPage() {
           {[
             {
               title: "Mission",
-              body: "Put the right thickness, profile, and finish into every Coimbatore-region project — with quotes you can act on and deliveries you can plan around.",
+              body: "Put the right thickness, profile, and finish into every project across Tamil Nadu — with quotes you can act on and deliveries you can plan around, whether the brief is warehouse roofing or a compact retail cover.",
             },
             {
               title: "Values",
-              body: "Confidence in specifications. Growth through repeatable supply for multi-site work. Trust earned in every hand-off from enquiry to dispatch.",
+              body: "Confidence in specifications and mill-backed brands. Growth through repeatable supply for multi-site work. Trust earned in every hand-off from enquiry to dispatch.",
             },
             {
               title: "How we operate",
@@ -56,10 +56,11 @@ export default async function AboutPage() {
           <h2 className="font-display text-3xl font-semibold text-ink">Service area</h2>
           <hr className="rule-gold mt-3 w-16" />
           <p className="mt-4 text-graphite">
-            Based in {settings.address || SITE.address}, we regularly support projects across
-            Coimbatore and neighbouring towns — Tiruppur, Pollachi, and surrounding industrial
-            and residential corridors. Tell us your site location when you enquire so we can
-            plan lead times.
+            Based in {settings.address || SITE.address}, we deliver{" "}
+            <strong className="font-medium text-charcoal">{SITE.serviceArea.toLowerCase()}</strong>{" "}
+            — supporting roofing contractors in Coimbatore, Chennai, and industrial towns
+            statewide. Tell us your site location when you enquire so we can plan lead times
+            for roofing installation and material delivery.
           </p>
           <div className="mt-8">
             <Button href="/contact">Talk to our desk</Button>

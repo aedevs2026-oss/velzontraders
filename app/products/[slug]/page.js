@@ -1,21 +1,36 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { SiteShell } from "@/components/layout/SiteShell";
+import { MaterialSpecs } from "@/components/products/MaterialSpecs";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { EntityImage } from "@/components/ui/EntityImage";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { MATERIAL_SPECS } from "@/lib/constants";
 import { getProductOrCategory, getProducts } from "@/lib/data/queries";
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const result = await getProductOrCategory(slug);
   if (!result) return { title: "Material" };
+  if (result.type === "accessory-redirect") {
+    return {
+      title: result.data.name,
+      description: result.data.short_description || result.data.description,
+    };
+  }
   const name = result.data.name;
-  return {
-    title: name,
-    description: result.data.description?.slice(0, 155) || `${name} — Velzon Trade Enterprise, Coimbatore`,
-  };
+  const isRoofing = slug === "roofing-sheets" || result.data.category_slug === "roofing-sheets";
+  const isPuff = slug === "puff-sheets" || result.data.category_slug === "puff-sheets";
+  let description =
+    result.data.description?.slice(0, 155) ||
+    `${name} — Velzon Trade Enterprise, Coimbatore`;
+  if (isRoofing) {
+    description = `${name} — metal roofing sheets and roofing sheet fabrication from Velzon, a roofing material supplier across Tamil Nadu.`;
+  } else if (isPuff) {
+    description = `${name} — PUF panel supplier and fabrication partner in Tamil Nadu. 30 mm & 50 mm cores from premium brands.`;
+  }
+  return { title: name, description };
 }
 
 export default async function ProductSlugPage({ params }) {
@@ -23,8 +38,18 @@ export default async function ProductSlugPage({ params }) {
   const result = await getProductOrCategory(slug);
   if (!result) notFound();
 
+  if (result.type === "accessory-redirect") {
+    redirect(`/products/roofing-accessories/${result.data.slug}`);
+  }
+
+  if (slug === "roofing-accessories" && result.type === "category") {
+    redirect("/products/roofing-accessories");
+  }
+
   if (result.type === "category") {
     const { data: category, products } = result;
+    const spec = MATERIAL_SPECS[category.slug];
+
     return (
       <SiteShell>
         <section className="border-b border-gold/10 bg-ivory py-14 sm:py-16">
@@ -40,6 +65,7 @@ export default async function ProductSlugPage({ params }) {
               title={category.name}
               description={category.description}
             />
+            {spec ? <MaterialSpecs spec={spec} /> : null}
             <div className="mt-10 grid gap-5 md:grid-cols-2">
               {(products || []).map((product) => (
                 <Link
@@ -82,6 +108,11 @@ export default async function ProductSlugPage({ params }) {
 
   const product = result.data;
   const siblings = await getProducts(product.category_slug);
+  const spec = MATERIAL_SPECS[product.category_slug];
+  const thicknesses =
+    (product.thickness_options?.length
+      ? product.thickness_options
+      : spec?.thicknesses) || [];
 
   return (
     <SiteShell>
@@ -124,7 +155,7 @@ export default async function ProductSlugPage({ params }) {
               Available thicknesses
             </h2>
             <ul className="mt-3 flex flex-wrap gap-2">
-              {(product.thickness_options || []).map((t) => (
+              {thicknesses.map((t) => (
                 <li
                   key={t}
                   className="rounded-md border border-gold/30 bg-ivory px-3 py-1.5 text-sm font-medium text-ink"
@@ -133,6 +164,18 @@ export default async function ProductSlugPage({ params }) {
                 </li>
               ))}
             </ul>
+            {spec ? (
+              <p className="mt-4 text-sm text-graphite">
+                Premium branded materials — see the{" "}
+                <Link
+                  href={`/products/${product.category_slug}`}
+                  className="font-medium text-gold-dark hover:underline focus-gold"
+                >
+                  {product.category_name || "category"}
+                </Link>{" "}
+                page for full brand lines and mill options.
+              </p>
+            ) : null}
           </div>
 
           {product.use_cases ? (

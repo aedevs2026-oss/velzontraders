@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import {
   deleteGalleryImage,
   toggleGalleryActive,
   upsertGalleryImage,
 } from "@/app/admin/actions";
+import { MediaUploader } from "@/components/admin/MediaUploader";
 import { Button } from "@/components/ui/Button";
 import { isRemoteImageSrc, normalizeImageSrc } from "@/lib/media/image-url";
 
@@ -16,6 +17,7 @@ export function GalleryManager({ images = [], demo }) {
   const [pending, startTransition] = useTransition();
   const [message, setMessage] = useState("");
   const [editing, setEditing] = useState(null);
+  const mediaApi = useRef(null);
 
   return (
     <div className="space-y-6">
@@ -29,7 +31,25 @@ export function GalleryManager({ images = [], demo }) {
       <form
         key={editing?.id || "new"}
         className="grid gap-3 rounded-lg border border-gold/20 bg-white p-5 shadow-card sm:grid-cols-2"
-        action={(fd) => {
+        onSubmit={(e) => {
+          e.preventDefault();
+          const fd = new FormData(e.currentTarget);
+          mediaApi.current?.appendToFormData(fd);
+          const file = fd.get("image_file_0");
+          if (file && typeof file === "object" && file.size > 0) {
+            fd.set("file", file);
+          }
+          const metaRaw = fd.get("images_meta");
+          if (metaRaw) {
+            try {
+              const meta = JSON.parse(String(metaRaw));
+              if (Array.isArray(meta) && meta[0]?.url && !(file && file.size > 0)) {
+                fd.set("image_url", meta[0].url);
+              }
+            } catch {
+              /* ignore */
+            }
+          }
           startTransition(async () => {
             const res = await upsertGalleryImage(fd);
             setMessage(res.error || (editing ? "Image updated" : "Image added"));
@@ -76,28 +96,17 @@ export function GalleryManager({ images = [], demo }) {
         ) : (
           <div />
         )}
-        {editing?.image_url ? (
-          <div className="relative h-28 w-40 overflow-hidden rounded-md border border-gold/20 sm:col-span-2">
-            <Image
-              src={normalizeImageSrc(editing.image_url)}
-              alt="Current gallery"
-              fill
-              unoptimized={isRemoteImageSrc(editing.image_url)}
-              className="object-cover"
-              sizes="160px"
-            />
-          </div>
-        ) : null}
-        <label className="block text-sm text-graphite sm:col-span-2">
-          Image file (JPG / PNG / WebP, max 5 MB)
-          <input
-            name="file"
-            type="file"
-            accept="image/jpeg,image/png,image/webp"
-            className="mt-1 block w-full text-sm"
-            required={!editing}
+        <div className="sm:col-span-2">
+          <MediaUploader
+            key={`gallery-media-${editing?.id || "new"}`}
+            apiRef={mediaApi}
+            label="Gallery image"
+            maxFiles={1}
+            initialImages={
+              editing?.image_url ? [{ url: editing.image_url, alt: editing.title || "" }] : []
+            }
           />
-        </label>
+        </div>
         <div className="flex gap-2 sm:col-span-2">
           <Button type="submit" disabled={pending || demo}>
             {editing ? "Save changes" : "Upload / add"}

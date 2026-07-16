@@ -8,7 +8,7 @@ import { getProjects } from "@/lib/data/queries";
 export const metadata = {
   title: "Fabrication Projects",
   description:
-    "Government, warehouse, retail/work-from-home, and shops & franchisee fabrication supply from Velzon Trade Enterprise, Coimbatore.",
+    "Warehouse roofing, factory roofing, government, retail, and franchise fabrication supply from Velzon Trade Enterprise across Tamil Nadu.",
 };
 
 export default async function ProjectsPage() {
@@ -21,7 +21,7 @@ export default async function ProjectsPage() {
           <SectionHeading
             eyebrow="Fabrication segments"
             title="Projects we deliver for"
-            description="Filter by the work you do — each segment gets sourcing, cut-to-length fabrication, and supply coordination matched to how that sector builds."
+            description="Filter by the work you do — each segment gets sourcing, cut-to-length fabrication, and supply coordination for roofing contractors and builders across Tamil Nadu."
           />
           <div className="mt-8 flex flex-wrap gap-2">
             {projects.map((p) => (

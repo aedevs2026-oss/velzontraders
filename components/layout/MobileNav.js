@@ -4,7 +4,7 @@ import Link from "next/link";
 import { NAV_LINKS } from "@/lib/constants";
 import { Button } from "@/components/ui/Button";
 
-export function MobileNav({ open, onClose, pathname, phoneHref }) {
+export function MobileNav({ open, onClose, pathname, phones = [] }) {
   if (!open) return null;
 
   return (
@@ -33,9 +33,16 @@ export function MobileNav({ open, onClose, pathname, phoneHref }) {
           );
         })}
         <div className="mt-3 flex flex-col gap-2 border-t border-gold/10 pt-4">
-          <Button href={phoneHref} variant="secondary" onClick={onClose}>
-            Call Now
-          </Button>
+          {phones.map((p) => (
+            <Button
+              key={p.href}
+              href={p.href}
+              variant="secondary"
+              onClick={onClose}
+            >
+              Call {p.display}
+            </Button>
+          ))}
           <Button href="/contact" onClick={onClose}>
             Get a Quote
           </Button>

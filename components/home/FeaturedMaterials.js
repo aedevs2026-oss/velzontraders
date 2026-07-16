@@ -10,7 +10,7 @@ export function FeaturedMaterials({ categories }) {
         <SectionHeading
           eyebrow="Materials catalogue"
           title="Featured categories"
-          description="Structured thickness options and original project-ready descriptions — managed from our materials desk and available for enquiry."
+          description="Structured thickness options and premium mill brands — managed from our materials desk for supply and fabrication across Tamil Nadu."
         />
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {categories.map((cat) => (

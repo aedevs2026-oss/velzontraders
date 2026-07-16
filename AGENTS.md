@@ -21,7 +21,7 @@
 - **No** `src/` directory, **no** React Compiler
 - **Business model:** Source → fabricate/customize → supply (does **not** manufacture). Also assists with wiring/electrical coordination for house builds.
 - **Logo asset:** `public/logo.jpg` (prefer this path; do not assume `.png`)
-- **Phone:** 9080937360 · **Tagline:** Confidence | Growth | Trust
+- **Phone:** +91 96000 65505 / +91 96000 65503 · **Tagline:** Confidence | Growth | Trust · **Est.** 11 June 2024 · **Service area:** Supply & Fabrication Across Tamil Nadu
 
 ---
 

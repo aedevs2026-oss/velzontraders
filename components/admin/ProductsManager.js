@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import {
   deleteCategory,
   deleteProduct,
   upsertCategory,
   upsertProduct,
 } from "@/app/admin/actions";
+import { MediaUploader } from "@/components/admin/MediaUploader";
 import { Button } from "@/components/ui/Button";
 import { isRemoteImageSrc, normalizeImageSrc } from "@/lib/media/image-url";
 
@@ -18,6 +19,8 @@ export function ProductsManager({ categories = [], products = [], demo }) {
   const [message, setMessage] = useState("");
   const [editingProduct, setEditingProduct] = useState(null);
   const [editingCategory, setEditingCategory] = useState(null);
+  const categoryMediaApi = useRef(null);
+  const productMediaApi = useRef(null);
 
   function run(action, formData, okMsg) {
     startTransition(async () => {
@@ -47,10 +50,16 @@ export function ProductsManager({ categories = [], products = [], demo }) {
         </h2>
         <form
           className="mt-4 grid gap-3 sm:grid-cols-2"
-          action={(fd) => run(upsertCategory, fd, "Category saved")}
           key={editingCategory?.id || "new-cat"}
+          onSubmit={(e) => {
+            e.preventDefault();
+            const fd = new FormData(e.currentTarget);
+            categoryMediaApi.current?.appendToFormData(fd);
+            run(upsertCategory, fd, "Category saved");
+          }}
         >
           {editingCategory ? <input type="hidden" name="id" value={editingCategory.id} /> : null}
+          <input type="hidden" name="image_url" value={editingCategory?.image_url || ""} />
           <input
             name="name"
             required
@@ -71,6 +80,19 @@ export function ProductsManager({ categories = [], products = [], demo }) {
             className="sm:col-span-2 rounded-md border border-graphite/25 px-3 py-2"
             rows={3}
           />
+          <div className="sm:col-span-2">
+            <MediaUploader
+              key={`cat-media-${editingCategory?.id || "new"}`}
+              apiRef={categoryMediaApi}
+              label="Category image"
+              maxFiles={1}
+              initialImages={
+                editingCategory?.image_url
+                  ? [{ url: editingCategory.image_url, alt: editingCategory.name || "" }]
+                  : []
+              }
+            />
+          </div>
           <input
             name="sort_order"
             type="number"
@@ -149,10 +171,37 @@ export function ProductsManager({ categories = [], products = [], demo }) {
         <h2 className="font-display text-xl font-semibold text-ink">
           {editingProduct ? "Edit product" : "Add product"}
         </h2>
+        <p className="mt-1 text-sm text-graphite">
+          For Roofing Accessories with full CMS fields, use{" "}
+          <a href="/admin/accessories" className="font-medium text-gold-dark underline">
+            Accessories
+          </a>
+          .
+        </p>
         <form
           className="mt-4 grid gap-3 sm:grid-cols-2"
-          action={(fd) => run(upsertProduct, fd, "Product saved")}
           key={editingProduct?.id || "new-prod"}
+          onSubmit={(e) => {
+            e.preventDefault();
+            const fd = new FormData(e.currentTarget);
+            productMediaApi.current?.appendToFormData(fd);
+            const file = fd.get("image_file_0");
+            if (file && typeof file === "object" && file.size > 0) {
+              fd.set("file", file);
+            }
+            const metaRaw = fd.get("images_meta");
+            if (metaRaw) {
+              try {
+                const meta = JSON.parse(String(metaRaw));
+                if (Array.isArray(meta) && meta[0]?.url && !(file && file.size > 0)) {
+                  fd.set("image_url", meta[0].url);
+                }
+              } catch {
+                /* ignore */
+              }
+            }
+            run(upsertProduct, fd, "Product saved");
+          }}
         >
           {editingProduct ? <input type="hidden" name="id" value={editingProduct.id} /> : null}
           <input type="hidden" name="image_url" value={editingProduct?.image_url || ""} />
@@ -202,28 +251,18 @@ export function ProductsManager({ categories = [], products = [], demo }) {
             className="sm:col-span-2 rounded-md border border-graphite/25 px-3 py-2"
             rows={2}
           />
-          <div className="sm:col-span-2 space-y-2">
-            {editingProduct?.image_url ? (
-              <div className="relative h-28 w-40 overflow-hidden rounded-md border border-gold/20">
-                <Image
-                  src={normalizeImageSrc(editingProduct.image_url)}
-                  alt="Current product"
-                  fill
-                  unoptimized={isRemoteImageSrc(editingProduct.image_url)}
-                  className="object-cover"
-                  sizes="160px"
-                />
-              </div>
-            ) : null}
-            <label className="block text-sm text-graphite">
-              Image (JPG / PNG / WebP, max 5 MB)
-              <input
-                name="file"
-                type="file"
-                accept="image/jpeg,image/png,image/webp"
-                className="mt-1 block w-full text-sm"
-              />
-            </label>
+          <div className="sm:col-span-2">
+            <MediaUploader
+              key={`prod-media-${editingProduct?.id || "new"}`}
+              apiRef={productMediaApi}
+              label="Product image"
+              maxFiles={1}
+              initialImages={
+                editingProduct?.image_url
+                  ? [{ url: editingProduct.image_url, alt: editingProduct.name || "" }]
+                  : []
+              }
+            />
           </div>
           <input
             name="sort_order"

@@ -1,9 +1,9 @@
 import { Container } from "@/components/ui/Container";
 
 const badges = [
-  { label: "Confidence", detail: "Documented thicknesses & clear quotes" },
+  { label: "Confidence", detail: "Documented thicknesses & premium brands" },
   { label: "Growth", detail: "Scalable supply for multi-site rollouts" },
-  { label: "Trust", detail: "Coimbatore-rooted trading partnership" },
+  { label: "Trust", detail: "Supply & fabrication across Tamil Nadu" },
 ];
 
 export function TrustStrip({ tagline = "Confidence | Growth | Trust" }) {
@@ -31,12 +31,12 @@ export function TrustStrip({ tagline = "Confidence | Growth | Trust" }) {
             <p className="text-xs uppercase tracking-wider text-ink/75">Project segments</p>
           </div>
           <div>
-            <p className="font-display text-3xl font-bold">100%</p>
-            <p className="text-xs uppercase tracking-wider text-ink/75">Traded & fabricated</p>
+            <p className="font-display text-3xl font-bold">TN</p>
+            <p className="text-xs uppercase tracking-wider text-ink/75">Across Tamil Nadu</p>
           </div>
           <div>
-            <p className="font-display text-3xl font-bold">CBE</p>
-            <p className="text-xs uppercase tracking-wider text-ink/75">Based in Coimbatore</p>
+            <p className="font-display text-3xl font-bold">2024</p>
+            <p className="text-xs uppercase tracking-wider text-ink/75">Est. 11 June</p>
           </div>
         </div>
       </Container>

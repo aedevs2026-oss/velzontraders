@@ -6,14 +6,14 @@ insert into public.product_categories (name, slug, description, sort_order, imag
 (
   'Roofing Sheets',
   'roofing-sheets',
-  'Colour and non-colour galvalume roofing sheets stocked in multiple thicknesses for residential, commercial, and industrial roofs across Coimbatore and beyond.',
+  'Premium branded metal roofing sheets in colour and non-colour finishes — a trusted choice for industrial roofing solutions, warehouse covers, and residential work across Tamil Nadu.',
   1,
   '/products/roofing-sheets.jpg'
 ),
 (
   'PUFF Sheets',
   'puff-sheets',
-  'Insulated PUFF roof and wall panels that balance thermal comfort with structural finish — available as 30 mm and 50 mm roof and wall options.',
+  'Insulated PUF panel supply and fabrication for roof and wall — 30 mm and 50 mm cores from Metecno, Alfaa, and Mount India for cooler interiors and a clean structural finish.',
   2,
   '/products/puff-sheets.jpg'
 ),
@@ -58,6 +58,13 @@ insert into public.product_categories (name, slug, description, sort_order, imag
   'UPVC sheets in Spanish and Mangalore tile profiles — light, weather-resistant covering for homes, sheds, and extensions.',
   8,
   '/products/upvc-sheet.jpg'
+),
+(
+  'Roofing Accessories',
+  'roofing-accessories',
+  'Flashings, fasteners, ventilators, sealants, and structural accessories that complete metal roofing and cladding systems across Tamil Nadu.',
+  9,
+  '/products/roofing-sheets.jpg'
 )
 on conflict (slug) do nothing;
 
@@ -66,9 +73,9 @@ insert into public.products (category_id, name, slug, description, thickness_opt
 select c.id,
   'Colour & Non-colour Galvalume Sheets',
   'galvalume-roofing-sheets',
-  'Factory-coated and plain galvalume roofing sheets supplied to your thickness and colour preference. Velzon sources from trusted mills, then cuts and fabricates to site measures for sellers, builders, and end clients.',
-  array['0.35 mm','0.40 mm','0.45 mm','0.47 mm','0.50 mm','0.60 mm'],
-  'Industrial sheds, warehouses, residential roofs, retail canopies, and government project structures.',
+  'Factory-coated and plain metal roofing sheets from premium mills (JSW, Tata, AMNS India, Jindal). We cut and fabricate to site measures for sellers, builders, and end clients — including roofing sheet fabrication for Chennai and Tamil Nadu sites.',
+  array['0.35 mm','0.40 mm','0.45 mm','0.50 mm','0.60 mm'],
+  'Warehouse roofing, factory roofing, industrial sheds, residential covers, retail canopies, and government structures.',
   1,
   '/products/galvalume-roofing-sheets.jpg'
 from public.product_categories c where c.slug = 'roofing-sheets'
@@ -78,9 +85,9 @@ insert into public.products (category_id, name, slug, description, thickness_opt
 select c.id,
   'PUFF Roof Panel',
   'puff-roof-panel',
-  'Insulated roof sandwich panels with polyurethane core for cooler interiors and a clean exterior line. Supplied in 30 mm and 50 mm cores to match climate and span needs.',
+  'Insulated PUF roof sandwich panels with polyurethane core — 30 mm and 50 mm options from Metecno India, Alfaa India, and Mount India. Ideal where thermal comfort and a clean exterior line matter.',
   array['30 mm','50 mm'],
-  'Cold storage ancillary roofs, offices, warehouses, and temperature-sensitive workspaces.',
+  'Warehouse roofs, factory shells, cold-storage ancillary roofs, offices, and temperature-sensitive workspaces.',
   1,
   '/products/puff-roof-panel.jpg'
 from public.product_categories c where c.slug = 'puff-sheets'
@@ -90,9 +97,9 @@ insert into public.products (category_id, name, slug, description, thickness_opt
 select c.id,
   'PUFF Wall Panel',
   'puff-wall-panel',
-  'Matching insulated wall panels for partition and external cladding — align roof and wall systems from a single supply partner.',
+  'Matching PUF wall panels for partition and external cladding — align roof and wall systems from one PUF panel supplier with Metecno, Alfaa, or Mount India cores.',
   array['30 mm','50 mm'],
-  'Industrial halls, clean rooms, site offices, and retail fit-outs.',
+  'Industrial halls, clean rooms, site offices, and retail fit-outs across Tamil Nadu.',
   2,
   '/products/puff-wall-panel.jpg'
 from public.product_categories c where c.slug = 'puff-sheets'
@@ -182,7 +189,7 @@ insert into public.projects (name, slug, description, sort_order, image_url) val
 (
   'Warehouse Projects',
   'warehouse',
-  'Large-span roofing, decking, and insulated panel packages for logistics and manufacturing sheds. We match sheet profiles and gauges to structural drawings and builder schedules.',
+  'Warehouse roofing and factory roofing packages — large-span metal roofing sheets, decking, and insulated PUF panels matched to structural drawings and builder schedules across Tamil Nadu.',
   2,
   '/projects/photorealistic_photography_of_a_large_modern_warehouse_exterior_with_a_long.png'
 ),
@@ -221,3 +228,37 @@ insert into public.gallery_images (title, caption, image_url, sort_order, is_act
   ('GI decking mezzanine', 'Decking laid for a warehouse mezzanine floor', '/gallery/decking-mezzanine.png', 6, true),
   ('Government cladding supply', 'Documented aluminium cladding for public works', '/gallery/government-cladding.png', 7, true),
   ('Franchisee roof cover', 'UPVC tile profile — multi-outlet rollout', '/gallery/shops-franchisee-cover.png', 8, true);
+
+-- Sync contact + material copy for existing databases
+insert into public.settings (key, value) values
+  ('phone', '9600065505'),
+  ('phone_secondary', '9600065503')
+on conflict (key) do update set value = excluded.value;
+
+update public.product_categories set
+  description = 'Premium branded metal roofing sheets in colour and non-colour finishes — a trusted choice for industrial roofing solutions, warehouse covers, and residential work across Tamil Nadu.'
+where slug = 'roofing-sheets';
+
+update public.product_categories set
+  description = 'Insulated PUF panel supply and fabrication for roof and wall — 30 mm and 50 mm cores from Metecno, Alfaa, and Mount India for cooler interiors and a clean structural finish.'
+where slug = 'puff-sheets';
+
+update public.products set
+  description = 'Factory-coated and plain metal roofing sheets from premium mills (JSW, Tata, AMNS India, Jindal). We cut and fabricate to site measures for sellers, builders, and end clients — including roofing sheet fabrication for Chennai and Tamil Nadu sites.',
+  thickness_options = array['0.35 mm','0.40 mm','0.45 mm','0.50 mm','0.60 mm'],
+  use_cases = 'Warehouse roofing, factory roofing, industrial sheds, residential covers, retail canopies, and government structures.'
+where slug = 'galvalume-roofing-sheets';
+
+update public.products set
+  description = 'Insulated PUF roof sandwich panels with polyurethane core — 30 mm and 50 mm options from Metecno India, Alfaa India, and Mount India. Ideal where thermal comfort and a clean exterior line matter.',
+  use_cases = 'Warehouse roofs, factory shells, cold-storage ancillary roofs, offices, and temperature-sensitive workspaces.'
+where slug = 'puff-roof-panel';
+
+update public.products set
+  description = 'Matching PUF wall panels for partition and external cladding — align roof and wall systems from one PUF panel supplier with Metecno, Alfaa, or Mount India cores.',
+  use_cases = 'Industrial halls, clean rooms, site offices, and retail fit-outs across Tamil Nadu.'
+where slug = 'puff-wall-panel';
+
+update public.projects set
+  description = 'Warehouse roofing and factory roofing packages — large-span metal roofing sheets, decking, and insulated PUF panels matched to structural drawings and builder schedules across Tamil Nadu.'
+where slug = 'warehouse';

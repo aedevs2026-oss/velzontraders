@@ -1,9 +1,19 @@
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { PhoneLinks } from "@/components/ui/PhoneLinks";
 import { SITE } from "@/lib/constants";
+import { resolvePhones } from "@/lib/phone";
 
-export function ContactCta({ phone = SITE.phone, address = SITE.address }) {
-  const phoneHref = `tel:+91${String(phone).replace(/\D/g, "").slice(-10)}`;
+export function ContactCta({
+  phone = SITE.phone,
+  phoneSecondary = SITE.phoneSecondary,
+  address = SITE.address,
+}) {
+  const phones = resolvePhones(
+    { phone, phone_secondary: phoneSecondary },
+    SITE
+  );
+  const primaryHref = phones[0]?.href || SITE.phoneHref;
 
   return (
     <section className="bg-ivory py-16 sm:py-20">
@@ -14,20 +24,23 @@ export function ContactCta({ phone = SITE.phone, address = SITE.address }) {
             Ready to specify your materials?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-graphite">
-            Call our Coimbatore desk or send project details — we will respond with
-            availability, thickness options, and a clear next step.
+            Call our desk or send project details — we respond with availability,
+            thickness options, and a clear next step for supply and fabrication
+            across Tamil Nadu.
           </p>
-          <p className="mt-4 font-display text-2xl font-semibold text-gold-dark">
-            <a href={phoneHref} className="focus-gold rounded-sm">
-              {phone}
-            </a>
+          <p className="mt-4 font-display text-xl font-semibold text-gold-dark sm:text-2xl">
+            <PhoneLinks
+              phones={phones}
+              linkClassName="focus-gold rounded-sm hover:underline"
+              separator=" · "
+            />
           </p>
           <p className="mt-1 text-sm text-graphite">{address}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button href="/contact" size="lg">
               Get a Quote
             </Button>
-            <Button href={phoneHref} variant="secondary" size="lg">
+            <Button href={primaryHref} variant="secondary" size="lg">
               Call Now
             </Button>
           </div>

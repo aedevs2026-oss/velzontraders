@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/admin/auth";
-import { uploadMediaFile } from "@/lib/media/upload";
+import { resolveImageUploads, uploadMediaFile } from "@/lib/media/upload";
 
 function slugify(text) {
   return String(text)
@@ -10,6 +10,32 @@ function slugify(text) {
     .trim()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
+}
+
+function parseJsonField(formData, key, fallback) {
+  const raw = formData.get(key);
+  if (raw == null || raw === "") return fallback;
+  try {
+    return JSON.parse(String(raw));
+  } catch {
+    return fallback;
+  }
+}
+
+function parseLines(value) {
+  return String(value || "")
+    .split(/\r?\n|,/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+function revalidateAccessoryPaths(slug) {
+  revalidatePath("/admin/accessories");
+  revalidatePath("/admin/products");
+  revalidatePath("/products");
+  revalidatePath("/products/roofing-accessories");
+  if (slug) revalidatePath(`/products/roofing-accessories/${slug}`);
+  revalidatePath("/");
 }
 
 export async function upsertCategory(formData) {
@@ -22,8 +48,23 @@ export async function upsertCategory(formData) {
   const description = String(formData.get("description") || "").trim();
   const sort_order = Number(formData.get("sort_order") || 0);
   const is_active = formData.get("is_active") === "on" || formData.get("is_active") === "true";
+  let image_url = String(formData.get("image_url") || "").trim() || null;
 
-  const payload = { name, slug, description, sort_order, is_active };
+  const meta = parseJsonField(formData, "images_meta", null);
+  if (Array.isArray(meta)) {
+    const resolved = await resolveImageUploads(supabase, formData, "categories", meta);
+    if (resolved.error) return { error: resolved.error };
+    image_url = resolved.images[0]?.url || null;
+  } else {
+    const file = formData.get("file");
+    if (file && typeof file === "object" && file.size > 0) {
+      const uploaded = await uploadMediaFile(supabase, file, "categories");
+      if (uploaded.error) return { error: uploaded.error };
+      image_url = uploaded.url;
+    }
+  }
+
+  const payload = { name, slug, description, sort_order, is_active, image_url };
 
   if (id) {
     const { error } = await supabase.from("product_categories").update(payload).eq("id", id);
@@ -35,6 +76,7 @@ export async function upsertCategory(formData) {
 
   revalidatePath("/admin/products");
   revalidatePath("/products");
+  if (slug === "roofing-accessories") revalidatePath("/products/roofing-accessories");
   return { ok: true };
 }
 
@@ -108,6 +150,124 @@ export async function deleteProduct(id) {
   if (error) return { error: error.message };
   revalidatePath("/admin/products");
   revalidatePath("/products");
+  revalidatePath("/admin/accessories");
+  revalidatePath("/products/roofing-accessories");
+  return { ok: true };
+}
+
+export async function upsertAccessory(formData) {
+  const { demo, supabase } = await requireAdmin();
+  if (demo || !supabase) return { error: "Supabase not configured" };
+
+  const id = formData.get("id") || null;
+  const name = String(formData.get("name") || "").trim();
+  if (!name) return { error: "Name is required" };
+  const slug = String(formData.get("slug") || "").trim() || slugify(name);
+  const category_id = String(formData.get("category_id") || "").trim();
+  if (!category_id) return { error: "Category is required" };
+
+  const description = String(formData.get("description") || "").trim();
+  const short_description = String(formData.get("short_description") || "").trim();
+  const sort_order = Number(formData.get("sort_order") || 0);
+  const is_active = formData.get("is_active") === "on" || formData.get("is_active") === "true";
+  const seo_title = String(formData.get("seo_title") || "").trim();
+  const meta_description = String(formData.get("meta_description") || "").trim();
+  const keywords = String(formData.get("keywords") || "").trim();
+  const alt_text = String(formData.get("alt_text") || "").trim();
+  const applications = parseLines(formData.get("applications"));
+
+  const description_detail = {
+    overview: String(formData.get("desc_overview") || "").trim(),
+    purpose: String(formData.get("desc_purpose") || "").trim(),
+    benefits: String(formData.get("desc_benefits") || "").trim(),
+    installation: String(formData.get("desc_installation") || "").trim(),
+    compatibility: String(formData.get("desc_compatibility") || "").trim(),
+    corrosion_resistance: String(formData.get("desc_corrosion") || "").trim(),
+    weather_resistance: String(formData.get("desc_weather") || "").trim(),
+    industrial_commercial_usage: String(formData.get("desc_usage") || "").trim(),
+  };
+
+  const specifications = {
+    material: String(formData.get("spec_material") || "").trim(),
+    thickness: String(formData.get("spec_thickness") || "").trim(),
+    dimensions: String(formData.get("spec_dimensions") || "").trim(),
+    finish: String(formData.get("spec_finish") || "").trim(),
+    coating: String(formData.get("spec_coating") || "").trim(),
+    surface_finish: String(formData.get("spec_surface_finish") || "").trim(),
+    weight: String(formData.get("spec_weight") || "").trim(),
+    uv_resistance: String(formData.get("spec_uv") || "").trim(),
+    weather_resistance: String(formData.get("spec_weather") || "").trim(),
+    water_resistance: String(formData.get("spec_water") || "").trim(),
+    heat_resistance: String(formData.get("spec_heat") || "").trim(),
+    fastening: String(formData.get("spec_fastening") || "").trim(),
+    compatible_roofing_sheets: String(formData.get("spec_compatible") || "").trim(),
+    maintenance: String(formData.get("spec_maintenance") || "").trim(),
+    warranty: String(formData.get("spec_warranty") || "").trim(),
+    manufacturing_standard: String(formData.get("spec_standard") || "").trim(),
+  };
+
+  const colors = parseJsonField(formData, "colors_json", []);
+  const profiles = parseJsonField(formData, "profiles_json", []);
+  const features = parseJsonField(formData, "features_json", []);
+  const downloads = parseJsonField(formData, "downloads_json", {});
+  const related_items = parseJsonField(formData, "related_json", []);
+  const faqs = parseJsonField(formData, "faqs_json", []);
+
+  const meta = parseJsonField(formData, "images_meta", []);
+  const resolved = await resolveImageUploads(
+    supabase,
+    formData,
+    "accessories",
+    Array.isArray(meta) ? meta : [],
+  );
+  if (resolved.error) return { error: resolved.error };
+  const images = resolved.images;
+  const image_url = images[0]?.url || null;
+
+  const payload = {
+    category_id,
+    name,
+    slug,
+    description: description || short_description || description_detail.overview,
+    short_description,
+    use_cases: applications.join(", "),
+    sort_order,
+    is_active,
+    image_url,
+    images,
+    description_detail,
+    specifications,
+    colors: Array.isArray(colors) ? colors : [],
+    profiles: Array.isArray(profiles) ? profiles : [],
+    features: Array.isArray(features) ? features : [],
+    applications,
+    downloads: downloads && typeof downloads === "object" ? downloads : {},
+    related_items: Array.isArray(related_items) ? related_items : [],
+    seo_title,
+    meta_description,
+    keywords,
+    alt_text: alt_text || (images[0]?.alt ?? ""),
+    faqs: Array.isArray(faqs) ? faqs : [],
+  };
+
+  if (id) {
+    const { error } = await supabase.from("products").update(payload).eq("id", id);
+    if (error) return { error: error.message };
+  } else {
+    const { error } = await supabase.from("products").insert(payload);
+    if (error) return { error: error.message };
+  }
+
+  revalidateAccessoryPaths(slug);
+  return { ok: true };
+}
+
+export async function deleteAccessory(id, slug) {
+  const { demo, supabase } = await requireAdmin();
+  if (demo || !supabase) return { error: "Supabase not configured" };
+  const { error } = await supabase.from("products").delete().eq("id", id);
+  if (error) return { error: error.message };
+  revalidateAccessoryPaths(slug);
   return { ok: true };
 }
 
@@ -264,7 +424,7 @@ export async function updateSettings(formData) {
   const { demo, supabase } = await requireAdmin();
   if (demo || !supabase) return { error: "Supabase not configured" };
 
-  const keys = ["phone", "address", "tagline", "company_name", "email"];
+  const keys = ["phone", "phone_secondary", "address", "tagline", "company_name", "email"];
   for (const key of keys) {
     const value = String(formData.get(key) || "");
     const { error } = await supabase.from("settings").upsert({ key, value });
