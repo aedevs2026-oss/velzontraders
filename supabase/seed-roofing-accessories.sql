@@ -62,7 +62,7 @@ select
   i.sort_order,
   i.image_url,
   jsonb_build_array(
-    jsonb_build_object('url', i.image_url, 'alt', i.name || ' — Velzon Trade Enterprise')
+    jsonb_build_object('url', i.image_url, 'alt', i.name || ' — Velzon Trade Enterprises')
   ),
   jsonb_build_object(
     'overview', i.description,
@@ -121,9 +121,9 @@ select
     jsonb_build_object('name', 'Turbo Ventilators', 'href', '/products/roofing-accessories/turbo-ventilator', 'image_url', '/products/accessories/turbo-ventilator.svg')
   ),
   i.name || ' | Roofing Accessories · Velzon Coimbatore',
-  i.short_description || ' Supply & fabrication support across Tamil Nadu from Velzon Trade Enterprise, Coimbatore.',
+  i.short_description || ' Supply & fabrication support across Tamil Nadu from Velzon Trade Enterprises, Coimbatore.',
   lower(i.name) || ', roofing accessories, Coimbatore, Tamil Nadu, Velzon',
-  i.name || ' — Velzon Trade Enterprise',
+  i.name || ' — Velzon Trade Enterprises',
   jsonb_build_array(
     jsonb_build_object(
       'question', 'Do you supply ' || i.name || ' with roofing sheets?',

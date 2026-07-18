@@ -7,7 +7,7 @@ import { getGallery } from "@/lib/data/queries";
 export const metadata = {
   title: "Gallery",
   description:
-    "Project and installation gallery from Velzon Trade Enterprise — warehouse roofing, PUF panels, and fabrication work across Tamil Nadu.",
+    "Project and installation gallery from Velzon Trade Enterprises — warehouse roofing, PUF panels, and fabrication work across Tamil Nadu.",
 };
 
 export default async function GalleryPage() {
@@ -20,7 +20,7 @@ export default async function GalleryPage() {
           <SectionHeading
             eyebrow="Installations"
             title="Project gallery"
-            description="Selected installs and material packages from Velzon Trade Enterprise projects."
+            description="Selected installs and material packages from Velzon Trade Enterprises projects."
           />
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {images.map((img) => (

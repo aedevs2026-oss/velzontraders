@@ -93,7 +93,7 @@ export default function AdminLoginPage() {
         <div className="flex flex-col items-center text-center">
           <Image
             src="/logo.jpg"
-            alt="Velzon Trade Enterprise"
+            alt="Velzon Trade Enterprises"
             width={64}
             height={64}
             className="h-16 w-16 object-contain"

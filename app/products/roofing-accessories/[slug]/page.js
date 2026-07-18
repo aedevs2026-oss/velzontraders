@@ -23,7 +23,7 @@ export async function generateMetadata({ params }) {
     product.meta_description ||
     product.short_description ||
     product.description?.slice(0, 155) ||
-    `${product.name} from Velzon Trade Enterprise, Coimbatore.`;
+    `${product.name} from Velzon Trade Enterprises, Coimbatore.`;
   const image =
     product.images?.[0]?.url || product.image_url || "/logo.jpg";
 

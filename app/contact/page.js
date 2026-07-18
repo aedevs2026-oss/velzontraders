@@ -12,7 +12,7 @@ import { getProjects, getSettings } from "@/lib/data/queries";
 export const metadata = {
   title: "Contact",
   description:
-    "Contact Velzon Trade Enterprise in Coimbatore — call +91 96000 65505 or +91 96000 65503 for roofing sheets, PUF panels, and fabrication across Tamil Nadu.",
+    "Contact Velzon Trade Enterprises in Coimbatore — call +91 96000 65505 or +91 96000 65503 for roofing sheets, PUF panels, and fabrication across Tamil Nadu.",
 };
 
 export default async function ContactPage({ searchParams }) {
@@ -23,7 +23,7 @@ export default async function ContactPage({ searchParams }) {
   const primary = phones[0];
   const wa = whatsappHref(
     primary?.raw || SITE.phone,
-    "Hello Velzon Trade Enterprise, I would like to enquire about materials."
+    "Hello Velzon Trade Enterprises, I would like to enquire about materials."
   );
 
   return (

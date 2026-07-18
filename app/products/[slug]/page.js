@@ -24,7 +24,7 @@ export async function generateMetadata({ params }) {
   const isPuff = slug === "puff-sheets" || result.data.category_slug === "puff-sheets";
   let description =
     result.data.description?.slice(0, 155) ||
-    `${name} — Velzon Trade Enterprise, Coimbatore`;
+    `${name} — Velzon Trade Enterprises, Coimbatore`;
   if (isRoofing) {
     description = `${name} — metal roofing sheets and roofing sheet fabrication from Velzon, a roofing material supplier across Tamil Nadu.`;
   } else if (isPuff) {
@@ -139,7 +139,7 @@ export default async function ProductSlugPage({ params }) {
           <div className="relative mt-6 aspect-[16/9] overflow-hidden rounded-lg border border-gold/20 bg-graphite/10">
             <EntityImage
               src={product.image_url}
-              alt={`${product.name} — Velzon Trade Enterprise`}
+              alt={`${product.name} — Velzon Trade Enterprises`}
               label={product.name}
               sizes="(max-width: 768px) 100vw, 768px"
             />

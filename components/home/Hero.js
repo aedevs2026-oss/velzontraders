@@ -35,7 +35,7 @@ export function Hero({
             <span className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-gold/25 bg-white p-1.5 shadow-soft sm:h-24 sm:w-24">
               <Image
                 src="/logo.jpg"
-                alt="Velzon Trade Enterprise — Coimbatore"
+                alt="Velzon Trade Enterprises — Coimbatore"
                 width={96}
                 height={96}
                 className="h-full w-full object-contain"
@@ -47,7 +47,7 @@ export function Hero({
                 <span className="text-gradient-gold">VELZON</span>
               </h1>
               <p className="mt-1 text-sm font-medium uppercase tracking-[0.18em] text-graphite">
-                Trade Enterprise
+                Trade Enterprises
               </p>
             </div>
           </div>
@@ -81,7 +81,7 @@ export function Hero({
           <div className="relative overflow-hidden rounded-full border border-gold/25 bg-white p-6 shadow-soft sm:p-10">
             <Image
               src="/logo.jpg"
-              alt="Velzon Trade Enterprise logo — Confidence, Growth, Trust"
+              alt="Velzon Trade Enterprises logo — Confidence, Growth, Trust"
               width={480}
               height={480}
               className="mx-auto h-auto w-full max-w-sm object-contain"

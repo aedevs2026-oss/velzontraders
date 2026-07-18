@@ -8,7 +8,7 @@ import { getProjects } from "@/lib/data/queries";
 export const metadata = {
   title: "Fabrication Projects",
   description:
-    "Warehouse roofing, factory roofing, government, retail, and franchise fabrication supply from Velzon Trade Enterprise across Tamil Nadu.",
+    "Warehouse roofing, factory roofing, government, retail, and franchise fabrication supply from Velzon Trade Enterprises across Tamil Nadu.",
 };
 
 export default async function ProjectsPage() {

@@ -22,13 +22,13 @@ export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default:
-      "Velzon Trade Enterprise | Roofing Sheets & PUF Panels · Tamil Nadu",
-    template: "%s | Velzon Trade Enterprise",
+      "Velzon Trade Enterprises | Roofing Sheets & PUF Panels · Tamil Nadu",
+    template: "%s | Velzon Trade Enterprises",
   },
   description:
     "Roofing material supplier and fabricator in Tamil Nadu. Metal roofing sheets, PUF panel supply & fabrication, warehouse and factory roofing from Coimbatore. Call +91 96000 65505.",
   keywords: [
-    "Velzon Trade Enterprise",
+    "Velzon Trade Enterprises",
     "Roofing Sheet Supplier in Chennai",
     "Roofing Contractors Tamil Nadu",
     "PUF Panel Supplier",
@@ -46,9 +46,9 @@ export const metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    siteName: "Velzon Trade Enterprise",
+    siteName: "Velzon Trade Enterprises",
     title:
-      "Velzon Trade Enterprise | Roofing & Fabrication Across Tamil Nadu",
+      "Velzon Trade Enterprises | Roofing & Fabrication Across Tamil Nadu",
     description:
       "Premium branded roofing sheets and PUF panels — supply and fabrication services across Tamil Nadu. Confidence | Growth | Trust.",
     images: [
@@ -56,13 +56,13 @@ export const metadata = {
         url: "/logo.jpg",
         width: 1200,
         height: 630,
-        alt: "Velzon Trade Enterprise — Coimbatore",
+        alt: "Velzon Trade Enterprises — Coimbatore",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Velzon Trade Enterprise · Tamil Nadu",
+    title: "Velzon Trade Enterprises · Tamil Nadu",
     description:
       "Roofing sheets, PUF panels & fabrication — Confidence | Growth | Trust",
     images: ["/logo.jpg"],

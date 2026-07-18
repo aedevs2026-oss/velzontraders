@@ -10,10 +10,10 @@ export async function generateMetadata() {
   const category = await getCategoryBySlug("roofing-accessories");
   const title =
     category?.name ||
-    "Roofing Accessories | Velzon Trade Enterprise · Coimbatore";
+    "Roofing Accessories | Velzon Trade Enterprises · Coimbatore";
   const description =
     category?.description?.slice(0, 155) ||
-    "Flashings, fasteners, ventilators, and roofing accessories from Velzon Trade Enterprise, Coimbatore — supply across Tamil Nadu.";
+    "Flashings, fasteners, ventilators, and roofing accessories from Velzon Trade Enterprises, Coimbatore — supply across Tamil Nadu.";
   return {
     title,
     description,

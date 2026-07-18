@@ -15,7 +15,7 @@
 
 ## Project Overview
 
-**Velzon Trade Enterprise** — roofing & fabrication materials trading company based in Coimbatore, Tamil Nadu.
+**Velzon Trade Enterprises** — roofing & fabrication materials trading company based in Coimbatore, Tamil Nadu.
 
 - **Stack:** Next.js (App Router), JavaScript (no TypeScript), Tailwind CSS v4, Supabase (Auth, DB, Storage)
 - **No** `src/` directory, **no** React Compiler
@@ -130,12 +130,12 @@ public/
 
 Root `app/layout.js` (and page-level overrides) should include:
 
-- Title pattern: `Velzon Trade Enterprise | Roofing & Fabrication Materials · Coimbatore`
+- Title pattern: `Velzon Trade Enterprises | Roofing & Fabrication Materials · Coimbatore`
 - Meta description mentioning Coimbatore, Tamil Nadu, roofing/fabrication supply
 - `openGraph` / `twitter` images pointing at `/logo.jpg`
 - `metadataBase` set to the production URL when known
 - JSON-LD `LocalBusiness` / `Organization` on Home (name, phone, address region Coimbatore, logo `/logo.jpg`)
-- Prefer accessible `alt` text on logo: “Velzon Trade Enterprise — Coimbatore”
+- Prefer accessible `alt` text on logo: “Velzon Trade Enterprises — Coimbatore”
 
 ---
 

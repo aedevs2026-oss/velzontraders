@@ -4,7 +4,7 @@ import { whatsappHref } from "@/lib/phone";
 export function WhatsAppFloat({ phone = SITE.phone }) {
   const href = whatsappHref(
     phone,
-    "Hello Velzon Trade Enterprise, I would like to enquire about materials."
+    "Hello Velzon Trade Enterprises, I would like to enquire about materials."
   );
 
   return (

@@ -8,7 +8,7 @@ import { getCategories } from "@/lib/data/queries";
 export const metadata = {
   title: "Products & Materials",
   description:
-    "Metal roofing sheets, PUF panels, decking, and more — thicknesses and premium brands from Velzon Trade Enterprise, roofing material supplier across Tamil Nadu.",
+    "Metal roofing sheets, PUF panels, decking, and more — thicknesses and premium brands from Velzon Trade Enterprises, roofing material supplier across Tamil Nadu.",
 };
 
 export default async function ProductsPage() {

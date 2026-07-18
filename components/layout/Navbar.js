@@ -20,7 +20,7 @@ export function Navbar() {
           <span className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-md border border-gold/25 bg-white p-1 shadow-card sm:h-14 sm:w-14">
             <Image
               src="/logo.jpg"
-              alt="Velzon Trade Enterprise — Coimbatore"
+              alt="Velzon Trade Enterprises — Coimbatore"
               width={56}
               height={56}
               className="h-full w-full object-contain"
@@ -32,7 +32,7 @@ export function Navbar() {
               VELZON
             </span>
             <span className="text-[0.7rem] font-medium uppercase tracking-[0.14em] text-graphite">
-              Trade Enterprise
+              Trade Enterprises
             </span>
           </span>
         </Link>

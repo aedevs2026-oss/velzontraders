@@ -25,7 +25,7 @@ export function Footer({
             <span className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-md border border-gold/20 bg-white p-1 shadow-card sm:h-16 sm:w-16">
               <Image
                 src="/logo.jpg"
-                alt="Velzon Trade Enterprise — Coimbatore"
+                alt="Velzon Trade Enterprises — Coimbatore"
                 width={64}
                 height={64}
                 className="h-full w-full object-contain"
