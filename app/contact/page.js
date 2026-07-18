@@ -21,6 +21,7 @@ export default async function ContactPage({ searchParams }) {
   const [settings, projects] = await Promise.all([getSettings(), getProjects()]);
   const phones = resolvePhones(settings, SITE);
   const primary = phones[0];
+  const contactAddress = SITE.shortLocation;
   const wa = whatsappHref(
     primary?.raw || SITE.phone,
     "Hello Velzon Trade Enterprises, I would like to enquire about materials."
@@ -48,7 +49,7 @@ export default async function ContactPage({ searchParams }) {
                     linkClassName="focus-gold rounded-sm hover:underline"
                   />
                 </div>
-                <p className="mt-3 text-sm text-graphite">{settings.address}</p>
+                <p className="mt-3 text-sm text-graphite">{contactAddress}</p>
                 <p className="mt-2 text-sm text-graphite">{SITE.serviceArea}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   <Button href={primary?.href || SITE.phoneHref} size="sm">

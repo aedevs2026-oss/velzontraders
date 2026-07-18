@@ -56,7 +56,7 @@ export default async function AboutPage() {
           <h2 className="font-display text-3xl font-semibold text-ink">Service area</h2>
           <hr className="rule-gold mt-3 w-16" />
           <p className="mt-4 text-graphite">
-            Based in {settings.address || SITE.address}, we deliver{" "}
+            Based in {SITE.shortLocation}, we deliver{" "}
             <strong className="font-medium text-charcoal">{SITE.serviceArea.toLowerCase()}</strong>{" "}
             — supporting roofing contractors in Coimbatore, Chennai, and industrial towns
             statewide. Tell us your site location when you enquire so we can plan lead times

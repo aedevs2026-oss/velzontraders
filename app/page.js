@@ -51,7 +51,7 @@ export default async function HomePage() {
     telephone: phones.map((p) => `+91${phoneDigits(p.raw)}`),
     address: {
       "@type": "PostalAddress",
-      streetAddress: settings.address || SITE.address,
+      streetAddress: SITE.shortLocation,
       addressLocality: "Coimbatore",
       addressRegion: "Tamil Nadu",
       addressCountry: "IN",

@@ -16,6 +16,7 @@ export function Footer({
     SITE
   );
   const year = new Date().getFullYear();
+  const resolvedAddress = SITE.shortLocation;
 
   return (
     <footer className="mt-auto border-t border-gold/20 bg-white">
@@ -71,7 +72,11 @@ export function Footer({
                 linkClassName="hover:text-gold-dark focus-gold rounded-sm"
               />
             </li>
-            <li className="leading-relaxed">{address}</li>
+            <li className="leading-relaxed">
+              <span className="block max-w-xs whitespace-pre-line break-words text-sm text-graphite">
+                {resolvedAddress}
+              </span>
+            </li>
             <li>
               <a
                 href={SITE.whatsappHref}

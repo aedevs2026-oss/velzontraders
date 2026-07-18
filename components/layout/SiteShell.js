@@ -1,6 +1,7 @@
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
+import { SITE } from "@/lib/constants";
 import { getSettings } from "@/lib/data/queries";
 
 export async function SiteShell({ children }) {
@@ -13,7 +14,7 @@ export async function SiteShell({ children }) {
       <Footer
         phone={settings.phone}
         phoneSecondary={settings.phone_secondary}
-        address={settings.address}
+        address={SITE.shortLocation}
         tagline={settings.tagline}
       />
       <WhatsAppFloat phone={settings.phone} />

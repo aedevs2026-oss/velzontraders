@@ -14,6 +14,7 @@ export function ContactCta({
     SITE
   );
   const primaryHref = phones[0]?.href || SITE.phoneHref;
+  const resolvedAddress = SITE.shortLocation;
 
   return (
     <section className="bg-ivory py-16 sm:py-20">
@@ -35,7 +36,7 @@ export function ContactCta({
               separator=" · "
             />
           </p>
-          <p className="mt-1 text-sm text-graphite">{address}</p>
+          <p className="mt-1 text-sm text-graphite">{resolvedAddress}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button href="/contact" size="lg">
               Get a Quote
