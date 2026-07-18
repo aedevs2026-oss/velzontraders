@@ -20,13 +20,13 @@ export async function generateMetadata() {
     openGraph: {
       title,
       description,
-      images: [{ url: category?.image_url || "/logo.jpg" }],
+      images: [{ url: category?.image_url || "/logo.png" }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [category?.image_url || "/logo.jpg"],
+      images: [category?.image_url || "/logo.png"],
     },
   };
 }

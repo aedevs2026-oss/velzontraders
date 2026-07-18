@@ -16,24 +16,17 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-gold/20 bg-ivory/95 backdrop-blur-md">
       <Container className="flex h-[4.5rem] items-center justify-between gap-4 sm:h-[5rem]">
-        <Link href="/" className="flex items-center gap-3 focus-gold rounded-sm">
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-md border border-gold/25 bg-white p-1 shadow-card sm:h-14 sm:w-14">
+        <Link href="/" className="flex items-center rounded-sm focus-gold">
+          <span className="flex h-[3.25rem] w-[150px] shrink-0 items-center justify-center overflow-hidden rounded-md bg-transparent p-0 sm:h-[3.75rem] sm:w-[165px]">
             <Image
-              src="/logo.jpg"
+              src="/logo.png"
               alt="Velzon Trade Enterprises — Coimbatore"
-              width={56}
-              height={56}
-              className="h-full w-full object-contain"
+              width={165}
+              height={70}
+              className="h-full w-full object-contain object-left"
               priority
+              unoptimized
             />
-          </span>
-          <span className="hidden flex-col leading-tight min-[420px]:flex">
-            <span className="font-display text-xl font-semibold tracking-wide text-ink sm:text-2xl">
-              VELZON
-            </span>
-            <span className="text-[0.7rem] font-medium uppercase tracking-[0.14em] text-graphite">
-              Trade Enterprises
-            </span>
           </span>
         </Link>
 

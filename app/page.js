@@ -57,7 +57,7 @@ export default async function HomePage() {
       addressCountry: "IN",
       postalCode: "641035",
     },
-    image: "/logo.jpg",
+    image: "/logo.png",
     url: process.env.NEXT_PUBLIC_SITE_URL || "https://velzontrade.com",
     slogan: settings.tagline || SITE.tagline,
     foundingDate: SITE.establishedIso,

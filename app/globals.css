@@ -74,6 +74,35 @@ body {
   }
 }
 
+@keyframes pulse-soft {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+
+@keyframes loader-fill {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.loader-image {
+  animation: pulse-soft 1.8s ease-in-out infinite;
+}
+
+.loader-bar-fill {
+  animation: loader-fill 3s ease-in-out forwards;
+}
+
 .font-display {
   font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
 }

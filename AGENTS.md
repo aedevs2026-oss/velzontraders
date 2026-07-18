@@ -20,7 +20,7 @@
 - **Stack:** Next.js (App Router), JavaScript (no TypeScript), Tailwind CSS v4, Supabase (Auth, DB, Storage)
 - **No** `src/` directory, **no** React Compiler
 - **Business model:** Source → fabricate/customize → supply (does **not** manufacture). Also assists with wiring/electrical coordination for house builds.
-- **Logo asset:** `public/logo.jpg` (prefer this path; do not assume `.png`)
+- **Logo asset:** `public/logo.png` (prefer this path; do not assume `.png`)
 - **Phone:** +91 96000 65505 / +91 96000 65503 · **Tagline:** Confidence | Growth | Trust · **Est.** 11 June 2024 · **Service area:** Supply & Fabrication Across Tamil Nadu
 
 ---
@@ -101,7 +101,7 @@ supabase/
   schema.sql                # Full schema + RLS + seed defaults
   seed.sql                  # Optional product/category seed data
 public/
-  logo.jpg                  # Brand logo (OG/SEO images reference this)
+  logo.png                  # Brand logo (OG/SEO images reference this)
   placeholders/             # Labeled placeholder images until real photos land
 ```
 
@@ -132,9 +132,9 @@ Root `app/layout.js` (and page-level overrides) should include:
 
 - Title pattern: `Velzon Trade Enterprises | Roofing & Fabrication Materials · Coimbatore`
 - Meta description mentioning Coimbatore, Tamil Nadu, roofing/fabrication supply
-- `openGraph` / `twitter` images pointing at `/logo.jpg`
+- `openGraph` / `twitter` images pointing at `/logo.png`
 - `metadataBase` set to the production URL when known
-- JSON-LD `LocalBusiness` / `Organization` on Home (name, phone, address region Coimbatore, logo `/logo.jpg`)
+- JSON-LD `LocalBusiness` / `Organization` on Home (name, phone, address region Coimbatore, logo `/logo.png`)
 - Prefer accessible `alt` text on logo: “Velzon Trade Enterprises — Coimbatore”
 
 ---
@@ -242,6 +242,6 @@ Tables (minimum):
 - [x] Step 7 — Admin CRUD (products → projects → gallery → enquiries → settings)
 - [x] Step 8 — Responsive / a11y pass (gold-on-white contrast)
 
-**Images:** product/category photos live under `public/products/` (seeded into `image_url`) or via admin upload to Storage `media`. Projects without photos use a labeled gray placeholder — do not use stock/Unsplash stand-ins. Logo is at `public/logo.jpg`.
+**Images:** product/category photos live under `public/products/` (seeded into `image_url`) or via admin upload to Storage `media`. Projects without photos use a labeled gray placeholder — do not use stock/Unsplash stand-ins. Logo is at `public/logo.png`.
 
 **Go-live:** copy `.env.local.example` → `.env.local`, run `supabase/schema.sql` then `supabase/seed.sql`, run `supabase/migration-media.sql` if the project already existed, create an Auth user, ensure public Storage bucket `media` exists.

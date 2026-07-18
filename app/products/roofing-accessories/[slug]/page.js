@@ -25,7 +25,7 @@ export async function generateMetadata({ params }) {
     product.description?.slice(0, 155) ||
     `${product.name} from Velzon Trade Enterprises, Coimbatore.`;
   const image =
-    product.images?.[0]?.url || product.image_url || "/logo.jpg";
+    product.images?.[0]?.url || product.image_url || "/logo.png";
 
   return {
     title,
@@ -60,7 +60,7 @@ export default async function AccessoryDetailPage({ params }) {
         ? [{ url: product.image_url, alt: product.alt_text || product.name }]
         : [];
 
-  const primaryImage = images[0]?.url || product.image_url || "/logo.jpg";
+  const primaryImage = images[0]?.url || product.image_url || "/logo.png";
   const faqs = Array.isArray(product.faqs) ? product.faqs : [];
 
   const breadcrumbLd = {

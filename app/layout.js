@@ -1,4 +1,5 @@
 import { Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
+import { InitialLoader } from "@/components/layout/InitialLoader";
 import "./globals.css";
 
 const display = Cormorant_Garamond({
@@ -53,7 +54,7 @@ export const metadata = {
       "Premium branded roofing sheets and PUF panels — supply and fabrication services across Tamil Nadu. Confidence | Growth | Trust.",
     images: [
       {
-        url: "/logo.jpg",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "Velzon Trade Enterprises — Coimbatore",
@@ -65,11 +66,11 @@ export const metadata = {
     title: "Velzon Trade Enterprises · Tamil Nadu",
     description:
       "Roofing sheets, PUF panels & fabrication — Confidence | Growth | Trust",
-    images: ["/logo.jpg"],
+    images: ["/logo.png"],
   },
   icons: {
-    icon: "/logo.jpg",
-    apple: "/logo.jpg",
+    icon: "/logo.png",
+    apple: "/logo.png",
   },
 };
 
@@ -80,6 +81,7 @@ export default function RootLayout({ children }) {
       className={`${display.variable} ${sans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-ivory text-charcoal font-sans">
+        <InitialLoader />
         {children}
       </body>
     </html>

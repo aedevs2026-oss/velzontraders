@@ -33,7 +33,7 @@ export function AdminSidebar() {
   return (
     <aside className="flex w-full flex-col border-b border-gold/20 bg-white lg:min-h-screen lg:w-56 lg:border-b-0 lg:border-r">
       <div className="flex items-center gap-2 border-b border-gold/15 px-4 py-4">
-        <Image src="/logo.jpg" alt="" width={32} height={32} className="h-8 w-8 object-contain" />
+        <Image src="/logo.png" alt="" width={32} height={32} className="h-8 w-8 object-contain" />
         <div>
           <p className="font-display text-sm font-semibold text-ink">Velzon Admin</p>
           <Link href="/" className="text-xs text-graphite hover:text-gold-dark">
