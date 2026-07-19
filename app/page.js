@@ -131,7 +131,6 @@ export default async function HomePage() {
         phoneSecondary={settings.phone_secondary}
       />
       <FeaturedMaterials categories={categoriesWithTeaser} />
-      <FeaturedProducts products={featuredProducts} />
       <RoofingAccessoriesSection accessories={accessories} />
       <ProjectTypes projects={projectsWithTeaser} />
       <TrustStrip tagline={settings.tagline} />
@@ -142,6 +141,8 @@ export default async function HomePage() {
         description="Quick answers on service area, materials, and how to reach us."
         className="border-t border-gold/10 bg-ivory py-14 sm:py-16"
       />
+            <FeaturedProducts products={featuredProducts} />
+
       <ContactCta
         phone={settings.phone}
         phoneSecondary={settings.phone_secondary}

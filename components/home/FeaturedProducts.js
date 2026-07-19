@@ -30,7 +30,7 @@ const materials = [
     description:
       "Premium puff sheet options with dependable thickness availability for warehouse, industrial, and commercial roofing systems.",
     specs: [
-      { label: "Thickness", value: "30 / 50 mm" },
+      { label: "Thickness", value: "1080 mm" },
       { label: "Function", value: "Insulation support" },
       { label: "Supply", value: "Fabrication-ready" },
     ],
@@ -44,9 +44,9 @@ const materials = [
     description:
       "Choose from leading roofing sheet brands that match finish preferences, project specs, and long-term performance expectations.",
     specs: [
+      { label: "Thickness", value: "1100 mm" },
       { label: "Mills", value: "JSW · Tata · AMNS · Jindal" },
       { label: "Finish", value: "Colour-coated" },
-      { label: "Grade", value: "Commercial / industrial" },
     ],
     brands: [
       {
@@ -78,12 +78,9 @@ const materials = [
   },
 ];
 
-/** Turns "Tata Blue Scope" into "TB", "Silveron" into "SI", "JSW" into "JS", etc. */
 function monogram(name) {
   const words = name.replace(/Pvt\.?\s*Ltd\.?/i, "").trim().split(/\s+/);
   const first = words[0];
-  // Acronym-style names (JSW, AMNS) should keep their own letters rather than
-  // blending with the next word ("AMNS India" -> "AM", not "AI").
   if (first.length <= 5 && first === first.toUpperCase()) {
     return first.slice(0, 2).toUpperCase();
   }
