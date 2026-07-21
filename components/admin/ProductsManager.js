@@ -80,6 +80,13 @@ export function ProductsManager({ categories = [], products = [], demo }) {
             className="sm:col-span-2 rounded-md border border-graphite/25 px-3 py-2"
             rows={3}
           />
+          <textarea
+            name="teaser"
+            placeholder="Short teaser"
+            defaultValue={editingCategory?.teaser || ""}
+            className="sm:col-span-2 rounded-md border border-graphite/25 px-3 py-2"
+            rows={2}
+          />
           <div className="sm:col-span-2">
             <MediaUploader
               key={`cat-media-${editingCategory?.id || "new"}`}

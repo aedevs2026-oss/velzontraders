@@ -29,6 +29,11 @@ function parseLines(value) {
     .filter(Boolean);
 }
 
+function isMissingColumnError(error) {
+  const message = String(error?.message || "");
+  return error?.code === "42703" || /column .* does not exist|does not exist/i.test(message);
+}
+
 function revalidateAccessoryPaths(slug) {
   revalidatePath("/admin/accessories");
   revalidatePath("/admin/products");
@@ -46,6 +51,7 @@ export async function upsertCategory(formData) {
   const name = String(formData.get("name") || "").trim();
   const slug = String(formData.get("slug") || "").trim() || slugify(name);
   const description = String(formData.get("description") || "").trim();
+  const teaser = String(formData.get("teaser") || "").trim();
   const sort_order = Number(formData.get("sort_order") || 0);
   const is_active = formData.get("is_active") === "on" || formData.get("is_active") === "true";
   let image_url = String(formData.get("image_url") || "").trim() || null;
@@ -64,14 +70,37 @@ export async function upsertCategory(formData) {
     }
   }
 
-  const payload = { name, slug, description, sort_order, is_active, image_url };
+  const payload = {
+    name,
+    slug,
+    description,
+    sort_order,
+    is_active,
+    image_url,
+    ...(teaser ? { teaser } : {}),
+  };
 
   if (id) {
-    const { error } = await supabase.from("product_categories").update(payload).eq("id", id);
-    if (error) return { error: error.message };
+    let { error } = await supabase.from("product_categories").update(payload).eq("id", id);
+    if (error && isMissingColumnError(error)) {
+      const { error: fallbackError } = await supabase
+        .from("product_categories")
+        .update({ name, slug, description, sort_order, is_active, image_url })
+        .eq("id", id);
+      if (fallbackError) return { error: fallbackError.message };
+    } else if (error) {
+      return { error: error.message };
+    }
   } else {
-    const { error } = await supabase.from("product_categories").insert(payload);
-    if (error) return { error: error.message };
+    let { error } = await supabase.from("product_categories").insert(payload);
+    if (error && isMissingColumnError(error)) {
+      const { error: fallbackError } = await supabase
+        .from("product_categories")
+        .insert({ name, slug, description, sort_order, is_active, image_url });
+      if (fallbackError) return { error: fallbackError.message };
+    } else if (error) {
+      return { error: error.message };
+    }
   }
 
   revalidatePath("/admin/products");

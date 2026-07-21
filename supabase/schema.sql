@@ -13,6 +13,7 @@ create table if not exists public.product_categories (
   name text not null,
   slug text not null unique,
   description text not null default '',
+  teaser text not null default '',
   image_url text,
   sort_order int not null default 0,
   is_active boolean not null default true,

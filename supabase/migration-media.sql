@@ -37,6 +37,38 @@ create policy "Admin delete media"
   using (bucket_id = 'media');
 
 -- ─────────────────────────────────────────────
+-- One-time: add category teaser column if missing
+-- ─────────────────────────────────────────────
+
+alter table public.product_categories
+add column if not exists teaser text not null default '';
+
+update public.product_categories
+set teaser = case slug
+  when 'roofing-sheets' then '0.35–0.60 mm · JSW, Tata & more'
+  when 'puff-sheets' then '30 / 50 mm · Metecno, Alfaa, Mount'
+  when 'decking-sheet-gi' then '0.80 / 1.0 / 1.2 mm'
+  when 'mangalore-tile-sheet' then '0.45 / 0.47 mm'
+  when 'spanish-tile-sheet' then '0.45 / 0.47 mm'
+  when 'liner-sheet' then '0.35–0.50 mm'
+  when 'aluminium-sheet' then '0.71 mm'
+  when 'upvc-sheet' then '1.5–2.5 mm tile profiles'
+  when 'roofing-accessories' then 'Ridge · gutters · screws · vents'
+  else teaser
+end
+where slug in (
+  'roofing-sheets',
+  'puff-sheets',
+  'decking-sheet-gi',
+  'mangalore-tile-sheet',
+  'spanish-tile-sheet',
+  'liner-sheet',
+  'aluminium-sheet',
+  'upvc-sheet',
+  'roofing-accessories'
+);
+
+-- ─────────────────────────────────────────────
 -- One-time: map public/products/* → image_url when empty
 -- Only sets rows with no image yet (won't overwrite admin uploads).
 -- ─────────────────────────────────────────────
