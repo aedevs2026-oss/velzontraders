@@ -8,11 +8,14 @@ export function FormattedDescription({ text, className = "" }) {
   const blocks = [];
 
   const parseBenefitsItems = (input) => {
-    const items = input
+    const trimmed = String(input || "").trim();
+    if (!trimmed) return [];
+
+    const items = trimmed
       .split(/[-•*]\s*/)
       .map((item) => item.trim())
       .filter(Boolean);
-    return items.length > 1 ? items : [input.trim()];
+    return items.length > 0 ? items : [];
   };
 
   let index = 0;
@@ -63,7 +66,9 @@ export function FormattedDescription({ text, className = "" }) {
         break;
       }
 
-      blocks.push({ type: "benefits", items: items.length ? items : ["Benefits"] });
+      if (items.length) {
+        blocks.push({ type: "benefits", items });
+      }
       continue;
     }
 
