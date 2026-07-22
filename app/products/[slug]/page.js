@@ -5,6 +5,7 @@ import { MaterialSpecs } from "@/components/products/MaterialSpecs";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { EntityImage } from "@/components/ui/EntityImage";
+import { FormattedDescription } from "@/components/ui/FormattedDescription";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { MATERIAL_SPECS } from "@/lib/constants";
 import { getProductOrCategory, getProducts } from "@/lib/data/queries";
@@ -63,8 +64,13 @@ export default async function ProductSlugPage({ params }) {
             <SectionHeading
               className="mt-4"
               title={category.name}
-              description={category.description}
+              description=""
             />
+            {category.description ? (
+              <div className="mt-4 max-w-2xl text-base text-graphite sm:text-lg">
+                <FormattedDescription text={category.description} />
+              </div>
+            ) : null}
             {spec ? <MaterialSpecs spec={spec} /> : null}
             <div className="mt-10 grid gap-5 md:grid-cols-2">
               {(products || []).map((product) => (
@@ -148,7 +154,9 @@ export default async function ProductSlugPage({ params }) {
             {product.name}
           </h1>
           <hr className="rule-gold mt-4 w-16" />
-          <p className="mt-6 text-lg text-charcoal">{product.description}</p>
+          <div className="mt-6 text-lg text-charcoal">
+            <FormattedDescription text={product.description} className="text-charcoal" />
+          </div>
 
           <div className="mt-8 rounded-lg border border-gold/20 bg-white p-6 shadow-card">
             <h2 className="font-display text-xl font-semibold text-ink">
