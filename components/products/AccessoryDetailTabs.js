@@ -1,8 +1,8 @@
 "use client";
-
+​
 import { useEffect, useMemo, useRef, useState } from "react";
 import { EntityImage } from "@/components/ui/EntityImage";
-
+​
 const TAB_IDS = [
   { id: "description", label: "Description" },
   { id: "specifications", label: "Specifications" },
@@ -12,7 +12,7 @@ const TAB_IDS = [
   { id: "applications", label: "Applications" },
   { id: "downloads", label: "Downloads" },
 ];
-
+​
 const SPEC_LABELS = {
   material: "Material",
   thickness: "Thickness",
@@ -31,7 +31,7 @@ const SPEC_LABELS = {
   warranty: "Warranty",
   manufacturing_standard: "Manufacturing standard",
 };
-
+​
 const DESC_LABELS = {
   overview: "Overview",
   purpose: "Purpose",
@@ -42,18 +42,47 @@ const DESC_LABELS = {
   weather_resistance: "Weather resistance",
   industrial_commercial_usage: "Industrial / commercial usage",
 };
-
+​
 const DOWNLOAD_LABELS = {
   brochure: "Brochure",
   datasheet: "Technical datasheet",
   installation_guide: "Installation guide",
   warranty: "Warranty PDF",
 };
-
+​
+function renderDescriptionContent(value, isBenefits = false) {
+  if (!value) return null;
+​
+  const text = String(value).trim();
+  if (!text) return null;
+​
+  const lines = text
+    .split(/\r?\n/)
+    .map((line) => line.replace(/^\s*[-•*]\s*/, "").trim())
+    .filter(Boolean);
+​
+  const shouldRenderList = isBenefits && lines.length > 1;
+​
+  if (shouldRenderList) {
+    return (
+      <ul className="mt-2 space-y-2">
+        {lines.map((line, index) => (
+          <li key={`${line}-${index}`} className="flex gap-2 text-charcoal">
+            <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-gold-dark" aria-hidden />
+            <span className="font-semibold text-ink">{line}</span>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+​
+  return <p className="mt-1 whitespace-pre-line text-charcoal">{text}</p>;
+}
+​
 export function AccessoryDetailTabs({ product }) {
   const [active, setActive] = useState("description");
   const sectionRefs = useRef({});
-
+​
   const detail = product.description_detail || {};
   const specs = product.specifications || {};
   const colors = product.colors || [];
@@ -61,7 +90,7 @@ export function AccessoryDetailTabs({ product }) {
   const features = product.features || [];
   const applications = product.applications || [];
   const downloads = product.downloads || {};
-
+​
   const visibleTabs = useMemo(() => {
     return TAB_IDS.filter((tab) => {
       if (tab.id === "description") {
@@ -78,7 +107,7 @@ export function AccessoryDetailTabs({ product }) {
       return true;
     });
   }, [detail, specs, colors, profiles, features, applications, downloads, product.description]);
-
+​
   useEffect(() => {
     const observers = [];
     visibleTabs.forEach((tab) => {
@@ -95,12 +124,12 @@ export function AccessoryDetailTabs({ product }) {
     });
     return () => observers.forEach((o) => o.disconnect());
   }, [visibleTabs]);
-
+​
   function scrollTo(id) {
     setActive(id);
     sectionRefs.current[id]?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
-
+​
   return (
     <div className="mt-12">
       <div className="sticky top-0 z-20 -mx-4 border-b border-gold/15 bg-ivory/95 px-4 py-2 backdrop-blur sm:mx-0 sm:px-0">
@@ -127,7 +156,7 @@ export function AccessoryDetailTabs({ product }) {
           ))}
         </nav>
       </div>
-
+​
       <div className="mt-8 space-y-14">
         {visibleTabs.some((t) => t.id === "description") ? (
           <section
@@ -146,7 +175,7 @@ export function AccessoryDetailTabs({ product }) {
                     <h3 className="text-sm font-semibold uppercase tracking-wide text-gold-dark">
                       {label}
                     </h3>
-                    <p className="mt-1 text-charcoal whitespace-pre-line">{detail[key]}</p>
+                    {renderDescriptionContent(detail[key], key === "benefits")}
                   </div>
                 ) : null,
               )}
@@ -156,7 +185,7 @@ export function AccessoryDetailTabs({ product }) {
             </div>
           </section>
         ) : null}
-
+​
         {visibleTabs.some((t) => t.id === "specifications") ? (
           <section
             id="specifications"
@@ -182,7 +211,7 @@ export function AccessoryDetailTabs({ product }) {
             </dl>
           </section>
         ) : null}
-
+​
         {visibleTabs.some((t) => t.id === "colors") ? (
           <section
             id="colors"
@@ -224,7 +253,7 @@ export function AccessoryDetailTabs({ product }) {
             </ul>
           </section>
         ) : null}
-
+​
         {visibleTabs.some((t) => t.id === "profiles") ? (
           <section
             id="profiles"
@@ -262,7 +291,7 @@ export function AccessoryDetailTabs({ product }) {
             </ul>
           </section>
         ) : null}
-
+​
         {visibleTabs.some((t) => t.id === "features") ? (
           <section
             id="features"
@@ -296,7 +325,7 @@ export function AccessoryDetailTabs({ product }) {
             </ul>
           </section>
         ) : null}
-
+​
         {visibleTabs.some((t) => t.id === "applications") ? (
           <section
             id="applications"
@@ -320,7 +349,7 @@ export function AccessoryDetailTabs({ product }) {
             </ul>
           </section>
         ) : null}
-
+​
         {visibleTabs.some((t) => t.id === "downloads") ? (
           <section
             id="downloads"
