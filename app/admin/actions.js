@@ -55,18 +55,21 @@ export async function upsertCategory(formData) {
   const sort_order = Number(formData.get("sort_order") || 0);
   const is_active = formData.get("is_active") === "on" || formData.get("is_active") === "true";
   let image_url = String(formData.get("image_url") || "").trim() || null;
+  let images = [];
 
-  const meta = parseJsonField(formData, "images_meta", null);
+  const meta = parseJsonField(formData, "images_meta", []);
   if (Array.isArray(meta)) {
     const resolved = await resolveImageUploads(supabase, formData, "categories", meta);
     if (resolved.error) return { error: resolved.error };
-    image_url = resolved.images[0]?.url || null;
+    images = Array.isArray(resolved.images) ? resolved.images : [];
+    image_url = images[0]?.url || image_url || null;
   } else {
     const file = formData.get("file");
     if (file && typeof file === "object" && file.size > 0) {
       const uploaded = await uploadMediaFile(supabase, file, "categories");
       if (uploaded.error) return { error: uploaded.error };
       image_url = uploaded.url;
+      images = [{ url: uploaded.url, alt: name, sort_order: 0 }];
     }
   }
 
@@ -77,15 +80,19 @@ export async function upsertCategory(formData) {
     sort_order,
     is_active,
     image_url,
+    ...(images.length ? { images } : {}),
     ...(teaser ? { teaser } : {}),
   };
+
+  const fallbackPayload = { name, slug, description, sort_order, is_active, image_url };
+  if (teaser) fallbackPayload.teaser = teaser;
 
   if (id) {
     let { error } = await supabase.from("product_categories").update(payload).eq("id", id);
     if (error && isMissingColumnError(error)) {
       const { error: fallbackError } = await supabase
         .from("product_categories")
-        .update({ name, slug, description, sort_order, is_active, image_url })
+        .update(fallbackPayload)
         .eq("id", id);
       if (fallbackError) return { error: fallbackError.message };
     } else if (error) {
@@ -96,7 +103,7 @@ export async function upsertCategory(formData) {
     if (error && isMissingColumnError(error)) {
       const { error: fallbackError } = await supabase
         .from("product_categories")
-        .insert({ name, slug, description, sort_order, is_active, image_url });
+        .insert(fallbackPayload);
       if (fallbackError) return { error: fallbackError.message };
     } else if (error) {
       return { error: error.message };

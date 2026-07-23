@@ -51,6 +51,16 @@ export default async function ProductSlugPage({ params }) {
     const { data: category, products } = result;
     const spec = MATERIAL_SPECS[category.slug];
 
+    const galleryImages = Array.isArray(category.images)
+      ? category.images.filter((image) => image?.url)
+      : [];
+    const heroImage = category.image_url || galleryImages[0]?.url || null;
+    const displayImages = galleryImages.length
+      ? galleryImages
+      : heroImage
+        ? [{ url: heroImage, alt: category.name }]
+        : [];
+
     return (
       <SiteShell>
         <section className="border-b border-gold/10 bg-ivory py-14 sm:py-16">
@@ -72,38 +82,55 @@ export default async function ProductSlugPage({ params }) {
               </div>
             ) : null}
             {spec ? <MaterialSpecs spec={spec} /> : null}
-            <div className="mt-10 grid gap-5 md:grid-cols-2">
-              {(products || []).map((product) => (
-                <Link
-                  key={product.slug}
-                  href={`/products/${product.slug}`}
-                  className="overflow-hidden rounded-lg border border-gold/15 bg-white shadow-card hover:border-gold/40 focus-gold"
-                >
-                  <div className="relative aspect-[16/10] bg-graphite/10">
-                    <EntityImage
-                      src={product.image_url}
-                      alt={`${product.name} — Velzon`}
-                      label={product.name}
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h2 className="font-display text-xl font-semibold text-ink">
-                      {product.name}
+
+            {heroImage ? (
+              <div className="mt-8 overflow-hidden rounded-2xl border border-gold/15 bg-white shadow-card">
+                <div className="relative aspect-[16/9] bg-graphite/10">
+                  <EntityImage
+                    src={heroImage}
+                    alt={`${category.name} — Velzon Trade Enterprises`}
+                    label={category.name}
+                    sizes="(max-width: 768px) 100vw, 1200px"
+                  />
+                </div>
+              </div>
+            ) : null}
+
+            {displayImages.length ? (
+              <div className="mt-8 rounded-2xl border border-gold/15 bg-white p-5 shadow-card sm:p-8">
+                <div className="flex flex-wrap items-end justify-between gap-3">
+                  <div>
+                    <h2 className="font-display text-2xl font-semibold text-ink">
+                      Category gallery
                     </h2>
-                    <p className="mt-2 line-clamp-3 text-sm text-graphite">
-                      {product.description}
-                    </p>
-                    <p className="mt-3 text-xs font-medium text-gold-dark">
-                      {(product.thickness_options || []).join(" · ")}
+                    <p className="mt-2 max-w-2xl text-sm text-graphite">
+                      High-resolution reference images for this material range, uploaded from admin.
                     </p>
                   </div>
-                </Link>
-              ))}
-            </div>
-            {!(products || []).length ? (
+                </div>
+                <div className="mt-6 grid gap-4 md:grid-cols-2">
+                  {displayImages.map((image, index) => (
+                    <div
+                      key={`${image.url || image.alt || category.slug}-${index}`}
+                      className="overflow-hidden rounded-xl border border-gold/15 bg-ivory"
+                    >
+                      <div className="relative aspect-[16/10] bg-graphite/10">
+                        <EntityImage
+                          src={image.url}
+                          alt={image.alt || `${category.name} gallery ${index + 1}`}
+                          label={category.name}
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {!(products || []).length && !displayImages.length ? (
               <p className="mt-8 text-graphite">
-                Products for this category will appear here once added in admin.
+                Category visuals will appear here once uploaded from admin.
               </p>
             ) : null}
           </Container>

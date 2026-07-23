@@ -1,8 +1,8 @@
 "use client";
-​
+
 import { useEffect, useMemo, useRef, useState } from "react";
 import { EntityImage } from "@/components/ui/EntityImage";
-​
+
 const TAB_IDS = [
   { id: "description", label: "Description" },
   { id: "specifications", label: "Specifications" },
@@ -12,7 +12,7 @@ const TAB_IDS = [
   { id: "applications", label: "Applications" },
   { id: "downloads", label: "Downloads" },
 ];
-​
+
 const SPEC_LABELS = {
   material: "Material",
   thickness: "Thickness",
@@ -42,7 +42,7 @@ const DESC_LABELS = {
   weather_resistance: "Weather resistance",
   industrial_commercial_usage: "Industrial / commercial usage",
 };
-​
+
 const DOWNLOAD_LABELS = {
   brochure: "Brochure",
   datasheet: "Technical datasheet",
@@ -52,10 +52,10 @@ const DOWNLOAD_LABELS = {
 ​
 function renderDescriptionContent(value, isBenefits = false) {
   if (!value) return null;
-​
+
   const text = String(value).trim();
   if (!text) return null;
-​
+
   const lines = text
     .split(/\r?\n/)
     .map((line) => line.replace(/^\s*[-•*]\s*/, "").trim())

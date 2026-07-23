@@ -91,12 +91,17 @@ export function ProductsManager({ categories = [], products = [], demo }) {
             <MediaUploader
               key={`cat-media-${editingCategory?.id || "new"}`}
               apiRef={categoryMediaApi}
-              label="Category image"
-              maxFiles={1}
+              label="Category gallery"
+              maxFiles={8}
               initialImages={
-                editingCategory?.image_url
-                  ? [{ url: editingCategory.image_url, alt: editingCategory.name || "" }]
-                  : []
+                editingCategory?.images?.length
+                  ? editingCategory.images.map((img) => ({
+                      url: img?.url || "",
+                      alt: img?.alt || editingCategory.name || "",
+                    }))
+                  : editingCategory?.image_url
+                    ? [{ url: editingCategory.image_url, alt: editingCategory.name || "" }]
+                    : []
               }
             />
           </div>
