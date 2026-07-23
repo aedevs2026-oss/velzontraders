@@ -34,9 +34,6 @@ export async function generateMetadata() {
 export default async function RoofingAccessoriesPage() {
   const category = await getCategoryBySlug("roofing-accessories");
   const accessories = await getProducts("roofing-accessories");
-  // #region agent log
-  fetch('http://127.0.0.1:7714/ingest/3106773a-0991-4075-8c39-eee11a2f5f22',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'cc7d39'},body:JSON.stringify({sessionId:'cc7d39',runId:'verify1',hypothesisId:'C',location:'roofing-accessories/page.js',message:'listing page data',data:{hasCategory:Boolean(category),categorySlug:category?.slug||null,accessoryCount:accessories?.length??0,names:(accessories||[]).slice(0,5).map(a=>a.name)},timestamp:Date.now()})}).catch(()=>{});
-  // #endregion
   const name = category?.name || "Roofing Accessories";
   const description =
     category?.description ||

@@ -8,6 +8,7 @@ const TAB_IDS = [
   { id: "specifications", label: "Specifications" },
   { id: "colors", label: "Available Colors" },
   { id: "profiles", label: "Available Profiles" },
+  { id: "gallery", label: "Gallery" },
   { id: "features", label: "Features" },
   { id: "applications", label: "Applications" },
   { id: "downloads", label: "Downloads" },
@@ -87,6 +88,8 @@ export function AccessoryDetailTabs({ product }) {
   const specs = product.specifications || {};
   const colors = product.colors || [];
   const profiles = product.profiles || [];
+  const allImages = product.images || [];
+  const galleryImages = allImages.slice(1);
   const features = product.features || [];
   const applications = product.applications || [];
   const downloads = product.downloads || {};
@@ -99,6 +102,7 @@ export function AccessoryDetailTabs({ product }) {
       if (tab.id === "specifications") return Object.values(specs).some(Boolean);
       if (tab.id === "colors") return colors.length > 0;
       if (tab.id === "profiles") return profiles.length > 0;
+      if (tab.id === "gallery") return galleryImages.length > 0;
       if (tab.id === "features") return features.length > 0;
       if (tab.id === "applications") return applications.length > 0;
       if (tab.id === "downloads") {
@@ -106,7 +110,7 @@ export function AccessoryDetailTabs({ product }) {
       }
       return true;
     });
-  }, [detail, specs, colors, profiles, features, applications, downloads, product.description]);
+  }, [detail, specs, colors, profiles, galleryImages, features, applications, downloads, product.description]);
 ​
   useEffect(() => {
     const observers = [];
@@ -286,6 +290,41 @@ export function AccessoryDetailTabs({ product }) {
                       <p className="mt-1 text-sm text-graphite">{profile.description}</p>
                     ) : null}
                   </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+​
+        {visibleTabs.some((t) => t.id === "gallery") ? (
+          <section
+            id="gallery"
+            ref={(el) => {
+              sectionRefs.current.gallery = el;
+            }}
+            className="scroll-mt-24"
+          >
+            <h2 className="font-display text-2xl font-semibold text-ink">Gallery</h2>
+            <hr className="rule-gold mt-3 w-14" />
+            <ul className="mt-6 grid gap-4 sm:grid-cols-3">
+              {galleryImages.map((image, i) => (
+                <li
+                  key={`${image.url || image}-${i}`}
+                  className="overflow-hidden rounded-lg border border-gold/15 bg-graphite/10"
+                >
+                  <div className="relative aspect-[16/9]">
+                    <EntityImage
+                      src={image.url || image}
+                      alt={image.caption || `Gallery image ${i + 2}`}
+                      label={image.caption}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  </div>
+                  {image.caption ? (
+                    <div className="p-3">
+                      <p className="text-sm text-graphite">{image.caption}</p>
+                    </div>
+                  ) : null}
                 </li>
               ))}
             </ul>

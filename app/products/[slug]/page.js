@@ -55,11 +55,7 @@ export default async function ProductSlugPage({ params }) {
       ? category.images.filter((image) => image?.url)
       : [];
     const heroImage = category.image_url || galleryImages[0]?.url || null;
-    const displayImages = galleryImages.length
-      ? galleryImages
-      : heroImage
-        ? [{ url: heroImage, alt: category.name }]
-        : [];
+    const displayImages = galleryImages.slice(1);  // Skip first image since it's shown in profiles
 
     return (
       <SiteShell>
