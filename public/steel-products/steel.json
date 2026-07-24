@@ -1,0 +1,240 @@
+[
+  {
+    "id": 1,
+    "name": "Round GP Pipe",
+    "slug": "round-gp-pipe",
+    "description": "Round GP Pipes are manufactured from high-quality galvanized steel with a protective zinc coating that provides excellent resistance against rust and corrosion. Widely used in construction, fencing, roofing, water supply, greenhouse structures, and industrial fabrication.",
+    "use_cases": "Construction, fencing, roofing, water supply, greenhouse structures, and industrial fabrication.",
+    "benefits": [
+      "Excellent corrosion resistance",
+      "Long service life",
+      "Low maintenance",
+      "High strength and durability",
+      "Easy to fabricate and weld",
+      "Suitable for indoor and outdoor applications"
+    ],
+    "thickness_options": ["1.0 mm", "1.2 mm", "1.5 mm", "2.0 mm", "2.5 mm", "3.0 mm", "4.0 mm"],
+    "image_url": "/steel-products/Screenshot 2026-07-24 160931.png"
+  },
+  {
+    "id": 2,
+    "name": "Square GP Pipe",
+    "slug": "square-gp-pipe",
+    "description": "Square GP Pipes are galvanized steel hollow sections designed for structural strength and durability. Ideal for gates, railings, furniture, roofing, and fabrication work.",
+    "use_cases": "Gates, railings, furniture, roofing, and fabrication work.",
+    "benefits": [
+      "Zinc-coated for corrosion protection",
+      "Strong structural support",
+      "Smooth surface finish",
+      "Lightweight construction",
+      "Easy fabrication",
+      "Long-lasting performance"
+    ],
+    "thickness_options": ["1.0 mm", "1.2 mm", "1.5 mm", "2.0 mm", "2.5 mm", "3.0 mm", "4.0 mm"],
+    "image_url": "/steel-products/Screenshot 2026-07-24 160954.png"
+  },
+  {
+    "id": 3,
+    "name": "Rectangular GP Pipe",
+    "slug": "rectangular-gp-pipe",
+    "description": "Rectangular GP Pipes provide superior load-bearing capacity and corrosion resistance, making them suitable for industrial sheds, roofing structures, and fabrication projects.",
+    "use_cases": "Industrial sheds, roofing structures, and fabrication projects.",
+    "benefits": [
+      "High structural stability",
+      "Corrosion-resistant coating",
+      "Easy installation",
+      "Cost-effective",
+      "Durable finish",
+      "Suitable for heavy-duty applications"
+    ],
+    "thickness_options": ["1.2 mm", "1.5 mm", "2.0 mm", "2.5 mm", "3.0 mm", "4.0 mm"],
+    "image_url": "/steel-products/Screenshot 2026-07-24 161013.png"
+  },
+  {
+    "id": 4,
+    "name": "Round MS Pipe",
+    "slug": "round-ms-pipe",
+    "description": "Round MS Pipes are manufactured from premium mild steel and are widely used in construction, engineering, industrial fabrication, and mechanical applications.",
+    "use_cases": "Construction, engineering, fabrication, and mechanical applications.",
+    "benefits": [
+      "High tensile strength",
+      "Easy welding and fabrication",
+      "Excellent durability",
+      "Cost-effective",
+      "Heavy load capacity",
+      "Available in multiple sizes"
+    ],
+    "thickness_options": ["1.2 mm", "1.5 mm", "2.0 mm", "2.5 mm", "3.0 mm", "4.0 mm", "5.0 mm", "6.0 mm"],
+    "image_url": "/steel-products/Screenshot 2026-07-24 161031.png"
+  },
+  {
+    "id": 5,
+    "name": "Square MS Pipe",
+    "slug": "square-ms-pipe",
+    "description": "Square MS Pipes are widely used for structural frameworks, gates, furniture, machinery, and industrial construction due to their superior strength and versatility.",
+    "use_cases": "Structural frameworks, gates, furniture, machinery, and industrial construction.",
+    "benefits": [
+      "Excellent structural performance",
+      "Easy machining",
+      "High durability",
+      "Strong load-bearing capability",
+      "Economical solution",
+      "Long service life"
+    ],
+    "thickness_options": ["1.2 mm", "1.5 mm", "2.0 mm", "2.5 mm", "3.0 mm", "4.0 mm", "5.0 mm", "6.0 mm"],
+    "image_url": "/steel-products/Screenshot 2026-07-24 161054.png"
+  },
+  {
+    "id": 6,
+    "name": "Rectangular MS Pipe",
+    "slug": "rectangular-ms-pipe",
+    "description": "Rectangular MS Pipes are ideal for roofing, bridges, industrial buildings, fabrication, and commercial construction projects requiring excellent strength.",
+    "use_cases": "Roofing, bridges, industrial buildings, and commercial construction.",
+    "benefits": [
+      "High mechanical strength",
+      "Excellent weldability",
+      "Smooth finish",
+      "Easy installation",
+      "Durable construction",
+      "Cost-efficient"
+    ],
+    "thickness_options": ["1.2 mm", "1.5 mm", "2.0 mm", "2.5 mm", "3.0 mm", "4.0 mm", "5.0 mm", "6.0 mm"],
+    "image_url": "/steel-products/Screenshot 2026-07-24 161157.png"
+  },
+  {
+    "id": 7,
+    "name": "Round SS Pipe",
+    "slug": "round-ss-pipe",
+    "description": "Round Stainless Steel Pipes are manufactured using premium SS grades such as 304 and 316, offering exceptional corrosion resistance and attractive finishes.",
+    "use_cases": "Architectural, hygienic, and industrial fabrication applications.",
+    "benefits": [
+      "Rust resistant",
+      "Hygienic surface",
+      "Attractive appearance",
+      "Heat resistant",
+      "Long service life",
+      "Minimal maintenance"
+    ],
+    "thickness_options": ["0.8 mm", "1.0 mm", "1.2 mm", "1.5 mm", "2.0 mm", "2.5 mm", "3.0 mm", "4.0 mm"],
+    "image_url": "/steel-products/Screenshot 2026-07-24 161223.png"
+  },
+  {
+    "id": 8,
+    "name": "Square SS Pipe",
+    "slug": "square-ss-pipe",
+    "description": "Square Stainless Steel Pipes are commonly used in architectural projects, railings, food industries, pharmaceutical plants, and decorative applications.",
+    "use_cases": "Architectural, food, pharmaceutical, and decorative applications.",
+    "benefits": [
+      "Premium polished finish",
+      "Superior corrosion resistance",
+      "High durability",
+      "Easy cleaning",
+      "Strong structural support",
+      "Modern appearance"
+    ],
+    "thickness_options": ["0.8 mm", "1.0 mm", "1.2 mm", "1.5 mm", "2.0 mm", "2.5 mm", "3.0 mm", "4.0 mm"],
+    "image_url": "/steel-products/Screenshot 2026-07-24 161244.png"
+  },
+  {
+    "id": 9,
+    "name": "Rectangular SS Pipe",
+    "slug": "rectangular-ss-pipe",
+    "description": "Rectangular Stainless Steel Pipes provide excellent strength and corrosion resistance for industrial, commercial, and decorative applications.",
+    "use_cases": "Industrial, commercial, and decorative structural applications.",
+    "benefits": [
+      "Excellent weather resistance",
+      "High strength",
+      "Attractive finish",
+      "Easy fabrication",
+      "Long-lasting performance",
+      "Low maintenance"
+    ],
+    "thickness_options": ["1.0 mm", "1.2 mm", "1.5 mm", "2.0 mm", "2.5 mm", "3.0 mm", "4.0 mm"],
+    "image_url": "/steel-products/Screenshot 2026-07-24 161311.png"
+  },
+  {
+    "id": 10,
+    "name": "C Purlin",
+    "slug": "c-purlin",
+    "description": "C Purlins are cold-formed steel sections widely used as roof and wall support members in industrial buildings, warehouses, and commercial structures.",
+    "use_cases": "Roof and wall support members for industrial buildings, warehouses, and commercial structures.",
+    "benefits": [
+      "Lightweight design",
+      "High load capacity",
+      "Easy installation",
+      "Corrosion-resistant options",
+      "Cost-effective",
+      "Excellent structural performance"
+    ],
+    "thickness_options": ["1.6 mm", "2.0 mm", "2.5 mm", "3.0 mm"],
+    "image_url": "/steel-products/Screenshot 2026-07-24 161333.png"
+  },
+  {
+    "id": 11,
+    "name": "Z Purlin",
+    "slug": "z-purlin",
+    "description": "Z Purlins are engineered structural members designed for long-span roofing systems, offering superior strength and efficient load distribution.",
+    "use_cases": "Long-span roofing systems and structural roof framing.",
+    "benefits": [
+      "Longer span capability",
+      "Reduced structural weight",
+      "Excellent durability",
+      "Easy overlapping installation",
+      "High strength",
+      "Low maintenance"
+    ],
+    "thickness_options": ["1.6 mm", "2.0 mm", "2.5 mm", "3.0 mm"],
+    "image_url": "/steel-products/Screenshot 2026-07-24 161354.png"
+  },
+  {
+    "id": 12,
+    "name": "Steel Plate",
+    "slug": "steel-plate",
+    "description": "Steel Plates are flat rolled steel products suitable for construction, fabrication, heavy engineering, pressure vessels, bridges, and industrial machinery.",
+    "use_cases": "Construction, fabrication, heavy engineering, pressure vessels, bridges, and industrial machinery.",
+    "benefits": [
+      "High strength",
+      "Excellent durability",
+      "Easy fabrication",
+      "Wear resistant",
+      "Reliable performance",
+      "Wide industrial applications"
+    ],
+    "thickness_options": ["2 mm", "3 mm", "4 mm", "5 mm", "6 mm", "8 mm", "10 mm", "12 mm", "15 mm", "20 mm", "25 mm"],
+    "image_url": "/steel-products/Screenshot 2026-07-24 161414.png"
+  },
+  {
+    "id": 13,
+    "name": "MS Channel",
+    "slug": "ms-channel",
+    "description": "MS Channels are structural steel sections used in construction, industrial fabrication, machinery supports, warehouses, and infrastructure projects.",
+    "use_cases": "Construction, fabrication, machinery supports, warehouses, and infrastructure projects.",
+    "benefits": [
+      "Strong structural support",
+      "Excellent load-bearing capacity",
+      "Easy fabrication",
+      "Durable construction",
+      "Cost-effective",
+      "Versatile applications"
+    ],
+    "thickness_options": ["4 mm", "5 mm", "6 mm", "8 mm", "10 mm", "12 mm"],
+    "image_url": "/steel-products/Screenshot 2026-07-24 161432.png"
+  },
+  {
+    "id": 14,
+    "name": "Steel Beam",
+    "slug": "steel-beam",
+    "description": "Steel Beams, including I Beams and H Beams, are heavy structural members used in commercial buildings, factories, bridges, warehouses, and infrastructure projects where maximum load-bearing strength is required.",
+    "use_cases": "Commercial buildings, factories, bridges, warehouses, and heavy infrastructure.",
+    "benefits": [
+      "Exceptional structural strength",
+      "High load-bearing capacity",
+      "Suitable for long spans",
+      "Excellent durability",
+      "Earthquake-resistant performance",
+      "Ideal for heavy construction"
+    ],
+    "thickness_options": ["Web: 5 mm", "Web: 6 mm", "Web: 8 mm", "Web: 10 mm", "Web: 12 mm", "Web: 16 mm", "Web: 20 mm", "Flange: 7 mm", "Flange: 10 mm", "Flange: 12 mm", "Flange: 14 mm", "Flange: 16 mm", "Flange: 18 mm", "Flange: 20 mm", "Flange: 25 mm", "Flange: 30 mm", "Flange: 35 mm"],
+    "image_url": "/steel-products/Screenshot 2026-07-24 161454.png"
+  }
+]

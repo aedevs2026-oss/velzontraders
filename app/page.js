@@ -5,6 +5,7 @@ import { FeaturedProducts } from "@/components/home/FeaturedProducts";
 import { Hero } from "@/components/home/Hero";
 import { ProjectTypes } from "@/components/home/ProjectTypes";
 import { RoofingAccessoriesSection } from "@/components/home/RoofingAccessoriesSection";
+import { SteelProductsSection } from "@/components/home/SteelProductsSection";
 import { Testimonials } from "@/components/home/Testimonials";
 import { TrustStrip } from "@/components/home/TrustStrip";
 import { FaqSection } from "@/components/ui/FaqSection";
@@ -28,10 +29,13 @@ export default async function HomePage() {
   const phones = resolvePhones(settings, SITE);
 
   const materialProducts = (allProducts || []).filter(
-    (p) => p.category_slug !== "roofing-accessories",
+    (p) => p.category_slug !== "roofing-accessories" && p.category_slug !== "steel-products",
   );
   const accessories = (allProducts || []).filter(
     (p) => p.category_slug === "roofing-accessories",
+  );
+  const steelProducts = (allProducts || []).filter(
+    (p) => p.category_slug === "steel-products",
   );
 
   const featuredProducts = materialProducts.slice(0, 8).map((p) => ({
@@ -105,13 +109,13 @@ export default async function HomePage() {
   };
 
   const teaserBySlug = Object.fromEntries(CATEGORIES.map((c) => [c.slug, c.teaser]));
+  const steelCategory = categories.find((c) => c.slug === "steel-products");
   const categoriesWithTeaser = categories
-    .filter((c) => c.slug !== "roofing-accessories")
+    .filter((c) => c.slug !== "roofing-accessories" && c.slug !== "steel-products")
     .map((c) => ({
       ...c,
       teaser: c.teaser || teaserBySlug[c.slug] || "View specs",
     }));
-
   const projectsWithTeaser = projects.map((p) => ({
     ...p,
     teaser: p.teaser || (p.description ? `${p.description.slice(0, 70)}…` : ""),
@@ -131,6 +135,9 @@ export default async function HomePage() {
         phoneSecondary={settings.phone_secondary}
       />
       <FeaturedMaterials categories={categoriesWithTeaser} />
+      {steelCategory ? (
+        <SteelProductsSection category={steelCategory} products={steelProducts} />
+      ) : null}
       <RoofingAccessoriesSection accessories={accessories} />
       <ProjectTypes projects={projectsWithTeaser} />
       <TrustStrip tagline={settings.tagline} />

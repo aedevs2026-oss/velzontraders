@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+  <rect width="1200" height="750" fill="#FAF8F3"/>
+  <rect x="80" y="90" width="1040" height="570" rx="28" fill="#FFFFFF" stroke="#D4AF37" stroke-width="3"/>
+  <rect x="150" y="180" width="300" height="200" rx="16" fill="#F0C75E" opacity="0.18"/>
+  <rect x="490" y="180" width="500" height="200" rx="16" fill="#FFFFFF" stroke="#B8860B" stroke-width="2"/>
+  <rect x="150" y="420" width="840" height="140" rx="16" fill="#F8F3E3"/>
+  <path d="M220 530 L360 530" stroke="#B8860B" stroke-width="10" stroke-linecap="round"/>
+  <path d="M220 500 L360 500" stroke="#9CA3AF" stroke-width="8" stroke-linecap="round"/>
+  <text x="180" y="260" font-family="Georgia, serif" font-size="44" fill="#111827">Steel</text>
+  <text x="180" y="315" font-family="Georgia, serif" font-size="44" fill="#111827">Products</text>
+  <text x="520" y="240" font-family="Arial, sans-serif" font-size="28" fill="#4B5563">Fabrication-ready</text>
+  <text x="520" y="282" font-family="Arial, sans-serif" font-size="24" fill="#4B5563">Roofing • Cladding • Structural</text>
+  <text x="180" y="490" font-family="Arial, sans-serif" font-size="26" fill="#1F2937">Catalog reference for supply and fabrication across Tamil Nadu</text>
+</svg>

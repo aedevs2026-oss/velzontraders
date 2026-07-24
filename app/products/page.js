@@ -24,12 +24,14 @@ export default async function ProductsPage() {
             description="Browse by category for thicknesses, premium brands, and use cases. Enquire with the product name pre-filled — supply and fabrication across Tamil Nadu."
           />
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {categories.map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/products/${cat.slug}`}
-                className="flex flex-col overflow-hidden rounded-lg border border-gold/15 bg-white shadow-card transition hover:border-gold/40 focus-gold"
-              >
+            {categories
+              .filter((cat) => cat.slug !== "steel-products")
+              .map((cat) => (
+                <Link
+                  key={cat.slug}
+                  href={`/products/${cat.slug}`}
+                  className="flex flex-col overflow-hidden rounded-lg border border-gold/15 bg-white shadow-card transition hover:border-gold/40 focus-gold"
+                >
                 <div className="relative aspect-[16/10] bg-graphite/10">
                   <EntityImage
                     src={cat.image_url}

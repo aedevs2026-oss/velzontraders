@@ -91,7 +91,7 @@ export function ProductsManager({ categories = [], products = [], demo }) {
             <MediaUploader
               key={`cat-media-${editingCategory?.id || "new"}`}
               apiRef={categoryMediaApi}
-              label="Category gallery"
+              label="Category image / gallery"
               maxFiles={8}
               initialImages={
                 editingCategory?.images?.length
