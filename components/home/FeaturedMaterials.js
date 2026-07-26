@@ -1,9 +1,27 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { EntityImage } from "@/components/ui/EntityImage";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function FeaturedMaterials({ categories }) {
+  const [expanded, setExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const updateMobile = (event) => setIsMobile(event.matches);
+    updateMobile(mediaQuery);
+    mediaQuery.addEventListener("change", updateMobile);
+    return () => mediaQuery.removeEventListener("change", updateMobile);
+  }, []);
+
+  const previewCategories = categories.slice(0, 8);
+  const visibleCategories = isMobile ? categories : expanded ? categories : previewCategories;
+  const canExpand = !isMobile && categories.length > previewCategories.length;
+
   return (
     <section className="border-b border-gold/10 bg-ivory py-16 sm:py-20">
       <Container>
@@ -12,8 +30,9 @@ export function FeaturedMaterials({ categories }) {
           title="Featured categories"
           description="Structured thickness options and premium mill brands — managed from our materials desk for supply and fabrication across Tamil Nadu."
         />
+
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {categories.map((cat) => (
+          {visibleCategories.map((cat) => (
             <Link
               key={cat.slug}
               href={`/products/${cat.slug}`}
@@ -38,6 +57,19 @@ export function FeaturedMaterials({ categories }) {
             </Link>
           ))}
         </div>
+
+        {canExpand ? (
+          <div className="mt-8 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setExpanded((value) => !value)}
+              className="inline-flex items-center rounded-full border border-gold/30 bg-white px-5 py-3 text-sm font-semibold text-gold-dark transition hover:border-gold hover:text-gold-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B6508]"
+            >
+              {expanded ? "Show fewer categories" : "View all categories"}
+            </button>
+          </div>
+        ) : null}
+
         <p className="mt-8 text-center">
           <Link href="/products" className="text-sm font-semibold text-gold-dark hover:underline focus-gold">
             Browse all materials →

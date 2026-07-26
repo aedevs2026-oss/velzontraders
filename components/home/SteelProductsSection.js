@@ -2,19 +2,20 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Autoplay, A11y } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { Container } from "@/components/ui/Container";
 import { EntityImage } from "@/components/ui/EntityImage";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
-import "swiper/css";
-
 export function SteelProductsSection({ category, products = [] }) {
-  const [mounted, setMounted] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
-    const animationFrame = window.requestAnimationFrame(() => setMounted(true));
-    return () => window.cancelAnimationFrame(animationFrame);
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const handleChange = (event) => setIsMobile(event.matches);
+    handleChange(mediaQuery);
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
   if (!category) return null;
@@ -24,8 +25,8 @@ export function SteelProductsSection({ category, products = [] }) {
     : Array.isArray(category.images)
       ? category.images.filter((item) => item?.url)
       : [];
-  const displaySlides = slides.length
-    ? slides
+  const previewSlides = slides.length
+    ? slides.slice(0, 4)
     : [
         {
           url: category.image_url || "/steel-products/steel-products-category.svg",
@@ -34,6 +35,9 @@ export function SteelProductsSection({ category, products = [] }) {
           description: category.description || "Project-ready steel materials for fabrication and supply.",
         },
       ];
+  const displaySlides = isMobile ? slides : expanded ? slides : previewSlides;
+  const totalSlides = slides.length;
+  const isExpandable = !isMobile && totalSlides > previewSlides.length;
 
   return (
     <section className="border-b border-gold/10 bg-white py-16 sm:py-20">
@@ -47,49 +51,37 @@ export function SteelProductsSection({ category, products = [] }) {
           }
         />
 
-        {!mounted ? (
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {displaySlides.slice(0, 3).map((item, index) => (
-              <SteelCard key={`${item.url}-${index}`} item={item} />
-            ))}
-          </div>
-        ) : (
-          <div className="mt-10">
-            <Swiper
-              modules={[Autoplay, A11y]}
-              spaceBetween={20}
-              slidesPerView={1.05}
-              loop={displaySlides.length >= 3}
-              speed={700}
-              autoplay={{
-                delay: 3200,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-              }}
-              breakpoints={{
-                640: { slidesPerView: 1.6 },
-                1024: { slidesPerView: 2.4 },
-              }}
-              className="steel-products-home-swiper"
-              aria-label="Steel products"
-            >
-              {displaySlides.map((item, index) => (
-                <SwiperSlide key={`${item.url}-${index}`}>
-                  <SteelCard item={item} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        )}
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {displaySlides.map((item, index) => (
+            <SteelCard key={`${item.url}-${index}`} item={item} />
+          ))}
+        </div>
 
-        <p className="mt-8 text-center">
-          <Link
-            href={products?.[0]?.slug ? `/products/steel/${products[0].slug}` : "/products"}
-            className="text-sm font-semibold text-gold-dark hover:underline focus-gold"
-          >
-            Explore steel product details →
-          </Link>
-        </p>
+        {isMobile ? (
+          <p className="mt-6 text-center text-sm text-graphite/70">
+            Showing all {totalSlides} steel products on mobile.
+          </p>
+        ) : isExpandable ? (
+          <>
+            <p className="mt-6 text-center text-sm text-graphite/70">
+              Showing {expanded ? totalSlides : previewSlides.length} of {totalSlides} steel products.
+            </p>
+            <div className="mt-8 flex justify-center">
+              <button
+                type="button"
+                onClick={() => setExpanded((value) => !value)}
+                className="inline-flex items-center rounded-full border border-gold/30 bg-white px-5 py-3 text-sm font-semibold text-gold-dark transition hover:border-gold hover:text-gold-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B6508]"
+                aria-expanded={expanded}
+              >
+                {expanded ? "Show fewer steel products" : "View all steel products"}
+              </button>
+            </div>
+          </>
+        ) : (
+          <p className="mt-8 text-center text-sm font-semibold text-gold-dark">
+            All steel products are displayed.
+          </p>
+        )}
       </Container>
     </section>
   );
@@ -117,7 +109,7 @@ function SteelCard({ item }) {
             {item.name || "Steel product"}
           </h3>
           {item.description ? (
-            <p className="mt-2 text-sm leading-6 text-graphite">
+            <p className="mt-2 line-clamp-2 text-sm leading-6 text-graphite">
               {item.description}
             </p>
           ) : null}

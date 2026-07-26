@@ -47,7 +47,7 @@ export default async function SteelProductPage({ params }) {
               </li>
               <li aria-hidden="true">/</li>
               <li>
-                <Link href="/products" className="hover:text-gold-dark focus-gold">
+                <Link href="/products/steel" className="hover:text-gold-dark focus-gold">
                   Steel products
                 </Link>
               </li>
