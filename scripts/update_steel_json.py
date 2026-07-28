@@ -1,0 +1,222 @@
+import json
+from pathlib import Path
+
+products = [
+    {
+        "id": 1,
+        "name": "GP Pipe",
+        "slug": "gp-pipe",
+        "description": "Galvanised GP pipes for corrosion-resistant structural support, water piping and fabrication work.",
+        "use_cases": "Construction, fencing, roofing, water supply, greenhouse structures, and fabrication.",
+        "benefits": [
+            "Zinc-coated corrosion protection",
+            "Good weldability",
+            "Strong structural support",
+            "Low maintenance",
+            "Durable service life",
+            "Suitable for indoor and outdoor applications"
+        ],
+        "thickness_options": ["1.0 mm", "1.2 mm", "1.5 mm", "2.0 mm", "2.5 mm", "3.0 mm", "4.0 mm"],
+        "image_url": "/steels/Gp.jpg"
+    },
+    {
+        "id": 2,
+        "name": "MS Pipe",
+        "slug": "ms-pipe",
+        "description": "Mild steel pipes for general fabrication, structural frames and mechanical utility runs.",
+        "use_cases": "Construction, engineering, fabrication, and mechanical applications.",
+        "benefits": [
+            "High tensile strength",
+            "Easy welding and fabrication",
+            "Economical steel stock",
+            "Durable service life",
+            "Versatile section use"
+        ],
+        "thickness_options": ["1.2 mm", "1.5 mm", "2.0 mm", "2.5 mm", "3.0 mm", "4.0 mm", "5.0 mm", "6.0 mm"],
+        "image_url": "/steels/Ms pipe.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Stainless Steel Pipe",
+        "slug": "stainless-steel-pipe",
+        "description": "Stainless steel pipes built for corrosion resistance, hygiene and attractive exposed finishes.",
+        "use_cases": "Architectural, hygienic, food industry, pharmaceutical and industrial applications.",
+        "benefits": [
+            "Premium corrosion resistance",
+            "Hygienic smooth finish",
+            "Long service life",
+            "Low maintenance",
+            "Aesthetic exposed use"
+        ],
+        "thickness_options": ["0.8 mm", "1.0 mm", "1.2 mm", "1.5 mm", "2.0 mm", "2.5 mm", "3.0 mm", "4.0 mm"],
+        "image_url": "/steels/Stainless steel (ss pipe).jpg"
+    },
+    {
+        "id": 4,
+        "name": "MS Round Rod",
+        "slug": "ms-round-rod",
+        "description": "Mild steel round rods for shafts, braces, railings and workshop fabrication.",
+        "use_cases": "Machinery shafts, railings, supports, braces and general fabrication.",
+        "benefits": [
+            "Uniform round section",
+            "Good machining and welding",
+            "Reliable tension performance",
+            "Cost-effective stock",
+            "Versatile workshop use"
+        ],
+        "thickness_options": ["6 mm", "8 mm", "10 mm", "12 mm", "16 mm", "20 mm", "25 mm"],
+        "image_url": "/steels/Ms round rod.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Aluminium Angle",
+        "slug": "aluminium-angle",
+        "description": "Aluminium angles for lightweight framing, façade support and coastal-ready trim.",
+        "use_cases": "Light frames, façades, canopy supports and coastal installations.",
+        "benefits": [
+            "Lightweight construction",
+            "Corrosion resistance",
+            "Easy cutting and fabrication",
+            "Low maintenance",
+            "Good aesthetic finish"
+        ],
+        "thickness_options": ["2.0 mm", "2.5 mm", "3.0 mm", "4.0 mm"],
+        "image_url": "/steels/Aluminium-angle.jpg"
+    },
+    {
+        "id": 6,
+        "name": "MS Angle",
+        "slug": "ms-angle",
+        "description": "Mild steel angles for bracing, frames, supports and fabricated structures.",
+        "use_cases": "Bracing, frames, trusses, stairs and industrial supports.",
+        "benefits": [
+            "Strong right-angle support",
+            "Easy fabrication",
+            "Good load transfer",
+            "Durable steel finish",
+            "Cost-effective supply"
+        ],
+        "thickness_options": ["3.0 mm", "4.0 mm", "5.0 mm", "6.0 mm", "8.0 mm"],
+        "image_url": "/steels/ms-angles.jpg"
+    },
+    {
+        "id": 7,
+        "name": "MS Channel",
+        "slug": "ms-channel",
+        "description": "MS channels are structural steel profiles used in construction, fabrication and machinery support.",
+        "use_cases": "Construction, fabrication, machinery supports, warehouses and infrastructure projects.",
+        "benefits": [
+            "Excellent load-bearing capacity",
+            "Easy fabrication",
+            "Durable construction",
+            "Versatile structural use",
+            "Cost-effective stock"
+        ],
+        "thickness_options": ["4 mm", "5 mm", "6 mm", "8 mm", "10 mm", "12 mm"],
+        "image_url": "/steels/ms-channels.jpg"
+    },
+    {
+        "id": 8,
+        "name": "C Purlin",
+        "slug": "c-purlin",
+        "description": "C purlins are cold-formed support members for roof and wall framing in warehouses, factories and commercial buildings.",
+        "use_cases": "Roof and wall framing for industrial buildings, warehouses, and commercial structures.",
+        "benefits": [
+            "Lightweight section",
+            "High load capacity",
+            "Easy installation",
+            "Good span performance",
+            "Cost-efficient supply"
+        ],
+        "thickness_options": ["1.6 mm", "2.0 mm", "2.5 mm", "3.0 mm"],
+        "image_url": "/steels/C purlin.jpg"
+    },
+    {
+        "id": 9,
+        "name": "Z Purlin",
+        "slug": "z-purlin",
+        "description": "Z purlins are engineered sections for long-span roofing systems with efficient load transfer.",
+        "use_cases": "Long-span roofing systems, structural roof framing and industrial sheds.",
+        "benefits": [
+            "Longer span capability",
+            "Reduced structural weight",
+            "Easy lap installation",
+            "Good wind load performance",
+            "Reliable support section"
+        ],
+        "thickness_options": ["1.6 mm", "2.0 mm", "2.5 mm", "3.0 mm"],
+        "image_url": "/steels/Z purlin .png"
+    },
+    {
+        "id": 10,
+        "name": "I Beam",
+        "slug": "i-beam",
+        "description": "I beams are structural sections used in buildings, factories, warehouses and heavy engineering for strong beam and column applications.",
+        "use_cases": "Commercial buildings, factories, bridges, warehouses and heavy infrastructure.",
+        "benefits": [
+            "Exceptional bending strength",
+            "High load-bearing capacity",
+            "Ideal for long spans",
+            "Excellent fabrication compatibility",
+            "Durable structural performance"
+        ],
+        "thickness_options": [
+            "Web: 5 mm",
+            "Web: 6 mm",
+            "Web: 8 mm",
+            "Web: 10 mm",
+            "Web: 12 mm",
+            "Web: 16 mm",
+            "Web: 20 mm",
+            "Flange: 7 mm",
+            "Flange: 10 mm",
+            "Flange: 12 mm",
+            "Flange: 14 mm",
+            "Flange: 16 mm",
+            "Flange: 18 mm",
+            "Flange: 20 mm",
+            "Flange: 25 mm",
+            "Flange: 30 mm",
+            "Flange: 35 mm"
+        ],
+        "image_url": "/steels/I beams .jpg"
+    },
+    {
+        "id": 11,
+        "name": "H Beam",
+        "slug": "h-beam",
+        "description": "H beams are wide-flange structural members used for columns, frames and heavy load-bearing construction.",
+        "use_cases": "Heavy columns, frames, industrial buildings, bridges and large commercial structures.",
+        "benefits": [
+            "Superior axial load capacity",
+            "Stable column performance",
+            "Excellent beam strength",
+            "Efficient connection design",
+            "Durable long-span support"
+        ],
+        "thickness_options": [
+            "Web: 5 mm",
+            "Web: 6 mm",
+            "Web: 8 mm",
+            "Web: 10 mm",
+            "Web: 12 mm",
+            "Web: 16 mm",
+            "Web: 20 mm",
+            "Flange: 7 mm",
+            "Flange: 10 mm",
+            "Flange: 12 mm",
+            "Flange: 14 mm",
+            "Flange: 16 mm",
+            "Flange: 18 mm",
+            "Flange: 20 mm",
+            "Flange: 25 mm",
+            "Flange: 30 mm",
+            "Flange: 35 mm"
+        ],
+        "image_url": "/steels/H beams .jpg"
+    }
+]
+
+output_path = Path("public/steel-products/steel.json")
+output_path.write_text(json.dumps(products, ensure_ascii=False, indent=2), encoding="utf-8")
+print(f"Wrote {len(products)} steel products to {output_path}")

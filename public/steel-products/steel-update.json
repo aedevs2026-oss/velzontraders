@@ -1,11 +1,11 @@
 [
   {
     "id": 1,
-    "slug": "gp-pipe",
     "name": "GP Pipe",
-    "description": "Galvanised GP pipes for corrosion-resistant structural support, water piping, and fabrication work.",
+    "slug": "gp-pipe",
+    "description": "Galvanised GP pipes for corrosion-resistant structural support, water piping and fabrication work.",
     "use_cases": "Construction, fencing, roofing, water supply, greenhouse structures, and fabrication.",
-    "features": [
+    "benefits": [
       "Zinc-coated corrosion protection",
       "Good weldability",
       "Strong structural support",
@@ -18,11 +18,11 @@
   },
   {
     "id": 2,
-    "slug": "ms-pipe",
     "name": "MS Pipe",
-    "description": "Mild steel pipes for general fabrication, structural frames, and mechanical utility runs.",
+    "slug": "ms-pipe",
+    "description": "Mild steel pipes for general fabrication, structural frames and mechanical utility runs.",
     "use_cases": "Construction, engineering, fabrication, and mechanical applications.",
-    "features": [
+    "benefits": [
       "High tensile strength",
       "Easy welding and fabrication",
       "Economical steel stock",
@@ -34,11 +34,11 @@
   },
   {
     "id": 3,
-    "slug": "stainless-steel-pipe",
     "name": "Stainless Steel Pipe",
-    "description": "Stainless steel pipes built for corrosion resistance, hygiene, and attractive exposed finishes.",
-    "use_cases": "Architectural, hygienic, food industry, pharmaceutical, and industrial applications.",
-    "features": [
+    "slug": "stainless-steel-pipe",
+    "description": "Stainless steel pipes built for corrosion resistance, hygiene and attractive exposed finishes.",
+    "use_cases": "Architectural, hygienic, food industry, pharmaceutical and industrial applications.",
+    "benefits": [
       "Premium corrosion resistance",
       "Hygienic smooth finish",
       "Long service life",
@@ -50,11 +50,11 @@
   },
   {
     "id": 4,
-    "slug": "ms-round-rod",
     "name": "MS Round Rod",
-    "description": "Mild steel round rods for shafts, braces, railings, and workshop fabrication.",
-    "use_cases": "Machinery shafts, railings, supports, braces, and general fabrication.",
-    "features": [
+    "slug": "ms-round-rod",
+    "description": "Mild steel round rods for shafts, braces, railings and workshop fabrication.",
+    "use_cases": "Machinery shafts, railings, supports, braces and general fabrication.",
+    "benefits": [
       "Uniform round section",
       "Good machining and welding",
       "Reliable tension performance",
@@ -66,11 +66,11 @@
   },
   {
     "id": 5,
-    "slug": "aluminium-angle",
     "name": "Aluminium Angle",
-    "description": "Aluminium angles for lightweight framing, façade support, and coastal-ready trim.",
-    "use_cases": "Light frames, façades, canopy supports, and coastal installations.",
-    "features": [
+    "slug": "aluminium-angle",
+    "description": "Aluminium angles for lightweight framing, façade support and coastal-ready trim.",
+    "use_cases": "Light frames, façades, canopy supports and coastal installations.",
+    "benefits": [
       "Lightweight construction",
       "Corrosion resistance",
       "Easy cutting and fabrication",
@@ -82,11 +82,11 @@
   },
   {
     "id": 6,
-    "slug": "ms-angle",
     "name": "MS Angle",
-    "description": "Mild steel angles for bracing, frames, supports, and fabricated structures.",
-    "use_cases": "Bracing, frames, trusses, stairs, and industrial supports.",
-    "features": [
+    "slug": "ms-angle",
+    "description": "Mild steel angles for bracing, frames, supports and fabricated structures.",
+    "use_cases": "Bracing, frames, trusses, stairs and industrial supports.",
+    "benefits": [
       "Strong right-angle support",
       "Easy fabrication",
       "Good load transfer",
@@ -98,11 +98,11 @@
   },
   {
     "id": 7,
-    "slug": "ms-channel",
     "name": "MS Channel",
-    "description": "MS channels are structural steel profiles used in construction, fabrication, and machinery support.",
-    "use_cases": "Construction, fabrication, machinery supports, warehouses, and infrastructure projects.",
-    "features": [
+    "slug": "ms-channel",
+    "description": "MS channels are structural steel profiles used in construction, fabrication and machinery support.",
+    "use_cases": "Construction, fabrication, machinery supports, warehouses and infrastructure projects.",
+    "benefits": [
       "Excellent load-bearing capacity",
       "Easy fabrication",
       "Durable construction",
@@ -114,11 +114,11 @@
   },
   {
     "id": 8,
-    "slug": "c-purlin",
     "name": "C Purlin",
-    "description": "C purlins are cold-formed support members for roof and wall framing in warehouses, factories, and commercial buildings.",
+    "slug": "c-purlin",
+    "description": "C purlins are cold-formed support members for roof and wall framing in warehouses, factories and commercial buildings.",
     "use_cases": "Roof and wall framing for industrial buildings, warehouses, and commercial structures.",
-    "features": [
+    "benefits": [
       "Lightweight section",
       "High load capacity",
       "Easy installation",
@@ -130,11 +130,11 @@
   },
   {
     "id": 9,
-    "slug": "z-purlin",
     "name": "Z Purlin",
+    "slug": "z-purlin",
     "description": "Z purlins are engineered sections for long-span roofing systems with efficient load transfer.",
-    "use_cases": "Long-span roofing systems, structural roof framing, and industrial sheds.",
-    "features": [
+    "use_cases": "Long-span roofing systems, structural roof framing and industrial sheds.",
+    "benefits": [
       "Longer span capability",
       "Reduced structural weight",
       "Easy lap installation",
@@ -146,70 +146,34 @@
   },
   {
     "id": 10,
-    "slug": "i-beam",
     "name": "I Beam",
-    "description": "I beams are structural sections used in buildings, factories, warehouses, and heavy engineering for strong beam and column applications.",
-    "use_cases": "Commercial buildings, factories, bridges, warehouses, and heavy infrastructure.",
-    "features": [
+    "slug": "i-beam",
+    "description": "I beams are structural sections used in buildings, factories, warehouses and heavy engineering for strong beam and column applications.",
+    "use_cases": "Commercial buildings, factories, bridges, warehouses and heavy infrastructure.",
+    "benefits": [
       "Exceptional bending strength",
       "High load-bearing capacity",
       "Ideal for long spans",
       "Excellent fabrication compatibility",
       "Durable structural performance"
     ],
-    "thickness_options": [
-      "Web: 5 mm",
-      "Web: 6 mm",
-      "Web: 8 mm",
-      "Web: 10 mm",
-      "Web: 12 mm",
-      "Web: 16 mm",
-      "Web: 20 mm",
-      "Flange: 7 mm",
-      "Flange: 10 mm",
-      "Flange: 12 mm",
-      "Flange: 14 mm",
-      "Flange: 16 mm",
-      "Flange: 18 mm",
-      "Flange: 20 mm",
-      "Flange: 25 mm",
-      "Flange: 30 mm",
-      "Flange: 35 mm"
-    ],
+    "thickness_options": ["Web: 5 mm", "Web: 6 mm", "Web: 8 mm", "Web: 10 mm", "Web: 12 mm", "Web: 16 mm", "Web: 20 mm", "Flange: 7 mm", "Flange: 10 mm", "Flange: 12 mm", "Flange: 14 mm", "Flange: 16 mm", "Flange: 18 mm", "Flange: 20 mm", "Flange: 25 mm", "Flange: 30 mm", "Flange: 35 mm"],
     "image_url": "/steels/I beams .jpg"
   },
   {
     "id": 11,
-    "slug": "h-beam",
     "name": "H Beam",
-    "description": "H beams are wide-flange structural members used for columns, frames, and heavy load-bearing construction.",
-    "use_cases": "Heavy columns, frames, industrial buildings, bridges, and large commercial structures.",
-    "features": [
+    "slug": "h-beam",
+    "description": "H beams are wide-flange structural members used for columns, frames and heavy load-bearing construction.",
+    "use_cases": "Heavy columns, frames, industrial buildings, bridges and large commercial structures.",
+    "benefits": [
       "Superior axial load capacity",
       "Stable column performance",
       "Excellent beam strength",
       "Efficient connection design",
       "Durable long-span support"
     ],
-    "thickness_options": [
-      "Web: 5 mm",
-      "Web: 6 mm",
-      "Web: 8 mm",
-      "Web: 10 mm",
-      "Web: 12 mm",
-      "Web: 16 mm",
-      "Web: 20 mm",
-      "Flange: 7 mm",
-      "Flange: 10 mm",
-      "Flange: 12 mm",
-      "Flange: 14 mm",
-      "Flange: 16 mm",
-      "Flange: 18 mm",
-      "Flange: 20 mm",
-      "Flange: 25 mm",
-      "Flange: 30 mm",
-      "Flange: 35 mm"
-    ],
+    "thickness_options": ["Web: 5 mm", "Web: 6 mm", "Web: 8 mm", "Web: 10 mm", "Web: 12 mm", "Web: 16 mm", "Web: 20 mm", "Flange: 7 mm", "Flange: 10 mm", "Flange: 12 mm", "Flange: 14 mm", "Flange: 16 mm", "Flange: 18 mm", "Flange: 20 mm", "Flange: 25 mm", "Flange: 30 mm", "Flange: 35 mm"],
     "image_url": "/steels/H beams .jpg"
   }
 ]
