@@ -2,7 +2,7 @@ import { AccessoriesManager } from "@/components/admin/AccessoriesManager";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { requireAdmin } from "@/lib/admin/auth";
 import { CATEGORIES } from "@/lib/constants";
-import { accessoriesAsProducts } from "@/lib/data/accessories-catalog";
+import { accessoriesAsProducts, getAccessoryImageUrl } from "@/lib/data/accessories-catalog";
 
 export const metadata = { title: "Roofing Accessories" };
 
@@ -31,7 +31,7 @@ export default async function AdminAccessoriesPage() {
         image_url:
           p.image_url ||
           p.images?.[0]?.url ||
-          `/products/accessories/${p.slug}.svg`,
+          getAccessoryImageUrl(p.slug),
       }));
     }
   }

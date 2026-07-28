@@ -22,7 +22,7 @@ export function RoofingAccessoriesSection({ accessories = [] }) {
       <Container>
         <SectionHeading
           eyebrow="Complete the system"
-          title="Roofing Accessories"
+          title="Roofing Accessories GI"
           description="Flashings, fasteners, ventilators, and structural fittings that finish metal roofing and cladding — supply across Tamil Nadu."
         />
 

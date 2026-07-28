@@ -25,7 +25,6 @@ const items = [
   ["louvers", "Louvers"],
   ["l-angle", "L Angle"],
   ["z-angle", "Z Angle"],
-  ["cleats", "Cleats"],
   ["sag-rod", "Sag Rod"],
   ["bracing-rod", "Bracing Rod"],
 ];
