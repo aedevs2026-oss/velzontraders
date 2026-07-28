@@ -7,6 +7,24 @@ import { EntityImage } from "@/components/ui/EntityImage";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { findSteelProductBySlug, getProductBySlug } from "@/lib/data/queries";
 
+const STEEL_WORK_IMAGE_MAP = {
+  "gp-pipe": "/steel-work/gp-pipes-work.png",
+  "ms-pipe": "/steel-work/ms-pipes-work.png",
+  "stainless-steel-pipe": "/steel-work/ss-pipe-work.png",
+  "ms-round-rod": "/steel-work/ms-round-rods-work.png",
+  "aluminium-angle": "/steel-work/aluminium-angle-work.png",
+  "ms-angle": "/steel-work/ms-angle-work.png",
+  "ms-channel": "/steel-work/ms-channel-work.png",
+  "c-purlin": "/steel-work/c-purlin-wok.png",
+  "z-purlin": "/steel-work/z-purlin-work.png",
+  "i-beam": "/steel-work/i-beam-work.png",
+  "h-beam": "/steel-work/h-beam-work.png",
+};
+
+function getSteelWorkImage(slug) {
+  return STEEL_WORK_IMAGE_MAP[slug] || null;
+}
+
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const product =
@@ -32,6 +50,9 @@ export default async function SteelProductPage({ params }) {
   if (!product || product.category_slug !== "steel-products") {
     notFound();
   }
+
+  const steelWorkImage = getSteelWorkImage(product.slug);
+  const productImage = steelWorkImage || product.image_url || "/steel-products/steel-products-category.svg";
 
   return (
     <SiteShell>
@@ -63,7 +84,7 @@ export default async function SteelProductPage({ params }) {
             <div className="lg:sticky lg:top-24">
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-gold/15 bg-graphite/5 shadow-card sm:aspect-[3/2] sm:rounded-[2rem] lg:aspect-[4/3]">
                 <EntityImage
-                  src={product.image_url || "/steel-products/steel-products-category.svg"}
+                  src={productImage}
                   alt={`${product.name} — Velzon Trade Enterprises`}
                   label={product.name}
                   sizes="(max-width: 1024px) 100vw, 480px"
