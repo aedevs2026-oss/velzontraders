@@ -18,8 +18,8 @@ const STEEL_WORK_IMAGE_MAP = {
   "ms-channel": "/steel-work/ms-channel-work.png",
   "c-purlin": "/steel-work/c-purlin-wok.png",
   "z-purlin": "/steel-work/z-purlin-work.png",
-  "i-beam": "/steel-work/i-beam-work.png",
-  "h-beam": "/steel-work/h-beam-work.png",
+  "i-beam": "/steel-work/I & H BEAMS work image .png",
+  "h-beam": "/steel-work/I & H BEAMS work image .png",
 };
 
 function getSteelWorkImage(slug) {
