@@ -12,6 +12,7 @@ const STEEL_WORK_IMAGE_MAP = {
   "ms-pipe": "/steel-work/ms-pipes-work.png",
   "stainless-steel-pipe": "/steel-work/ss-pipe-work.png",
   "ms-round-rod": "/steel-work/ms-round-rods-work.png",
+  "ms-plate": "/steel-work/ms-plate-work.png",
   "aluminium-angle": "/steel-work/aluminium-angle-work.png",
   "ms-angle": "/steel-work/ms-angle-work.png",
   "ms-channel": "/steel-work/ms-channel-work.png",
