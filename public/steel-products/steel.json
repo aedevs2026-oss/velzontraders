@@ -3,7 +3,7 @@
     "id": 1,
     "slug": "gp-pipe",
     "name": "GP Pipe",
-    "sort_order": 1,
+    "sort_order": 3,
     "description": "Galvanised GP pipes for corrosion-resistant structural support, water piping, and fabrication work.",
     "use_cases": "Construction, fencing, roofing, water supply, greenhouse structures, and fabrication.",
     "features": [
@@ -133,7 +133,7 @@
     "id": 8,
     "slug": "c-purlin",
     "name": "C Purlin",
-    "sort_order": 2,
+    "sort_order": 1,
     "description": "C purlins are cold-formed support members for roof and wall framing in warehouses, factories, and commercial buildings.",
     "use_cases": "Roof and wall framing for industrial buildings, warehouses, and commercial structures.",
     "features": [
@@ -150,7 +150,7 @@
     "id": 9,
     "slug": "z-purlin",
     "name": "Z Purlin",
-    "sort_order": 3,
+    "sort_order": 2,
     "description": "Z purlins are engineered sections for long-span roofing systems with efficient load transfer.",
     "use_cases": "Long-span roofing systems, structural roof framing, and industrial sheds.",
     "features": [
