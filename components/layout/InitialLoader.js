@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export function InitialLoader() {
@@ -18,13 +17,14 @@ export function InitialLoader() {
       <div className="flex flex-col items-center gap-5 px-6 text-center">
         <div className="relative flex h-48 w-48 items-center justify-center overflow-hidden rounded-full border border-gold/25 bg-white/80 shadow-soft sm:h-56 sm:w-56">
           <div className="absolute inset-0 rounded-full bg-gradient-gold/10" aria-hidden />
-          <Image
-            src="/velzon-hero.png"
-            alt="Velzon loading"
-            width={320}
-            height={320}
+          <video
             className="loader-image relative z-10 h-full w-full rounded-full object-cover"
-            priority
+            src="/loader.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
           />
         </div>
 

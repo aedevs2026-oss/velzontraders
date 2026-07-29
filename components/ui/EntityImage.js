@@ -9,7 +9,15 @@ import { isRemoteImageSrc, isSvgImageSrc, normalizeImageSrc } from "@/lib/media/
  * Next.js 16 image optimizer rejects some Storage DNS/NAT64 resolutions as
  * "private IP" (SSRF guard), which breaks admin-uploaded gallery images.
  */
-export function EntityImage({ src, alt, label, sizes = "100vw", className = "" }) {
+export function EntityImage({
+  src,
+  alt,
+  label,
+  sizes = "100vw",
+  className = "",
+  priority = false,
+  quality = 75,
+}) {
   const resolved = normalizeImageSrc(src);
   if (resolved) {
     return (
@@ -17,6 +25,8 @@ export function EntityImage({ src, alt, label, sizes = "100vw", className = "" }
         src={resolved}
         alt={alt || label || ""}
         fill
+        priority={priority}
+        quality={quality}
         unoptimized={isRemoteImageSrc(resolved) || isSvgImageSrc(resolved)}
         className={`object-cover ${className}`.trim()}
         sizes={sizes}

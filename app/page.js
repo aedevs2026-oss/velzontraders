@@ -1,5 +1,6 @@
 import { SiteShell } from "@/components/layout/SiteShell";
 import { ContactCta } from "@/components/home/ContactCta";
+import { FabricationApproach } from "@/components/home/FabricationApproach";
 import { FeaturedMaterials } from "@/components/home/FeaturedMaterials";
 import { FeaturedProducts } from "@/components/home/FeaturedProducts";
 import { Hero } from "@/components/home/Hero";
@@ -135,6 +136,7 @@ export default async function HomePage() {
         phoneSecondary={settings.phone_secondary}
       />
       <FeaturedMaterials categories={categoriesWithTeaser} />
+      <FabricationApproach />
       {steelCategory ? (
         <SteelProductsSection category={steelCategory} products={steelProducts} />
       ) : null}

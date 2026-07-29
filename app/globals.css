@@ -196,3 +196,9 @@ body {
 .featured-products-swiper .swiper-slide-active {
   transform: translateY(-2px);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .process-step.animate-fade-up {
+    animation: none;
+  }
+}
