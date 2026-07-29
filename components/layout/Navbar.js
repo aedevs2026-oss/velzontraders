@@ -17,7 +17,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 border-b border-gold/20 bg-ivory/95 backdrop-blur-md">
       <Container className="flex h-[4.5rem] items-center justify-between gap-4 sm:h-[5rem]">
         <Link href="/" className="flex items-center rounded-sm focus-gold">
-          <span className="flex h-[3.25rem] w-[150px] shrink-0 items-center justify-center overflow-hidden rounded-md bg-transparent p-0 sm:h-[3.75rem] sm:w-[165px]">
+          <span className="flex h-[4.25rem] w-[150px] shrink-0 items-center justify-center overflow-hidden rounded-md bg-transparent p-0 sm:h-[3.75rem] sm:w-[165px]">
             <Image
               src="/logo.png"
               alt="Velzon Trade Enterprises — Coimbatore"
