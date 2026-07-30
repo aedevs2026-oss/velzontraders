@@ -36,7 +36,7 @@ export function InitialLoader() {
               className="pointer-events-none absolute inset-0 z-[5] m-auto h-20 w-auto max-w-[70%] object-contain opacity-90 sm:h-24 lg:h-28"
             />
             <video
-              className="mt-[94px] h-full w-full object-cover"
+              className="mt-[94px] sm:mt-[145px] h-full w-full object-cover"
               src="/loader.mp4"
               autoPlay
               loop
