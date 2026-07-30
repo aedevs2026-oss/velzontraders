@@ -60,6 +60,7 @@ export function ProductsManager({ categories = [], products = [], demo }) {
         >
           {editingCategory ? <input type="hidden" name="id" value={editingCategory.id} /> : null}
           <input type="hidden" name="image_url" value={editingCategory?.image_url || ""} />
+          <input type="hidden" name="color_image_url" value={editingCategory?.color_image_url || ""} />
           <input
             name="name"
             required
@@ -104,6 +105,33 @@ export function ProductsManager({ categories = [], products = [], demo }) {
                     : []
               }
             />
+          </div>
+          <div className="sm:col-span-2 rounded-md border border-gold/20 bg-ivory/70 p-3">
+            <label className="text-sm font-medium text-ink" htmlFor="category-color-image">
+              Category color image
+            </label>
+            <input
+              id="category-color-image"
+              name="color_image_file"
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/svg+xml"
+              className="mt-2 block w-full text-sm text-graphite file:mr-3 file:rounded file:border-0 file:bg-gold/20 file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-ink"
+            />
+            {editingCategory?.color_image_url ? (
+              <div className="mt-3 flex items-center gap-3">
+                <span className="relative h-12 w-16 shrink-0 overflow-hidden rounded border border-gold/20">
+                  <Image
+                    src={normalizeImageSrc(editingCategory.color_image_url)}
+                    alt=""
+                    fill
+                    unoptimized={isRemoteImageSrc(editingCategory.color_image_url)}
+                    className="object-cover"
+                    sizes="64px"
+                  />
+                </span>
+                <p className="text-xs text-graphite">Existing color image will be replaced if a new one is uploaded.</p>
+              </div>
+            ) : null}
           </div>
           <input
             name="sort_order"

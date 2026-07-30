@@ -55,6 +55,7 @@ export async function upsertCategory(formData) {
   const sort_order = Number(formData.get("sort_order") || 0);
   const is_active = formData.get("is_active") === "on" || formData.get("is_active") === "true";
   let image_url = String(formData.get("image_url") || "").trim() || null;
+  let color_image_url = String(formData.get("color_image_url") || "").trim() || null;
   let images = [];
 
   const meta = parseJsonField(formData, "images_meta", []);
@@ -73,6 +74,13 @@ export async function upsertCategory(formData) {
     }
   }
 
+  const colorImageFile = formData.get("color_image_file");
+  if (colorImageFile && typeof colorImageFile === "object" && colorImageFile.size > 0) {
+    const uploaded = await uploadMediaFile(supabase, colorImageFile, "categories");
+    if (uploaded.error) return { error: uploaded.error };
+    color_image_url = uploaded.url;
+  }
+
   const payload = {
     name,
     slug,
@@ -82,10 +90,12 @@ export async function upsertCategory(formData) {
     image_url,
     ...(images.length ? { images } : {}),
     ...(teaser ? { teaser } : {}),
+    ...(color_image_url ? { color_image_url } : {}),
   };
 
   const fallbackPayload = { name, slug, description, sort_order, is_active, image_url };
   if (teaser) fallbackPayload.teaser = teaser;
+  if (color_image_url) fallbackPayload.color_image_url = color_image_url;
 
   if (id) {
     let { error } = await supabase.from("product_categories").update(payload).eq("id", id);

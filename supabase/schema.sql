@@ -15,6 +15,8 @@ create table if not exists public.product_categories (
   description text not null default '',
   teaser text not null default '',
   images jsonb not null default '[]'::jsonb,
+  image_url text,
+  color_image_url text,
   sort_order int not null default 0,
   is_active boolean not null default true,
   created_at timestamptz not null default now(),

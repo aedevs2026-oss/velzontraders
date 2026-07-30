@@ -4,6 +4,7 @@ import { FabricationApproach } from "@/components/home/FabricationApproach";
 import { FeaturedMaterials } from "@/components/home/FeaturedMaterials";
 import { FeaturedProducts } from "@/components/home/FeaturedProducts";
 import { Hero } from "@/components/home/Hero";
+import { BrandStrip } from "@/components/home/BrandStrip";
 import { ProjectTypes } from "@/components/home/ProjectTypes";
 import { RoofingAccessoriesSection } from "@/components/home/RoofingAccessoriesSection";
 import { SteelProductsSection } from "@/components/home/SteelProductsSection";
@@ -136,12 +137,17 @@ export default async function HomePage() {
         phoneSecondary={settings.phone_secondary}
       />
       <FeaturedMaterials categories={categoriesWithTeaser} />
-      <FabricationApproach />
       {steelCategory ? (
         <SteelProductsSection category={steelCategory} products={steelProducts} />
       ) : null}
       <RoofingAccessoriesSection accessories={accessories} />
+
+            <FabricationApproach />
+            <BrandStrip />
+
       <ProjectTypes projects={projectsWithTeaser} />
+                  <FeaturedProducts products={featuredProducts} />
+
       <TrustStrip tagline={settings.tagline} />
       <Testimonials />
       <FaqSection
@@ -150,7 +156,6 @@ export default async function HomePage() {
         description="Quick answers on service area, materials, and how to reach us."
         className="border-t border-gold/10 bg-ivory py-14 sm:py-16"
       />
-            <FeaturedProducts products={featuredProducts} />
 
       <ContactCta
         phone={settings.phone}

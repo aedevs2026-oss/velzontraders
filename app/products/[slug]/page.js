@@ -64,6 +64,7 @@ export default async function ProductSlugPage({ params }) {
       ? category.images.filter((image) => image?.url)
       : [];
     const heroImage = category.image_url || galleryImages[0]?.url || null;
+    const colorImage = category.color_image_url || heroImage || null;
     const displayImages = galleryImages.slice(1);  // Skip first image since it's shown in profiles
     const isSteelProducts = category.slug === "steel-products";
 
@@ -139,6 +140,33 @@ export default async function ProductSlugPage({ params }) {
               <SteelProductsGallery
                 images={galleryImages.length ? galleryImages : [{ url: heroImage, alt: category.name }]}
               />
+            ) : null}
+
+            {colorImage && !isSteelProducts ? (
+              <div className="mt-8 rounded-2xl border border-gold/15 bg-white p-5 shadow-card sm:p-8">
+                <div className="flex flex-wrap items-end justify-between gap-3">
+                  <div>
+                    <h2 className="font-display text-2xl font-semibold text-ink">
+                      Available Colors
+                    </h2>
+                    <p className="mt-2 max-w-2xl text-sm text-graphite">
+                      The uploaded category color reference image for this range.
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-6 flex justify-center">
+                  <div className="w-full max-w-3xl overflow-hidden rounded-xl border border-gold/15 bg-ivory">
+                    <div className="relative aspect-[21/10] bg-graphite/10">
+                      <EntityImage
+                        src={colorImage}
+                        alt={`${category.name} color reference`}
+                        label={category.name}
+                        sizes="(max-width: 768px) 100vw, 900px"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             ) : null}
 
             {displayImages.length ? (
