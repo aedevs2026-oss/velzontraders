@@ -25,8 +25,9 @@ export function InitialLoader() {
   if (!isMounted || !isLoading) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] overflow-hidden bg-black">
-      <div className="flex h-full w-full items-center justify-center px-4 py-4 sm:px-0 sm:py-0">
+    <div className="fixed inset-0 z-[9999] overflow-hidden bg-[url('/Hero/screen-2.png')] bg-no-repeat bg-center bg-cover sm:bg-black">
+      <div className="absolute inset-0 z-10 bg-white/20 sm:bg-black/80" aria-hidden="true" />
+      <div className="relative z-20 flex h-full w-full items-center justify-center px-4 py-4 sm:px-0 sm:py-0">
         <div className="h-[92vh] w-[92vw] max-h-full max-w-full sm:h-full sm:w-full">
           <video
             className="h-full w-full object-contain sm:object-cover"
