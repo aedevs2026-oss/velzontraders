@@ -10,9 +10,12 @@ import { resolvePhones, whatsappHref } from "@/lib/phone";
 import { getProjects, getSettings } from "@/lib/data/queries";
 
 export const metadata = {
-  title: "Contact",
+  title: "Contact Velzon Trade Enterprises | Roofing Enquiry in Coimbatore",
   description:
-    "Contact Velzon Trade Enterprises in Coimbatore — call +91 96000 65505 or +91 96000 65503 for roofing sheets, PUF panels, and fabrication across Tamil Nadu.",
+    "Contact Velzon Trade Enterprises in Coimbatore for roofing sheets, PUF panels, steel products and fabrication support across Tamil Nadu. Call +91 96000 65505 or +91 96000 65503.",
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 export default async function ContactPage({ searchParams }) {

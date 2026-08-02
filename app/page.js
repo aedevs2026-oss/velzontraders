@@ -1,166 +1,105 @@
 import { SiteShell } from "@/components/layout/SiteShell";
-import { ContactCta } from "@/components/home/ContactCta";
-import { FabricationApproach } from "@/components/home/FabricationApproach";
-import { FeaturedMaterials } from "@/components/home/FeaturedMaterials";
-import { FeaturedProducts } from "@/components/home/FeaturedProducts";
-import { Hero } from "@/components/home/Hero";
-import { BrandStrip } from "@/components/home/BrandStrip";
-import { ProjectTypes } from "@/components/home/ProjectTypes";
-import { RoofingAccessoriesSection } from "@/components/home/RoofingAccessoriesSection";
-import { SteelProductsSection } from "@/components/home/SteelProductsSection";
-import { Testimonials } from "@/components/home/Testimonials";
-import { TrustStrip } from "@/components/home/TrustStrip";
+import { ContactForm } from "@/components/contact/ContactForm";
+import { Button } from "@/components/ui/Button";
+import { Container } from "@/components/ui/Container";
 import { FaqSection } from "@/components/ui/FaqSection";
-import { CATEGORIES, HOME_FAQS, SITE } from "@/lib/constants";
-import { phoneDigits, resolvePhones } from "@/lib/phone";
-import {
-  getCategories,
-  getProducts,
-  getProjects,
-  getSettings,
-} from "@/lib/data/queries";
+import { PhoneLinks } from "@/components/ui/PhoneLinks";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { CONTACT_FAQS, SITE } from "@/lib/constants";
+import { resolvePhones, whatsappHref } from "@/lib/phone";
+import { getProjects, getSettings } from "@/lib/data/queries";
 
-export default async function HomePage() {
-  const [settings, projects, categories, allProducts] = await Promise.all([
-    getSettings(),
-    getProjects(),
-    getCategories(),
-    getProducts(),
-  ]);
+export const metadata = {
+  title: "Contact Velzon Trade Enterprises | Roofing Enquiry in Coimbatore",
+  description:
+    "Contact Velzon Trade Enterprises in Coimbatore for roofing sheets, PUF panels, steel products and fabrication support across Tamil Nadu. Call +91 96000 65505 or +91 96000 65503.",
+  alternates: {
+    canonical: "/contact",
+  },
+};
 
+export default async function ContactPage({ searchParams }) {
+  const params = await searchParams;
+  const product = typeof params?.product === "string" ? params.product : "";
+  const [settings, projects] = await Promise.all([getSettings(), getProjects()]);
   const phones = resolvePhones(settings, SITE);
-
-  const materialProducts = (allProducts || []).filter(
-    (p) => p.category_slug !== "roofing-accessories" && p.category_slug !== "steel-products",
+  const primary = phones[0];
+  const contactAddress = SITE.shortLocation;
+  const wa = whatsappHref(
+    primary?.raw || SITE.phone,
+    "Hello Velzon Trade Enterprises, I would like to enquire about materials."
   );
-  const accessories = (allProducts || []).filter(
-    (p) => p.category_slug === "roofing-accessories",
-  );
-  const steelProducts = (allProducts || []).filter(
-    (p) => p.category_slug === "steel-products",
-  );
-
-  const featuredProducts = materialProducts.slice(0, 8).map((p) => ({
-    ...p,
-    category_name:
-      p.category_name ||
-      categories.find((c) => c.slug === p.category_slug)?.name ||
-      p.category_slug,
-  }));
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: settings.company_name || SITE.name,
-    description:
-      "Roofing material supplier and fabricator in Tamil Nadu — metal roofing sheets, PUF panel supply, and industrial roofing solutions from Coimbatore.",
-    telephone: phones.map((p) => `+91${phoneDigits(p.raw)}`),
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: SITE.shortLocation,
-      addressLocality: "Coimbatore",
-      addressRegion: "Tamil Nadu",
-      addressCountry: "IN",
-      postalCode: "641035",
-    },
-    image: "/logo.png",
-    url: process.env.NEXT_PUBLIC_SITE_URL || "https://velzontrade.com",
-    slogan: settings.tagline || SITE.tagline,
-    foundingDate: SITE.establishedIso,
-    areaServed: {
-      "@type": "State",
-      name: "Tamil Nadu",
-    },
-    knowsAbout: [
-      "Metal Roofing Sheets",
-      "PUF Panel Supplier",
-      "PUF Panel Fabrication",
-      "Industrial Roofing Solutions",
-      "Warehouse Roofing",
-      "Factory Roofing",
-      "Roofing Sheet Fabrication",
-      "Roofing Installation",
-    ],
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Roofing & fabrication materials",
-      itemListElement: [
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Metal roofing sheet supply & fabrication",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "PUF panel supply & fabrication",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Industrial warehouse & factory roofing solutions",
-          },
-        },
-      ],
-    },
-  };
-
-  const teaserBySlug = Object.fromEntries(CATEGORIES.map((c) => [c.slug, c.teaser]));
-  const steelCategory = categories.find((c) => c.slug === "steel-products");
-  const categoriesWithTeaser = categories
-    .filter((c) => c.slug !== "roofing-accessories" && c.slug !== "steel-products")
-    .map((c) => ({
-      ...c,
-      teaser: c.teaser || teaserBySlug[c.slug] || "View specs",
-    }));
-  const projectsWithTeaser = projects.map((p) => ({
-    ...p,
-    teaser: p.teaser || (p.description ? `${p.description.slice(0, 70)}…` : ""),
-  }));
-
-  const homeFaqs = HOME_FAQS;
 
   return (
     <SiteShell>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <Hero
-        tagline={settings.tagline}
-        phone={settings.phone}
-        phoneSecondary={settings.phone_secondary}
-      />
-      <FeaturedMaterials categories={categoriesWithTeaser} />
-      {steelCategory ? (
-        <SteelProductsSection category={steelCategory} products={steelProducts} />
-      ) : null}
-      <RoofingAccessoriesSection accessories={accessories} />
+      <section className="bg-ivory py-14 sm:py-16">
+        <Container>
+          <SectionHeading
+            eyebrow="Get in touch"
+            title="Contact our Coimbatore desk"
+            description={`${SITE.serviceArea}. Share your project type and material needs — we respond with availability and next steps.`}
+          />
 
-            <FabricationApproach />
-            <BrandStrip />
+          <div className="mt-10 grid gap-10 lg:grid-cols-5">
+            <div className="space-y-6 lg:col-span-2">
+              <div className="rounded-lg border border-gold/20 bg-white p-6 shadow-card">
+                <h2 className="font-display text-xl font-semibold text-ink">Call</h2>
+                <div className="mt-3 space-y-1 font-display text-xl font-semibold text-gold-dark sm:text-2xl">
+                  <PhoneLinks
+                    phones={phones}
+                    className="flex flex-col gap-1"
+                    separator=""
+                    linkClassName="focus-gold rounded-sm hover:underline"
+                  />
+                </div>
+                <p className="mt-3 text-sm text-graphite">{contactAddress}</p>
+                <p className="mt-2 text-sm text-graphite">{SITE.serviceArea}</p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <Button href={primary?.href || SITE.phoneHref} size="sm">
+                    Call Now
+                  </Button>
+                  <Button
+                    href={wa}
+                    variant="whatsapp"
+                    size="sm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    WhatsApp
+                  </Button>
+                </div>
+              </div>
 
-      <ProjectTypes projects={projectsWithTeaser} />
-                  <FeaturedProducts products={featuredProducts} />
+              <div className="overflow-hidden rounded-lg border border-gold/20 bg-white shadow-card">
+                <div className="flex aspect-video items-center justify-center bg-graphite/10 p-6 text-center">
+                  <div>
+                    <p className="font-display text-lg font-semibold text-ink">
+                      Map placeholder
+                    </p>
+                    <p className="mt-1 text-sm text-graphite">
+                      Coimbatore, Tamil Nadu — embed Google Maps when address pin is final.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-      <TrustStrip tagline={settings.tagline} />
-      <Testimonials />
+            <div className="rounded-lg border border-gold/20 bg-white p-6 shadow-card lg:col-span-3 sm:p-8">
+              <h2 className="font-display text-2xl font-semibold text-ink">Enquiry form</h2>
+              <hr className="rule-gold mt-3 w-12" />
+              <div className="mt-6">
+                <ContactForm defaultProduct={product} projectTypes={projects} />
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       <FaqSection
-        items={homeFaqs}
+        items={CONTACT_FAQS}
         includeJsonLd
-        description="Quick answers on service area, materials, and how to reach us."
-        className="border-t border-gold/10 bg-ivory py-14 sm:py-16"
-      />
-
-      <ContactCta
-        phone={settings.phone}
-        phoneSecondary={settings.phone_secondary}
-        address={settings.address}
+        title="Before you call"
+        description="Thicknesses, premium brands, and how we work with roofing contractors across Tamil Nadu."
       />
     </SiteShell>
   );

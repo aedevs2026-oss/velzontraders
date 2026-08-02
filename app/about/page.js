@@ -6,9 +6,12 @@ import { SITE } from "@/lib/constants";
 import { getSettings } from "@/lib/data/queries";
 
 export const metadata = {
-  title: "About Us",
+  title: "About Velzon Trade Enterprises | Roofing & Fabrication in Coimbatore",
   description:
-    "Velzon Trade Enterprises — established 11 June 2024 in Coimbatore. Roofing material supplier and fabricator offering supply & fabrication services across Tamil Nadu.",
+    "Coimbatore-based roofing and fabrication materials supplier for Tamil Nadu. We source, customise, and supply metal roofing sheets, PUF panels, steel products and industrial roofing solutions.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 export default async function AboutPage() {
