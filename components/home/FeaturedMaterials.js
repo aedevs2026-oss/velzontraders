@@ -18,9 +18,15 @@ export function FeaturedMaterials({ categories }) {
     return () => mediaQuery.removeEventListener("change", updateMobile);
   }, []);
 
-  const previewCategories = categories.slice(0, 8);
-  const visibleCategories = isMobile ? categories : expanded ? categories : previewCategories;
-  const canExpand = !isMobile && categories.length > previewCategories.length;
+  const hiddenCategorySlugs = new Set(["steel-products", "roofing-accessories", "ridge-gutter-screw"]);
+  const filteredCategories = categories.filter((cat) => {
+    const slug = String(cat?.slug || "").toLowerCase();
+    return !hiddenCategorySlugs.has(slug);
+  });
+
+  const previewCategories = filteredCategories.slice(0, 8);
+  const visibleCategories = isMobile ? filteredCategories : expanded ? filteredCategories : previewCategories;
+  const canExpand = !isMobile && filteredCategories.length > previewCategories.length;
 
   return (
     <section className="border-b border-gold/10 bg-ivory py-16 sm:py-20">
