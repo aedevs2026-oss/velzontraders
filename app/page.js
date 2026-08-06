@@ -1,106 +1,52 @@
 import { SiteShell } from "@/components/layout/SiteShell";
-import { ContactForm } from "@/components/contact/ContactForm";
-import { Button } from "@/components/ui/Button";
-import { Container } from "@/components/ui/Container";
-import { FaqSection } from "@/components/ui/FaqSection";
-import { PhoneLinks } from "@/components/ui/PhoneLinks";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { CONTACT_FAQS, SITE } from "@/lib/constants";
-import { resolvePhones, whatsappHref } from "@/lib/phone";
-import { getProjects, getSettings } from "@/lib/data/queries";
+import { BrandStrip } from "@/components/home/BrandStrip";
+import { ContactCta } from "@/components/home/ContactCta";
+import { FabricationApproach } from "@/components/home/FabricationApproach";
+import { FeaturedMaterials } from "@/components/home/FeaturedMaterials";
+import { FeaturedProducts } from "@/components/home/FeaturedProducts";
+import { Hero } from "@/components/home/Hero";
+import { ProjectTypes } from "@/components/home/ProjectTypes";
+import { RoofingAccessoriesSection } from "@/components/home/RoofingAccessoriesSection";
+import { SteelProductsSection } from "@/components/home/SteelProductsSection";
+import { Testimonials } from "@/components/home/Testimonials";
+import { TrustStrip } from "@/components/home/TrustStrip";
+import { getCategories, getCategoryBySlug, getProducts, getProjects, getSettings } from "@/lib/data/queries";
 
 export const metadata = {
-  title: "Contact Velzon Trade Enterprises | Roofing Enquiry in Coimbatore",
+  title: "Velzon Trade Enterprises | Roofing Sheets & PUF Panels · Coimbatore",
   description:
-    "Contact Velzon Trade Enterprises in Coimbatore for roofing sheets, PUF panels, steel products and fabrication support across Tamil Nadu. Call +91 96000 65505 or +91 96000 65503.",
+    "Coimbatore-based roofing material supplier and fabricator for Tamil Nadu. Metal roofing sheets, PUF panels, fabrication support and site coordination across the state.",
   alternates: {
-    canonical: "/contact",
+    canonical: "/",
   },
 };
 
-export default async function ContactPage({ searchParams }) {
-  const params = await searchParams;
-  const product = typeof params?.product === "string" ? params.product : "";
-  const [settings, projects] = await Promise.all([getSettings(), getProjects()]);
-  const phones = resolvePhones(settings, SITE);
-  const primary = phones[0];
-  const contactAddress = SITE.shortLocation;
-  const wa = whatsappHref(
-    primary?.raw || SITE.phone,
-    "Hello Velzon Trade Enterprises, I would like to enquire about materials."
-  );
+export default async function HomePage() {
+  const [categories, projects, settings, steelCategory, steelProducts, accessories] = await Promise.all([
+    getCategories(),
+    getProjects(),
+    getSettings(),
+    getCategoryBySlug("steel-products"),
+    getProducts("steel-products"),
+    getProducts("roofing-accessories"),
+  ]);
 
   return (
     <SiteShell>
-      <section className="bg-ivory py-14 sm:py-16">
-        <Container>
-          <SectionHeading
-            eyebrow="Get in touch"
-            title="Contact our Coimbatore desk"
-            description={`${SITE.serviceArea}. Share your project type and material needs — we respond with availability and next steps.`}
-          />
+      <Hero phone={settings.phone} phoneSecondary={settings.phone_secondary} />
+      <FeaturedMaterials categories={categories} />
+                  <SteelProductsSection category={steelCategory} products={steelProducts} />
+      <FabricationApproach />
 
-          <div className="mt-10 grid gap-10 lg:grid-cols-5">
-            <div className="space-y-6 lg:col-span-2">
-              <div className="rounded-lg border border-gold/20 bg-white p-6 shadow-card">
-                <h2 className="font-display text-xl font-semibold text-ink">Call</h2>
-                <div className="mt-3 space-y-1 font-display text-xl font-semibold text-gold-dark sm:text-2xl">
-                  <PhoneLinks
-                    phones={phones}
-                    className="flex flex-col gap-1"
-                    separator=""
-                    linkClassName="focus-gold rounded-sm hover:underline"
-                  />
-                </div>
-                <p className="mt-3 text-sm text-graphite">{contactAddress}</p>
-                <p className="mt-2 text-sm text-graphite">{SITE.serviceArea}</p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  <Button href={primary?.href || SITE.phoneHref} size="sm">
-                    Call Now
-                  </Button>
-                  <Button
-                    href={wa}
-                    variant="whatsapp"
-                    size="sm"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    WhatsApp
-                  </Button>
-                </div>
-              </div>
+      <RoofingAccessoriesSection accessories={accessories} />
 
-              <div className="overflow-hidden rounded-lg border border-gold/20 bg-white shadow-card">
-                <div className="flex aspect-video items-center justify-center bg-graphite/10 p-6 text-center">
-                  <div>
-                    <p className="font-display text-lg font-semibold text-ink">
-                      Map placeholder
-                    </p>
-                    <p className="mt-1 text-sm text-graphite">
-                      Coimbatore, Tamil Nadu — embed Google Maps when address pin is final.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+         <BrandStrip />
+      <TrustStrip />
+            <FeaturedProducts />
 
-            <div className="rounded-lg border border-gold/20 bg-white p-6 shadow-card lg:col-span-3 sm:p-8">
-              <h2 className="font-display text-2xl font-semibold text-ink">Enquiry form</h2>
-              <hr className="rule-gold mt-3 w-12" />
-              <div className="mt-6">
-                <ContactForm defaultProduct={product} projectTypes={projects} />
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <FaqSection
-        items={CONTACT_FAQS}
-        includeJsonLd
-        title="Before you call"
-        description="Thicknesses, premium brands, and how we work with roofing contractors across Tamil Nadu."
-      />
+      <ProjectTypes projects={projects} />
+      <Testimonials />
+      <ContactCta phone={settings.phone} phoneSecondary={settings.phone_secondary} />
     </SiteShell>
   );
 }
