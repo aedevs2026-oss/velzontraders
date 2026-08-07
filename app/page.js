@@ -35,16 +35,12 @@ export default async function HomePage() {
     <SiteShell>
       <Hero phone={settings.phone} phoneSecondary={settings.phone_secondary} />
             <FabricationApproach />
-
+       <BrandStrip />
       <FeaturedMaterials categories={categories} />
-                  <SteelProductsSection category={steelCategory} products={steelProducts} />
-
+     <SteelProductsSection category={steelCategory} products={steelProducts} />
       <RoofingAccessoriesSection accessories={accessories} />
-
-         <BrandStrip />
       <TrustStrip />
             <FeaturedProducts />
-
       <ProjectTypes projects={projects} />
       <Testimonials />
       <ContactCta phone={settings.phone} phoneSecondary={settings.phone_secondary} />

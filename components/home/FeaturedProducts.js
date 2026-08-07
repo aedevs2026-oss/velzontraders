@@ -27,19 +27,19 @@
 import { useId, useRef, useState, useEffect } from "react";
 
 const materials = [
-  {
+   {
     code: "MATL.01",
-    title: "Puff sheet range",
-    eyebrow: "Fabrication-ready supply",
+    title: "Complete roofing support",
+    eyebrow: "From supply to guidance",
     description:
-      "Premium puff sheet options with dependable thickness availability for warehouse, industrial, and commercial roofing systems.",
+      "We help clients select the right material, finish, and brand profile for factory roofs, workshops, and modern commercial builds.",
     specs: [
-      { label: "Width", value: "1080 mm" },
-      { label: "Function", value: "Insulation support" },
-      { label: "Supply", value: "Fabrication-ready" },
+      { label: "Guidance", value: "Material + brand fit" },
+      { label: "Turnaround", value: "Fast quotes" },
+      { label: "Coverage", value: "Tamil Nadu" },
     ],
-    brands: ["Metecno India Pvt Ltd", "Alfaa India Pvt Ltd", "Mount India Pvt Ltd"],
-    cta: "Explore puff sheets",
+    brands: ["Warehouse roofing", "Retail & WFH structures", "Shops & franchisee projects"],
+    cta: "Request a quote",
   },
   {
     code: "MATL.02",
@@ -60,22 +60,9 @@ const materials = [
     ],
     cta: "View brand options",
   },
+ 
   {
     code: "MATL.03",
-    title: "Complete roofing support",
-    eyebrow: "From supply to guidance",
-    description:
-      "We help clients select the right material, finish, and brand profile for factory roofs, workshops, and modern commercial builds.",
-    specs: [
-      { label: "Guidance", value: "Material + brand fit" },
-      { label: "Turnaround", value: "Fast quotes" },
-      { label: "Coverage", value: "Tamil Nadu" },
-    ],
-    brands: ["Warehouse roofing", "Retail & WFH structures", "Shops & franchisee projects"],
-    cta: "Request a quote",
-  },
-  {
-    code: "MATL.04",
     title: "Steel materials",
     eyebrow: "Structural supply",
     description:
@@ -87,6 +74,20 @@ const materials = [
     ],
     brands: ["JSW Steel", "Tata Steel", "SAIL"],
     cta: "Enquire on steel",
+  },
+    {
+    code: "MATL.04",
+    title: "Puff sheet range",
+    eyebrow: "Fabrication-ready supply",
+    description:
+      "Premium puff sheet options with dependable thickness availability for warehouse, industrial, and commercial roofing systems.",
+    specs: [
+      { label: "Width", value: "1080 mm" },
+      { label: "Function", value: "Insulation support" },
+      { label: "Supply", value: "Fabrication-ready" },
+    ],
+    brands: ["Metecno India Pvt Ltd", "Alfaa India Pvt Ltd", "Mount India Pvt Ltd"],
+    cta: "Explore puff sheets",
   },
 ];
 

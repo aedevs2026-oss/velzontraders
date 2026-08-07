@@ -2,12 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import heroScreen from "../../public/Hero/screen.png";
-import heroScreenTwo from "../../public/Hero/screen-2.png";
-import heroScreenThree from "../../public/Hero/screen-3.png";
-import { Button } from "@/components/ui/Button";
-import { Container } from "@/components/ui/Container";
-import { PhoneLinks } from "@/components/ui/PhoneLinks";
+import heroScreen from "../../public/Hero/hero-1.png";
+import heroScreenTwo from "../../public/Hero/hero-2.png";
+import heroScreenThree from "../../public/Hero/hero-3.png";
 import { SITE } from "@/lib/constants";
 import { resolvePhones } from "@/lib/phone";
 
@@ -82,7 +79,7 @@ export function Hero({
   };
 
   return (
-    <section className="relative overflow-hidden border-b border-gold/15 bg-ivory">
+    <section className="relative overflow-hidden bg-ivory">
       <div
         className="pointer-events-none absolute inset-0 opacity-40"
         style={{
@@ -92,133 +89,78 @@ export function Hero({
         aria-hidden
       />
 
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
-        aria-hidden
-      />
-
-      <div className="relative overflow-hidden">
-        <div
-          className="flex transition-transform duration-[900ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
-          style={{
-            width: `${heroSlides.length * 100}%`,
-            transform: `translateX(-${activeSlide * (100 / heroSlides.length)}%)`,
-          }}
-        >
-          {heroSlides.map((s, index) => (
-            <div
-              key={s.tagline}
-              className="w-full flex-shrink-0"
-              style={{ width: `${100 / heroSlides.length}%` }}
-              aria-hidden={index !== activeSlide}
-            >
-              <Container className="grid items-center gap-10 py-16 sm:py-24 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:py-28">
-                <div>
-                  <div className="flex items-center gap-3">
-                    <span className="h-px w-8 bg-gold-dark/60" aria-hidden />
-                    <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-gold-dark">
-                      {s.eyebrow}
-                    </p>
-                  </div>
-
-                  <div className="mt-5">
-                    <h1 className="font-display text-4xl font-bold leading-[1.05] tracking-wide text-ink sm:text-5xl lg:text-[3.4rem]">
-                      <span className="text-gradient-gold">{s.heading}</span>
-                    </h1>
-                    <p className="mt-2 text-sm font-medium uppercase tracking-[0.24em] text-graphite/80">
-                      {s.subheading}
-                    </p>
-                  </div>
-
-                  <p className="mt-6 max-w-lg font-display text-lg font-semibold leading-snug text-charcoal sm:text-xl">
-                    {s.tagline}
-                  </p>
-
-                  <p className="mt-4 max-w-xl text-[0.975rem] leading-relaxed text-graphite sm:text-base">
-                    {s.description}
-                  </p>
-
-                  <div className="mt-9 flex flex-wrap items-center gap-4">
-                    <Button href="/contact" size="lg">
-                      Get a Quote
-                    </Button>
-                    <Button href={primaryHref} variant="secondary" size="lg">
-                      Call Now
-                    </Button>
-                  </div>
-
-                  <div className="mt-6 flex items-center gap-3 text-sm text-graphite">
-                    <span className="h-px w-4 bg-gold/40" aria-hidden />
-                    <PhoneLinks
-                      phones={phones}
-                      linkClassName="font-medium text-gold-dark hover:underline focus-gold rounded-sm"
-                    />
-                  </div>
+      <div className="relative w-full max-w-none">
+        <div className="relative w-full overflow-hidden bg-transparent">
+          <div
+            className="flex transition-transform duration-[900ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
+            style={{
+              width: `${heroSlides.length * 100}%`,
+              transform: `translateX(-${activeSlide * (100 / heroSlides.length)}%)`,
+            }}
+          >
+            {heroSlides.map((slide, index) => (
+              <div
+                key={slide.imageAlt}
+                className="w-full flex-shrink-0"
+                style={{ width: `${100 / heroSlides.length}%` }}
+                aria-hidden={index !== activeSlide}
+              >
+                {/*
+                  Fixed height strategy:
+                  - w-full (not w-screen) avoids horizontal overflow from scrollbar width.
+                  - h-[70dvh] on mobile portrait uses dynamic viewport height so the
+                    image doesn't jump when the browser address bar shows/hides.
+                  - min-h / max-h caps stop the image from being too short (small phones)
+                    or absurdly tall (large desktop monitors).
+                  - sm: breakpoint gives a taller, more "hero-like" crop on tablet/desktop.
+                  - landscape: variant caps height so mobile landscape doesn't crop
+                    the image down to a thin sliver with object-cover.
+                */}
+                <div className="hero-image-container">
+                   <Image
+    src={slide.image}
+    alt={slide.imageAlt}
+    fill
+    priority={index === 0}
+    sizes="100vw"
+    className="hero-image"
+  />
                 </div>
+              </div>
+            ))}
+          </div>
 
-                <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-                  <div className="absolute -inset-4 rounded-full bg-gradient-gold opacity-[0.15] blur-3xl" aria-hidden />
+          <button
+            type="button"
+            onClick={goPrev}
+            aria-label="Previous slide"
+            className="group absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-gold/25 bg-ivory/80 p-2.5 shadow-soft backdrop-blur transition-all duration-300 hover:border-gold-dark/50 hover:bg-ivory focus-gold sm:left-5 sm:p-3"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-ink transition-transform duration-300 group-hover:-translate-x-0.5">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
 
-                  <div className="relative">
-                    <span className="absolute -left-2 -top-2 h-6 w-6 rounded-tl-2xl border-l-2 border-t-2 border-gold-dark/50 sm:h-8 sm:w-8" aria-hidden />
-                    <span className="absolute -right-2 -top-2 h-6 w-6 rounded-tr-2xl border-r-2 border-t-2 border-gold-dark/50 sm:h-8 sm:w-8" aria-hidden />
-                    <span className="absolute -bottom-2 -left-2 h-6 w-6 rounded-bl-2xl border-b-2 border-l-2 border-gold-dark/50 sm:h-8 sm:w-8" aria-hidden />
-                    <span className="absolute -bottom-2 -right-2 h-6 w-6 rounded-br-2xl border-b-2 border-r-2 border-gold-dark/50 sm:h-8 sm:w-8" aria-hidden />
-
-                    <div className="relative overflow-hidden rounded-[2rem] border border-gold/25 bg-white/40 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:rounded-[2.5rem]">
-                      <div className="relative aspect-square w-full max-w-[28rem] mx-auto sm:max-w-[32rem]">
-                        <Image
-                          src={s.image}
-                          alt={s.imageAlt}
-                          fill
-                          sizes="(min-width: 1024px) 32rem, 90vw"
-                          className="object-contain object-center"
-                          priority={index === 0}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Container>
-            </div>
-          ))}
+          <button
+            type="button"
+            onClick={goNext}
+            aria-label="Next slide"
+            className="group absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-gold/25 bg-ivory/80 p-2.5 shadow-soft backdrop-blur transition-all duration-300 hover:border-gold-dark/50 hover:bg-ivory focus-gold sm:right-5 sm:p-3"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-ink transition-transform duration-300 group-hover:translate-x-0.5">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
         </div>
 
-        <button
-          type="button"
-          onClick={goPrev}
-          aria-label="Previous slide"
-          className="hidden group absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-gold/25 bg-ivory/70 p-2.5 shadow-soft backdrop-blur transition-all duration-300 hover:border-gold-dark/50 hover:bg-ivory focus-gold sm:left-5 sm:p-3"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-ink transition-transform duration-300 group-hover:-translate-x-0.5">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
-        <button
-          type="button"
-          onClick={goNext}
-          aria-label="Next slide"
-          className="hidden group absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-gold/25 bg-ivory/70 p-2.5 shadow-soft backdrop-blur transition-all duration-300 hover:border-gold-dark/50 hover:bg-ivory focus-gold sm:right-5 sm:p-3"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-ink transition-transform duration-300 group-hover:translate-x-0.5">
-            <path d="M9 18l6-6-6-6" />
-          </svg>
-        </button>
-      </div>
-
-      <div className="relative flex items-center justify-center gap-5 pb-9">
-        <span className="font-display text-xs tabular-nums tracking-widest text-graphite/70">
-          {String(activeSlide + 1).padStart(2, "0")}
-        </span>
-
-        <div className="flex gap-2">
-          {heroSlides.map((s, index) => (
+        <div className="mt-4 flex items-center justify-center gap-2 pb-4 sm:gap-3 sm:pb-5">
+          {heroSlides.map((slide, index) => (
             <button
-              key={s.tagline}
+              key={slide.imageAlt}
               type="button"
               onClick={() => goToSlide(index)}
               aria-label={`Go to slide ${index + 1}`}
-              className="group relative h-1.5 w-10 overflow-hidden rounded-full bg-gold/15 focus-gold"
+              className="group relative h-1.5 w-8 overflow-hidden rounded-full bg-gold/15 focus-gold sm:w-10"
             >
               {index === activeSlide && (
                 <span
@@ -235,22 +177,46 @@ export function Hero({
             </button>
           ))}
         </div>
-
-        <span className="font-display text-xs tabular-nums tracking-widest text-graphite/40">
-          {String(heroSlides.length).padStart(2, "0")}
-        </span>
       </div>
 
-      <style jsx>{`
-        @keyframes heroProgress {
-          from {
-            width: 0%;
-          }
-          to {
-            width: 100%;
-          }
-        }
-      `}</style>
+<style jsx>{`
+  @keyframes heroProgress {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  .hero-image-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .hero-image {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Mobile only */
+  @media (max-width: 640px) {
+    .hero-image-container {
+      height: 28vh;
+    }
+  }
+
+  /* Landscape mode */
+  @media (orientation: landscape) {
+    .hero-image {
+      object-fit: contain;
+      background: #fff;
+    }
+  }
+`}</style>
     </section>
   );
 }
