@@ -24,6 +24,7 @@
  * this into the Next.js app.
  */
 
+import { ArrowRight } from "lucide-react";
 import { useId, useRef, useState, useEffect } from "react";
 
 const materials = [
@@ -356,8 +357,8 @@ export default function FeaturedProducts() {
               href="#contact"
               className="mt-6 inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-gold-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
             >
-              {material.cta}
-              <span aria-hidden="true">→</span>
+              <span>{material.cta}</span>
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </a>
           </div>
         </div>
@@ -371,9 +372,10 @@ export default function FeaturedProducts() {
           </a>
           <a
             href="#products"
-            className="rounded-full border border-gold/20 bg-white px-5 py-3 text-sm font-semibold text-gold-dark transition hover:border-gold-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+            className="inline-flex items-center gap-2 rounded-full border border-gold/20 bg-white px-5 py-3 text-sm font-semibold text-gold-dark transition hover:border-gold-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
           >
-            View all materials →
+            <span>View all materials</span>
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </a>
         </div>
       </div>

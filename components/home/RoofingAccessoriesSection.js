@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Autoplay, A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -64,9 +65,10 @@ export function RoofingAccessoriesSection({ accessories = [] }) {
         <p className="mt-8 text-center">
           <Link
             href="/products/roofing-accessories"
-            className="text-sm font-semibold text-gold-dark hover:underline focus-gold"
+            className="inline-flex items-center justify-center gap-1 text-sm font-semibold text-gold-dark hover:underline focus-gold"
           >
-            View all roofing accessories →
+            <span>View all roofing accessories</span>
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </p>
       </Container>

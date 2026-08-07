@@ -7,7 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { EntityImage } from "@/components/ui/EntityImage";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FABRICATION_APPROACH } from "@/lib/constants";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 
 export function FabricationApproach({
   content = FABRICATION_APPROACH,
@@ -54,9 +54,10 @@ export function FabricationApproach({
               </Button>
               <Link
                 href="/contact"
-                className="text-sm font-semibold text-gold-dark hover:underline focus-gold rounded-sm"
+                className="inline-flex items-center gap-1 text-sm font-semibold text-gold-dark hover:underline focus-gold rounded-sm"
               >
-                Start your enquiry →
+                <span>Start your enquiry</span>
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>
 
@@ -103,9 +104,18 @@ export function FabricationApproach({
                 <p className="mt-2 font-display text-2xl font-semibold text-white">
                   {steps.length} documented stages
                 </p>
-                <p className="mt-2 text-sm text-white/85">
-                  Enquiry → specification → fabrication → site-ready delivery
-                </p>
+                <div className="mt-2 flex flex-wrap items-center gap-2 text-sm text-white/85">
+                  <span className="inline-flex items-center gap-1">
+                    <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                    <span>Enquiry</span>
+                  </span>
+                  <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                  <span>Specification</span>
+                  <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                  <span>Fabrication</span>
+                  <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                  <span>Site-ready delivery</span>
+                </div>
               </div>
             </div>
             <div className="mt-4 flex items-center justify-center gap-3 sm:justify-start">

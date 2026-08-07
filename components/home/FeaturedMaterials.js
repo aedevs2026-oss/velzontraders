@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { EntityImage } from "@/components/ui/EntityImage";
@@ -77,8 +78,9 @@ export function FeaturedMaterials({ categories }) {
         ) : null}
 
         <p className="mt-8 text-center">
-          <Link href="/products" className="text-sm font-semibold text-gold-dark hover:underline focus-gold">
-            Browse all materials →
+          <Link href="/products" className="inline-flex items-center justify-center gap-1 text-sm font-semibold text-gold-dark hover:underline focus-gold">
+            <span>Browse all materials</span>
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </p>
       </Container>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import heroScreen from "../../public/Hero/hero-1.png";
 import heroScreenTwo from "../../public/Hero/hero-2.png";
 import heroScreenThree from "../../public/Hero/hero-3.png";
@@ -136,9 +137,10 @@ export function Hero({
             aria-label="Previous slide"
             className="group absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-gold/25 bg-ivory/80 p-2.5 shadow-soft backdrop-blur transition-all duration-300 hover:border-gold-dark/50 hover:bg-ivory focus-gold sm:left-5 sm:p-3"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-ink transition-transform duration-300 group-hover:-translate-x-0.5">
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
+            <ChevronLeft
+              className="h-4 w-4 text-ink transition-transform duration-300 group-hover:-translate-x-0.5"
+              aria-hidden="true"
+            />
           </button>
 
           <button
@@ -147,9 +149,10 @@ export function Hero({
             aria-label="Next slide"
             className="group absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-gold/25 bg-ivory/80 p-2.5 shadow-soft backdrop-blur transition-all duration-300 hover:border-gold-dark/50 hover:bg-ivory focus-gold sm:right-5 sm:p-3"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-ink transition-transform duration-300 group-hover:translate-x-0.5">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
+            <ChevronRight
+              className="h-4 w-4 text-ink transition-transform duration-300 group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
           </button>
         </div>
 

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { EntityImage } from "@/components/ui/EntityImage";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -37,8 +38,9 @@ export function ProjectTypes({ projects }) {
                       ? `${project.description.slice(0, 90)}…`
                       : "")}
                 </p>
-                <span className="mt-4 text-sm font-semibold text-gold-dark">
-                  View details →
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-gold-dark">
+                  <span>View details</span>
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </span>
               </div>
             </Link>
