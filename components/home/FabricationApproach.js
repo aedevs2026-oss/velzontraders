@@ -1,14 +1,34 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { EntityImage } from "@/components/ui/EntityImage";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FABRICATION_APPROACH } from "@/lib/constants";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export function FabricationApproach({
   content = FABRICATION_APPROACH,
 }) {
   const { eyebrow, title, summary, intro, steps } = content;
+  const [activeStepIndex, setActiveStepIndex] = useState(0);
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setActiveStepIndex((current) => (current + 1) % steps.length);
+    }, 6000);
+
+    return () => window.clearInterval(intervalId);
+  }, [steps.length]);
+
+  const activeImage = steps[activeStepIndex];
+
+  const goPrev = () =>
+    setActiveStepIndex((current) => (current - 1 + steps.length) % steps.length);
+  const goNext = () =>
+    setActiveStepIndex((current) => (current + 1) % steps.length);
 
   return (
     <section
@@ -58,7 +78,9 @@ export function FabricationApproach({
                 </li>
               ))}
               <li className="flex items-center justify-center rounded-lg border border-dashed border-gold/25 bg-ivory/40 px-4 py-3 text-sm text-graphite">
-                + {steps.length - 4} more steps on the full journey page
+                <Link href="/fabrication-approach" className="w-full text-center font-semibold text-graphite hover:text-ink">
+                  + {steps.length - 4} more steps on the full journey page
+                </Link>
               </li>
             </ol>
           </div>
@@ -66,8 +88,8 @@ export function FabricationApproach({
           <div className="relative">
             <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-gold/20 bg-ivory shadow-soft">
               <EntityImage
-                src={steps[0].image_url}
-                alt={steps[0].image_alt}
+                src={activeImage.image_url}
+                alt={activeImage.image_alt}
                 label="Fabrication approach"
                 sizes="(max-width: 768px) 100vw, 45vw"
                 priority
@@ -85,6 +107,27 @@ export function FabricationApproach({
                   Enquiry → specification → fabrication → site-ready delivery
                 </p>
               </div>
+            </div>
+            <div className="mt-4 flex items-center justify-center gap-3 sm:justify-start">
+              <button
+                type="button"
+                onClick={goPrev}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gold/30 bg-white text-ink shadow-soft transition hover:border-gold hover:text-gold"
+                aria-label="Previous fabrication step"
+              >
+                <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+              </button>
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-graphite">
+                Step {activeImage.step} of {steps.length}
+              </span>
+              <button
+                type="button"
+                onClick={goNext}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gold/30 bg-white text-ink shadow-soft transition hover:border-gold hover:text-gold"
+                aria-label="Next fabrication step"
+              >
+                <ChevronRight className="h-4 w-4" aria-hidden="true" />
+              </button>
             </div>
           </div>
         </div>

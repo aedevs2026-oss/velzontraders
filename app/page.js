@@ -3,7 +3,7 @@ import { BrandStrip } from "@/components/home/BrandStrip";
 import { ContactCta } from "@/components/home/ContactCta";
 import { FabricationApproach } from "@/components/home/FabricationApproach";
 import { FeaturedMaterials } from "@/components/home/FeaturedMaterials";
-import { FeaturedProducts } from "@/components/home/FeaturedProducts";
+import FeaturedProducts from "@/components/home/FeaturedProducts";
 import { Hero } from "@/components/home/Hero";
 import { ProjectTypes } from "@/components/home/ProjectTypes";
 import { RoofingAccessoriesSection } from "@/components/home/RoofingAccessoriesSection";
@@ -34,9 +34,10 @@ export default async function HomePage() {
   return (
     <SiteShell>
       <Hero phone={settings.phone} phoneSecondary={settings.phone_secondary} />
+            <FabricationApproach />
+
       <FeaturedMaterials categories={categories} />
                   <SteelProductsSection category={steelCategory} products={steelProducts} />
-      <FabricationApproach />
 
       <RoofingAccessoriesSection accessories={accessories} />
 

@@ -1,26 +1,30 @@
 "use client";
 
-import Link from "next/link";
-import { useId, useRef, useState } from "react";
-import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-
 /**
- * Colours reuse the site's existing design tokens (bg-ivory, text-graphite,
- * text-gold-dark, bg-gradient-gold, text-ink, border-gold) so this section
- * sits consistently with the rest of the page instead of introducing a new
- * palette. The SVG diagram can't take Tailwind classes directly for its
- * stroke/fill, so it uses #B8860B — the same gold-dark hex already used in
- * the site's hero gradient — to stay on-brand.
+ * FEATURED PRODUCTS — "Materials Index" layout
+ * ------------------------------------------------------------------
+ * Light theme, restructured from a tabbed rail + panel into a
+ * horizontal "sample strip" selector sitting above a full-width
+ * datasheet, framed top and bottom by a corrugated-sheet divider —
+ * the one signature motif, since the subject is literally corrugated
+ * roofing sheet. Everything else (paper background, quiet type,
+ * hairline rules) stays deliberately restrained around it.
  *
- * ACCESSIBILITY NOTE: #B8860B on white/ivory is only ~3.25:1 contrast, which
- * fails WCAG AA (4.5:1) for regular-size text. It's kept for the decorative
- * diagram strokes and large CTA surfaces, but every small mono label now
- * uses TEXT_GOLD (#8B6508, ~5.3:1) instead so labels stay legible.
+ * Palette uses Tailwind's stock swatches only:
+ *   paper   stone-50 / stone-100
+ *   panel   white
+ *   ink     stone-900
+ *   muted   stone-500 / stone-600
+ *   line    stone-200
+ *   accent  orange-700 / orange-800 (rust — the one bold color)
+ *
+ * This file is written as a standalone artifact preview: next/link
+ * and the site's Container/SectionHeading wrappers are swapped for
+ * plain <a> / <div> equivalents. Swap them back in when you drop
+ * this into the Next.js app.
  */
 
-const GOLD_DARK = "#B8860B";
-const TEXT_GOLD = "#8B6508"; // AA-safe gold for small text (eyebrows, specs, codes)
+import { useId, useRef, useState, useEffect } from "react";
 
 const materials = [
   {
@@ -30,7 +34,7 @@ const materials = [
     description:
       "Premium puff sheet options with dependable thickness availability for warehouse, industrial, and commercial roofing systems.",
     specs: [
-      { label: "Thickness", value: "1080 mm" },
+      { label: "Width", value: "1080 mm" },
       { label: "Function", value: "Insulation support" },
       { label: "Supply", value: "Fabrication-ready" },
     ],
@@ -44,19 +48,13 @@ const materials = [
     description:
       "Choose from leading roofing sheet brands that match finish preferences, project specs, and long-term performance expectations.",
     specs: [
-      { label: "Thickness", value: "1100 mm" },
+      { label: "Width", value: "1100 mm" },
       { label: "Mills", value: "JSW · Tata · AMNS · Jindal" },
       { label: "Finish", value: "Colour-coated" },
     ],
     brands: [
-      {
-        name: "JSW",
-        subBrands: ["Silveron", "Colouron+", "JSW Steel", "Pragati", "Pragati+"],
-      },
-      {
-        name: "Tata",
-        subBrands: ["Tata Steel", "Tata BlueScope", "Tata Busion"],
-      },
+      { name: "JSW", subBrands: ["Silveron", "Colouron+", "JSW Steel", "Pragati", "Pragati+"] },
+      { name: "Tata", subBrands: ["Tata Steel", "Tata BlueScope", "Tata Busion"] },
       { name: "AMNS India" },
       { name: "Jindal" },
     ],
@@ -76,24 +74,39 @@ const materials = [
     brands: ["Warehouse roofing", "Retail & WFH structures", "Shops & franchisee projects"],
     cta: "Request a quote",
   },
+  {
+    code: "MATL.04",
+    title: "Steel materials",
+    eyebrow: "Structural supply",
+    description:
+      "Purlins, angles, channels and heavy sections sized for the load-bearing frame beneath the sheet — the structural layer that carries the roof.",
+    specs: [
+      { label: "Sections", value: "C · Z · Angle · Pipe · Beam" },
+      { label: "Grade", value: "Fe410 / Fe250" },
+      { label: "Supply", value: "Cut-to-length / cut-to-size" },
+    ],
+    brands: ["JSW Steel", "Tata Steel", "SAIL"],
+    cta: "Enquire on steel",
+  },
 ];
 
 function monogram(name) {
   const words = name.replace(/Pvt\.?\s*Ltd\.?/i, "").trim().split(/\s+/);
   const first = words[0];
-  if (first.length <= 5 && first === first.toUpperCase()) {
-    return first.slice(0, 2).toUpperCase();
-  }
+  if (first.length <= 5 && first === first.toUpperCase()) return first.slice(0, 2).toUpperCase();
   if (words.length === 1) return first.slice(0, 2).toUpperCase();
   return (first[0] + words[1][0]).toUpperCase();
 }
 
+const MONO = { fontFamily: "'IBM Plex Mono', ui-monospace, monospace" };
+const DISPLAY = { fontFamily: "'Barlow Condensed', sans-serif" };
+
 /** Trapezoidal box-rib roofing profile, drawn as an engineering cross-section. */
-function RoofProfileDiagram({ gaugeLabel }) {
+function RoofProfileDiagram({ gaugeLabel, compact = false }) {
   const width = 400;
-  const height = 60;
-  const baseY = 118;
-  const peaks = 5;
+  const height = compact ? 26 : 60;
+  const baseY = compact ? 56 : 118;
+  const peaks = compact ? 3 : 5;
   const segW = width / peaks;
 
   let d = `M 0 ${baseY}`;
@@ -108,72 +121,51 @@ function RoofProfileDiagram({ gaugeLabel }) {
     rivetX.push(x0 + segW * 0.5);
   }
 
+  const viewH = compact ? baseY + 14 : baseY + 30;
+
   return (
     <svg
-      viewBox="0 0 400 170"
+      viewBox={`0 0 400 ${viewH}`}
       className="h-full w-full"
       role="img"
       aria-label={`Cross-section diagram of the ${gaugeLabel} roofing profile`}
     >
-      {/* dimension line */}
-      <line x1="0" y1="24" x2="400" y2="24" stroke="#B8860B22" strokeWidth="1" />
-      <line x1="0" y1="18" x2="0" y2="30" stroke={GOLD_DARK} strokeWidth="1.5" />
-      <line x1="400" y1="18" x2="400" y2="30" stroke={GOLD_DARK} strokeWidth="1.5" />
-      <text x="200" y="16" textAnchor="middle" className="font-mono text-[10px] tracking-[0.15em]" fill={TEXT_GOLD}>
-        PITCH {(width / peaks).toFixed(0)}mm
-      </text>
-
-      {/* profile fill */}
-      <path d={`${d} L 400 170 L 0 170 Z`} fill={`${GOLD_DARK}14`} stroke="none" />
-
-      {/* profile line, drawn on */}
+      <path d={`${d} L 400 ${viewH} L 0 ${viewH} Z`} className="fill-gold/20" stroke="none" />
       <path
         d={d}
         fill="none"
-        stroke={GOLD_DARK}
-        strokeWidth="2.5"
+        className="stroke-gold-dark"
+        strokeWidth={compact ? 1.75 : 2.5}
         strokeLinejoin="round"
         strokeLinecap="round"
-        className="motion-safe:animate-[draw_1.1s_ease-out]"
-        style={{ strokeDasharray: 1400, strokeDashoffset: 0 }}
       />
-
-      {/* rivets */}
-      {rivetX.map((x, i) => (
-        <circle key={i} cx={x} cy={baseY} r="2.5" fill={GOLD_DARK} opacity="0.75" />
-      ))}
-
-      {/* gauge callout, left edge */}
-      <line x1="14" y1={baseY - height} x2="14" y2={baseY} stroke={GOLD_DARK} strokeWidth="1.5" />
-      <line x1="9" y1={baseY - height} x2="19" y2={baseY - height} stroke={GOLD_DARK} strokeWidth="1.5" />
-      <line x1="9" y1={baseY} x2="19" y2={baseY} stroke={GOLD_DARK} strokeWidth="1.5" />
-      <text x="26" y={baseY - height / 2 + 3} className="font-mono text-[10px] tracking-[0.1em]" fill={TEXT_GOLD}>
-        {gaugeLabel}
-      </text>
-
-      {/* baseline */}
-      <line x1="0" y1={baseY} x2="400" y2={baseY} stroke="#1114" strokeWidth="1" />
+      {!compact &&
+        rivetX.map((x, i) => <circle key={i} cx={x} cy={baseY} r="2.5" className="fill-gold-dark" opacity="0.7" />)}
+      <line x1="0" y1={baseY} x2="400" y2={baseY} className="stroke-gold/40" strokeWidth="1" />
     </svg>
   );
 }
 
-/** Small circular monogram badge used as a stand-in "logo" for each brand. */
 function BrandBadge({ name }) {
   return (
     <span
       aria-hidden="true"
-      className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-gradient-gold font-mono text-[11px] font-semibold tracking-wide text-ink shadow-sm ring-1 ring-gold/20"
+      className="flex h-9 w-9 flex-none items-center justify-center rounded-full border border-gold/20 bg-gold/10 text-[11px] font-semibold tracking-wide text-gold-dark"
+      style={MONO}
     >
       {monogram(name)}
     </span>
   );
 }
 
-export function FeaturedProducts() {
+export default function FeaturedProducts() {
   const [active, setActive] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const material = materials[active];
   const baseId = useId();
   const tabRefs = useRef([]);
+
+  useEffect(() => setMounted(true), []);
 
   const tabId = (i) => `${baseId}-tab-${materials[i].code}`;
   const panelId = (i) => `${baseId}-panel-${materials[i].code}`;
@@ -210,110 +202,127 @@ export function FeaturedProducts() {
   }
 
   return (
-    <section className="relative overflow-hidden border-b border-gold/10 bg-ivory py-16 sm:py-20">
+    <section className="border-b border-gold/10 bg-ivory py-16 sm:py-20">
       <style>{`
-        @keyframes draw {
-          from { stroke-dashoffset: 1400; }
-          to { stroke-dashoffset: 0; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .motion-safe\\:animate-\\[draw_1\\.1s_ease-out\\] {
-            animation: none !important;
-          }
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500&display=swap');
       `}</style>
 
-      <Container>
-        <SectionHeading
-          eyebrow="Roofing accessories · materials index"
-          title="Premium roofing materials & trusted brands"
-          description="A working specification index for puff sheets, roofing sheets, and fabrication-ready brand options across Tamil Nadu."
-        />
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mt-8 max-w-2xl">
+          <h2 className="text-4xl font-display font-semibold leading-[1.05] text-ink sm:text-5xl">
+            Premium roofing materials &amp; trusted brands
+          </h2>
+          <p className="mt-4 text-base leading-7 text-graphite">
+            A working specification index for puff sheets, roofing sheets, and fabrication-ready brand options
+            across Tamil Nadu.
+          </p>
+        </div>
 
-        <div className="mt-10 overflow-hidden rounded-2xl border border-gold/20 bg-white shadow-card">
-          <div className="flex flex-col lg:flex-row">
-            {/* index rail */}
-            <div
-              role="tablist"
-              aria-label="Roofing material categories"
-              className="flex shrink-0 flex-row overflow-x-auto border-b border-gold/10 bg-ivory/70 lg:w-64 lg:flex-col lg:overflow-visible lg:border-b-0 lg:border-r"
-              onKeyDown={handleKeyDown}
-            >
-              {materials.map((m, i) => {
-                const isActive = i === active;
-                return (
-                  <button
-                    key={m.code}
-                    ref={(el) => (tabRefs.current[i] = el)}
-                    id={tabId(i)}
-                    role="tab"
-                    type="button"
-                    aria-selected={isActive}
-                    aria-controls={panelId(i)}
-                    tabIndex={isActive ? 0 : -1}
-                    onClick={() => setActive(i)}
-                    className={`group flex min-w-[220px] flex-1 items-center gap-3 border-l-2 px-5 py-4 text-left transition-colors focus-visible:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#8B6508] lg:min-w-0 ${
-                      isActive
-                        ? "border-l-[3px] border-gold-dark bg-white"
-                        : "border-transparent hover:bg-white/60"
-                    }`}
+        {/* selector strip — sample swatches, not a sidebar tab list */}
+        <div
+          role="tablist"
+          aria-label="Roofing material categories"
+          onKeyDown={handleKeyDown}
+          className="mt-10 flex gap-3 overflow-x-auto pb-1 sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4"
+        >
+          {materials.map((m, i) => {
+            const isActive = i === active;
+            return (
+              <button
+                key={m.code}
+                ref={(el) => (tabRefs.current[i] = el)}
+                id={tabId(i)}
+                role="tab"
+                type="button"
+                aria-selected={isActive}
+                aria-controls={panelId(i)}
+                tabIndex={isActive ? 0 : -1}
+                onClick={() => setActive(i)}
+                className={`group flex min-w-[210px] flex-1 flex-col overflow-hidden rounded-lg border bg-white text-left transition duration-300 ease-out motion-safe:transform-gpu focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold sm:min-w-0 ${
+                  isActive
+                    ? "border-gold/30 bg-gold/10 shadow-soft scale-[1.01]"
+                    : "border-gold/10 hover:border-gold/20 hover:-translate-y-0.5"
+                }`}
+              >
+                <div className={`h-14 border-b px-4 pt-3 ${isActive ? "border-gold/20 bg-gold/10" : "border-gold/10 bg-ivory"}`}>
+                  <RoofProfileDiagram gaugeLabel={m.specs[0].value} compact />
+                </div>
+                <div className="px-4 py-3">
+                  <span
+                    className={`text-[10px] uppercase tracking-[0.15em] ${isActive ? "text-orange-800" : "text-stone-400"}`}
+                    style={MONO}
                   >
-                    <span
-                      className={`font-mono text-[11px] tracking-[0.15em] transition-colors ${
-                        isActive ? "text-[#8B6508]" : "text-graphite/60 group-hover:text-graphite/80"
-                      }`}
-                    >
-                      {m.code}
-                    </span>
-                    <span className={`font-display text-sm leading-tight ${isActive ? "text-ink" : "text-graphite/80"}`}>
-                      {m.title}
-                    </span>
-                  </button>
-                );
-              })}
+                    {m.code}
+                  </span>
+                  <div className={`mt-1 text-lg font-semibold leading-tight ${isActive ? "text-stone-900" : "text-stone-700"}`} style={DISPLAY}>
+                    {m.title}
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* datasheet */}
+        <div
+          key={material.code}
+          id={panelId(active)}
+          role="tabpanel"
+          aria-labelledby={tabId(active)}
+          tabIndex={0}
+          className="mt-3 grid overflow-hidden rounded-lg border border-gold/10 bg-white transition duration-500 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gold lg:grid-cols-[1.1fr_0.9fr]"
+        >
+          <div className="border-b border-gold/10 p-6 sm:p-8 lg:border-b-0 lg:border-r">
+            <span className="text-[11px] uppercase tracking-[0.2em] text-gold-dark font-semibold" style={MONO}>
+              {material.eyebrow}
+            </span>
+            <h3 className="mt-2 text-3xl font-display font-semibold text-ink sm:text-4xl">
+              {material.title}
+            </h3>
+            <p className="mt-4 max-w-md text-sm leading-7 text-graphite sm:text-base">{material.description}</p>
+
+            <div className="mt-6 h-36 rounded-md border border-gold/10 bg-ivory p-4 transition duration-300 ease-out">
+              <RoofProfileDiagram gaugeLabel={material.specs[0].value} />
             </div>
 
-            {/* spec sheet */}
-            <div
-              key={material.code}
-              id={panelId(active)}
-              role="tabpanel"
-              aria-labelledby={tabId(active)}
-              tabIndex={0}
-              className="grid flex-1 gap-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#8B6508] lg:grid-cols-[1.05fr_0.95fr]"
-            >
-              <div className="border-b border-gold/10 bg-white p-6 sm:p-8 lg:border-b-0 lg:border-r">
-                <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#8B6508]">
-                  {material.eyebrow}
-                </span>
-                <h3 className="mt-2 font-display text-3xl font-semibold text-ink sm:text-4xl">
-                  {material.title}
-                </h3>
-                <p className="mt-4 max-w-md text-sm leading-7 text-graphite sm:text-base">
-                  {material.description}
-                </p>
-
-                <div className="mt-6 h-40 rounded-xl border border-gold/10 bg-ivory/70 p-4">
-                  <RoofProfileDiagram gaugeLabel={material.specs[0].value} />
+            <dl className="mt-6 grid grid-cols-3 gap-4 border-t border-gold/10 pt-5">
+              {material.specs.map((s) => (
+                <div key={s.label}>
+                  <dt className="text-[10px] uppercase tracking-[0.15em] text-graphite" style={MONO}>
+                    {s.label}
+                  </dt>
+                  <dd className="mt-1 text-sm font-medium text-ink">{s.value}</dd>
                 </div>
+              ))}
+            </dl>
+          </div>
 
-                <dl className="mt-6 grid grid-cols-3 gap-4">
-                  {material.specs.map((s) => (
-                    <div key={s.label}>
-                      <dt className="font-mono text-[10px] uppercase tracking-[0.15em] text-graphite/70">
-                        {s.label}
-                      </dt>
-                      <dd className="mt-1 text-sm font-medium text-ink">{s.value}</dd>
+          <div className="bg-ivory p-6 sm:p-8">
+            {material.items ? (
+              <>
+                <p className="text-[11px] uppercase tracking-[0.2em] text-gold-dark font-semibold" style={MONO}>
+                  Steel product specifications
+                </p>
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  {material.items.map((item) => (
+                    <div
+                      key={item.title}
+                      className="rounded-3xl border border-gold/10 bg-white p-4 shadow-sm"
+                    >
+                      <h4 className="text-sm font-semibold text-ink">{item.title}</h4>
+                      <p className="mt-2 text-sm leading-6 text-graphite">{item.description}</p>
+                      <p className="mt-3 text-xs uppercase tracking-[0.2em] text-gold-dark">Thickness</p>
+                      <p className="mt-1 text-sm text-charcoal">{item.thickness.join(", ")}</p>
                     </div>
                   ))}
-                </dl>
-              </div>
-
-              <div className="bg-ivory/70 p-6 sm:p-8">
-                <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#8B6508]">
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="text-[11px] uppercase tracking-[0.2em] text-gold-dark font-semibold" style={MONO}>
                   Featured brand partners
                 </p>
-                <ul className="mt-4 space-y-0 divide-y divide-gold/10">
+                <ul className="mt-4 divide-y divide-gold/10">
                   {material.brands.map((brand) => {
                     const isGroup = typeof brand === "object";
                     const name = isGroup ? brand.name : brand;
@@ -324,14 +333,11 @@ export function FeaturedProducts() {
                           <span className="text-sm leading-6 text-graphite sm:text-base">{name}</span>
                         </div>
                         {isGroup && brand.subBrands?.length > 0 && (
-                          <ul
-                            aria-label={`${name} product lines`}
-                            className="ml-12 mt-2 flex flex-wrap gap-2"
-                          >
+                          <ul aria-label={`${name} product lines`} className="ml-12 mt-2 flex flex-wrap gap-2">
                             {brand.subBrands.map((sub) => (
                               <li
                                 key={sub}
-                                className="rounded-full border border-gold/20 bg-white px-3 py-1 text-xs text-graphite/80"
+                                className="rounded-full border border-gold/10 bg-white px-3 py-1 text-xs text-graphite"
                               >
                                 {sub}
                               </li>
@@ -342,34 +348,34 @@ export function FeaturedProducts() {
                     );
                   })}
                 </ul>
+              </>
+            )}
 
-                <Link
-                  href="/contact"
-                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-gold px-5 py-2.5 text-sm font-semibold text-ink transition motion-safe:hover:scale-[1.01] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B6508]"
-                >
-                  {material.cta}
-                  <span aria-hidden="true">→</span>
-                </Link>
-              </div>
-            </div>
+            <a
+              href="#contact"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-gold-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+            >
+              {material.cta}
+              <span aria-hidden="true">→</span>
+            </a>
           </div>
         </div>
 
-        <div className="mt-8 flex flex-wrap gap-4">
-          <Link
-            href="/contact"
-            className="rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B6508]"
+        <div className="mt-8 flex flex-wrap gap-3">
+          <a
+            href="#contact"
+            className="rounded-full bg-gold px-5 py-3 text-sm font-semibold text-ink transition hover:bg-gold-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
           >
             Request a quote
-          </Link>
-          <Link
-            href="/products"
-            className="rounded-full border border-gold/25 bg-white px-5 py-3 text-sm font-semibold text-[#8B6508] transition hover:border-gold/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B6508]"
+          </a>
+          <a
+            href="#products"
+            className="rounded-full border border-gold/20 bg-white px-5 py-3 text-sm font-semibold text-gold-dark transition hover:border-gold-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
           >
             View all materials →
-          </Link>
+          </a>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

@@ -4,6 +4,8 @@ import { Container } from "@/components/ui/Container";
 const brands = [
   { name: "Bhushan Steel", src: "/brands/bhushan-velzon.png" },
   { name: "JSW", src: "/brands/jsw.webp" },
+  { name: "Apollo", src: "/brands/aplapollo.png" },
+  { name: "Jindal", src: "/brands/jindal.jpg" },
   { name: "Tata Blue Scope", src: "/brands/tata-blue-velzon.png" },
   { name: "Tata Steel", src: "/brands/tata-steel-velzon.png" },
 ];
@@ -24,7 +26,7 @@ export function BrandStrip() {
               We source dependable material brands for roofing, fabrication, and industrial build projects across Tamil Nadu.
             </p>
           </div>
-          <div className="grid w-full flex-1 grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="grid w-full flex-1 grid-cols-2 gap-3 sm:grid-cols-3">
             {brands.map((brand) => (
               <div
                 key={brand.name}

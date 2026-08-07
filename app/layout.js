@@ -1,5 +1,6 @@
 import { Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
 import { InitialLoader } from "@/components/layout/InitialLoader";
+import { GSAPWrapper } from "@/components/layout/GSAPWrapper";
 import "./globals.css";
 
 const display = Cormorant_Garamond({
@@ -106,7 +107,7 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col bg-ivory text-charcoal font-sans">
         <InitialLoader />
-        {children}
+        <GSAPWrapper>{children}</GSAPWrapper>
       </body>
     </html>
   );
