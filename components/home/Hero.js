@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import heroScreen from "../../public/Hero/hero-1.png";
@@ -48,6 +49,7 @@ export function Hero({
   phone = SITE.phone,
   phoneSecondary = SITE.phoneSecondary,
 }) {
+  const router = useRouter();
   const [activeSlide, setActiveSlide] = useState(0);
   const [progressKey, setProgressKey] = useState(0);
 
@@ -79,6 +81,10 @@ export function Hero({
     setProgressKey((k) => k + 1);
   };
 
+  const goToContact = () => {
+    router.push("/contact");
+  };
+
   return (
     <section className="relative overflow-hidden bg-ivory">
       <div
@@ -106,18 +112,19 @@ export function Hero({
                 style={{ width: `${100 / heroSlides.length}%` }}
                 aria-hidden={index !== activeSlide}
               >
-                {/*
-                  Fixed height strategy:
-                  - w-full (not w-screen) avoids horizontal overflow from scrollbar width.
-                  - h-[70dvh] on mobile portrait uses dynamic viewport height so the
-                    image doesn't jump when the browser address bar shows/hides.
-                  - min-h / max-h caps stop the image from being too short (small phones)
-                    or absurdly tall (large desktop monitors).
-                  - sm: breakpoint gives a taller, more "hero-like" crop on tablet/desktop.
-                  - landscape: variant caps height so mobile landscape doesn't crop
-                    the image down to a thin sliver with object-cover.
-                */}
-                <div className="hero-image-container">
+                <div
+                  className="hero-image-container"
+                  onClick={goToContact}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      goToContact();
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Go to contact page"
+                >
                    <Image
     src={slide.image}
     alt={slide.imageAlt}
@@ -133,7 +140,10 @@ export function Hero({
 
           <button
             type="button"
-            onClick={goPrev}
+            onClick={(e) => {
+              e.stopPropagation();
+              goPrev();
+            }}
             aria-label="Previous slide"
             className="group absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-gold/25 bg-ivory/80 p-2.5 shadow-soft backdrop-blur transition-all duration-300 hover:border-gold-dark/50 hover:bg-ivory focus-gold sm:left-5 sm:p-3"
           >
@@ -145,7 +155,10 @@ export function Hero({
 
           <button
             type="button"
-            onClick={goNext}
+            onClick={(e) => {
+              e.stopPropagation();
+              goNext();
+            }}
             aria-label="Next slide"
             className="group absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-gold/25 bg-ivory/80 p-2.5 shadow-soft backdrop-blur transition-all duration-300 hover:border-gold-dark/50 hover:bg-ivory focus-gold sm:right-5 sm:p-3"
           >
@@ -161,7 +174,10 @@ export function Hero({
             <button
               key={slide.imageAlt}
               type="button"
-              onClick={() => goToSlide(index)}
+              onClick={(e) => {
+                e.stopPropagation();
+                goToSlide(index);
+              }}
               aria-label={`Go to slide ${index + 1}`}
               className="group relative h-1.5 w-8 overflow-hidden rounded-full bg-gold/15 focus-gold sm:w-10"
             >
@@ -198,6 +214,7 @@ export function Hero({
     height: 100vh;
     overflow: hidden;
     background: #fff;
+    cursor: pointer;
   }
 
   .hero-image {
