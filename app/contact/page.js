@@ -70,18 +70,17 @@ export default async function ContactPage({ searchParams }) {
                 </div>
               </div>
 
-              <div className="overflow-hidden rounded-lg border border-gold/20 bg-white shadow-card">
-                <div className="flex aspect-video items-center justify-center bg-graphite/10 p-6 text-center">
-                  <div>
-                    <p className="font-display text-lg font-semibold text-ink">
-                      Map placeholder
-                    </p>
-                    <p className="mt-1 text-sm text-graphite">
-                      Coimbatore, Tamil Nadu — embed Google Maps when address pin is final.
-                    </p>
-                  </div>
-                </div>
-              </div>
+             <div className="overflow-hidden rounded-lg border border-gold/20 bg-white shadow-card">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1002342.8473921582!2d75.86231231689455!3d11.08340612476991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8f70f7c0fdf43%3A0x610ef7ea3fe1aee8!2sTWAD%20Board%20-%20Chinnavedapatti%20Pumphouse!5e0!3m2!1sen!2sin!4v1786631651652!5m2!1sen!2sin"
+    className="h-full min-h-[300px] w-full"
+    style={{ border: 0 }}
+    allowFullScreen
+    loading="lazy"
+    referrerPolicy="strict-origin-when-cross-origin"
+    title="Velzon Trade Enterprises location map"
+  />
+</div>
             </div>
 
             <div className="rounded-lg border border-gold/20 bg-white p-6 shadow-card lg:col-span-3 sm:p-8">
