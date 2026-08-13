@@ -63,7 +63,7 @@ export function Footer({
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="focus-gold group inline-flex items-center gap-1 rounded-sm text-sm text-graphite transition-colors hover:text-gold-dark"
+                  className="focus-gold group inline-flex items-center gap-1 font-semibold  rounded-sm text-sm text-graphite transition-colors hover:text-gold-dark"
                 >
                   <span>{link.label}</span>
                   <ArrowUpRight
@@ -92,13 +92,7 @@ export function Footer({
                 linkClassName="focus-gold rounded-sm text-sm text-graphite transition-colors hover:text-gold-dark"
               />
             </li>
-            <li className="flex items-start gap-2.5">
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-dark" strokeWidth={1.75} />
-              <span className="block max-w-xs whitespace-pre-line break-words text-sm leading-relaxed text-graphite">
-                {resolvedAddress}
-              </span>
-            </li>
-            <li className="flex items-start gap-2.5">
+                    <li className="flex items-start gap-2.5">
               <MessageCircle className="mt-0.5 h-4 w-4 shrink-0 text-gold-dark" strokeWidth={1.75} />
               <a
                 href={SITE.whatsappHref}
@@ -109,6 +103,13 @@ export function Footer({
                 WhatsApp chat
               </a>
             </li>
+            <li className="flex items-start gap-2.5">
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-dark" strokeWidth={1.75} />
+              <span className="block max-w-xs whitespace-pre-line break-words text-sm leading-relaxed text-graphite">
+                {resolvedAddress}
+              </span>
+            </li>
+          
           </ul>
         </div>
       </Container>
