@@ -114,14 +114,25 @@ export function Footer({
         </div>
       </Container>
 
-      <div className="border-t border-gold/10 bg-canvas/40">
-        <Container className="flex flex-col gap-2 py-5 text-xs text-graphite sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {year} {SITE.name}. All rights reserved. Est. {SITE.established}.
-          </p>
-          <p className="text-graphite/80">{SITE.serviceArea}</p>
-        </Container>
-      </div>
+     <div className="border-t border-gold/10 bg-canvas/40">
+  <Container className="flex flex-col gap-2 py-5 text-xs text-graphite sm:flex-row sm:items-center sm:justify-between">
+    <p>
+      © {year} {SITE.name}. All rights reserved. Est. {SITE.established}.
+    </p>
+
+    <p className="text-graphite/80">
+      Developed by{" "}
+      <a
+        href="https://aedevs.vercel.app"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-semibold text-gold-dark transition-colors hover:text-ink"
+      >
+        AEDEVS
+      </a>
+    </p>
+  </Container>
+</div>
     </footer>
   );
 }
