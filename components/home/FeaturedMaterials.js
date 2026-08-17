@@ -57,7 +57,7 @@ export function FeaturedMaterials({ categories }) {
                 <h3 className="font-display text-lg font-semibold text-ink group-hover:text-gold-dark">
                   {cat.name}
                 </h3>
-                <p className="mt-1 line-clamp-2 text-sm text-graphite">
+                <p className="mt-1 line-clamp-2 font-semibold text-sm text-graphite">
                   {cat.teaser || cat.description || "View specs"}
                 </p>
               </div>
