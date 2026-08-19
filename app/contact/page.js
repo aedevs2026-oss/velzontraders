@@ -72,7 +72,7 @@ export default async function ContactPage({ searchParams }) {
 
              <div className="overflow-hidden rounded-lg border border-gold/20 bg-white shadow-card">
   <iframe
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1002342.8473921582!2d75.86231231689455!3d11.08340612476991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8f70f7c0fdf43%3A0x610ef7ea3fe1aee8!2sTWAD%20Board%20-%20Chinnavedapatti%20Pumphouse!5e0!3m2!1sen!2sin!4v1786631651652!5m2!1sen!2sin"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1002342.8473921582!2d75.76068878173831!3d11.08340612476991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8f7b8de3fe65b%3A0xf2c84ccc4b2a9a5d!2sSteel%20Zone!5e0!3m2!1sen!2sin!4v1787129141435!5m2!1sen!2sin"
     className="h-full min-h-[300px] w-full"
     style={{ border: 0 }}
     allowFullScreen
