@@ -1,10 +1,38 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Phone, MapPin, MessageCircle, ArrowUpRight } from "lucide-react";
+import { Phone, MapPin, MessageCircle, ArrowUpRight, Instagram } from "lucide-react";
 import { NAV_LINKS, SITE } from "@/lib/constants";
 import { resolvePhones } from "@/lib/phone";
 import { Container } from "@/components/ui/Container";
 import { PhoneLinks } from "@/components/ui/PhoneLinks";
+
+// lucide-react doesn't ship an "X" (formerly Twitter) mark, so it's defined
+// locally as a tiny inline SVG that inherits color/size like a lucide icon.
+function XIcon({ className, strokeWidth }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
+const SOCIAL_LINKS = [
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/velzon_trade?utm_source=qr&igsi=MW90b2NqYmV6dDlkZA==",
+    Icon: Instagram,
+  },
+  {
+    label: "X (Twitter)",
+    href: "https://x.com/VELZONTRADE",
+    Icon: XIcon,
+  },
+];
 
 export function Footer({
   phone = SITE.phone,
@@ -50,6 +78,40 @@ export function Footer({
             supplied.{" "}
             <span className="text-ink/80">{SITE.serviceArea}.</span>
           </p>
+
+          {/* Social links */}
+          <div className="mt-6">
+            <h3 className="font-display text-sm font-semibold uppercase tracking-wide text-ink">
+              Follow Us
+            </h3>
+            <span className="mt-2 block h-px w-8 bg-gold/40" />
+            <div className="mt-4 flex items-center gap-3">
+              {SOCIAL_LINKS.map(({ label, href, Icon }) => (
+                
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="focus-gold group relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-gold/40 bg-white text-gold-dark
+                             transition-all duration-300 ease-out
+                             hover:-translate-y-1 hover:scale-110 hover:border-gold hover:bg-gold hover:text-white
+                             hover:shadow-[0_8px_20px_-6px_rgba(191,155,48,0.55)]
+                             active:scale-95"
+                >
+                  {/* pulsing ring on hover */}
+                  <span
+                    className="pointer-events-none absolute inset-0 rounded-full border border-gold/60 opacity-0
+                               transition-opacity duration-300 group-hover:animate-ping group-hover:opacity-75"
+                  />
+                  <Icon
+                    className="h-5 w-5 transition-transform duration-300 group-hover:rotate-[360deg]"
+                    strokeWidth={1.75}
+                  />
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Explore */}
@@ -92,9 +154,9 @@ export function Footer({
                 linkClassName="focus-gold rounded-sm text-sm text-graphite transition-colors hover:text-gold-dark"
               />
             </li>
-                    <li className="flex items-start gap-2.5">
+            <li className="flex items-start gap-2.5">
               <MessageCircle className="mt-0.5 h-4 w-4 shrink-0 text-gold-dark" strokeWidth={1.75} />
-              <a
+              
                 href={SITE.whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -109,30 +171,29 @@ export function Footer({
                 {resolvedAddress}
               </span>
             </li>
-          
           </ul>
         </div>
       </Container>
 
-     <div className="border-t border-gold/10 bg-canvas/40">
-  <Container className="flex flex-col gap-2 py-5 text-xs text-graphite sm:flex-row sm:items-center sm:justify-between">
-    <p>
-      © {year} {SITE.name}. All rights reserved. Est. {SITE.established}.
-    </p>
+      <div className="border-t border-gold/10 bg-canvas/40">
+        <Container className="flex flex-col gap-2 py-5 text-xs text-graphite sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {year} {SITE.name}. All rights reserved. Est. {SITE.established}.
+          </p>
 
-    <p className="text-graphite/80">
-      Developed by{" "}
-      <a
-        href="https://aedevs.vercel.app"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-semibold text-gold-dark transition-colors hover:text-ink"
-      >
-        AEDEVS
-      </a>
-    </p>
-  </Container>
-</div>
+          <p className="text-graphite/80">
+            Developed by{" "}
+            
+              href="https://aedevs.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-gold-dark transition-colors hover:text-ink"
+            >
+              AEDEVS
+            </a>
+          </p>
+        </Container>
+      </div>
     </footer>
   );
 }
