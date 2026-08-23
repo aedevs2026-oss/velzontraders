@@ -1,14 +1,34 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Phone, MapPin, MessageCircle, ArrowUpRight, Instagram } from "lucide-react";
+import { Phone, MapPin, MessageCircle, ArrowUpRight } from "lucide-react";
 import { NAV_LINKS, SITE } from "@/lib/constants";
 import { resolvePhones } from "@/lib/phone";
 import { Container } from "@/components/ui/Container";
 import { PhoneLinks } from "@/components/ui/PhoneLinks";
 
-// lucide-react doesn't ship an "X" (formerly Twitter) mark, so it's defined
-// locally as a tiny inline SVG that inherits color/size like a lucide icon.
-function XIcon({ className, strokeWidth }) {
+// lucide-react drops brand/logo marks (Instagram, X/Twitter, etc.) in newer
+// releases, so both icons are defined locally as tiny inline SVGs that
+// inherit color/size the same way a lucide icon would via className.
+function InstagramIcon({ className, strokeWidth = 1.75 }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37a4 4 0 1 1-7.914 1.174A4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  );
+}
+
+function XIcon({ className }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -25,7 +45,7 @@ const SOCIAL_LINKS = [
   {
     label: "Instagram",
     href: "https://www.instagram.com/velzon_trade?utm_source=qr&igsi=MW90b2NqYmV6dDlkZA==",
-    Icon: Instagram,
+    Icon: InstagramIcon,
   },
   {
     label: "X (Twitter)",
