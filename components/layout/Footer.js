@@ -87,7 +87,7 @@ export function Footer({
             <span className="mt-2 block h-px w-8 bg-gold/40" />
             <div className="mt-4 flex items-center gap-3">
               {SOCIAL_LINKS.map(({ label, href, Icon }) => (
-                
+                <a
                   key={label}
                   href={href}
                   target="_blank"
@@ -154,9 +154,9 @@ export function Footer({
                 linkClassName="focus-gold rounded-sm text-sm text-graphite transition-colors hover:text-gold-dark"
               />
             </li>
-            <li className="flex items-start gap-2.5">
+                    <li className="flex items-start gap-2.5">
               <MessageCircle className="mt-0.5 h-4 w-4 shrink-0 text-gold-dark" strokeWidth={1.75} />
-              
+              <a
                 href={SITE.whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -171,29 +171,30 @@ export function Footer({
                 {resolvedAddress}
               </span>
             </li>
+          
           </ul>
         </div>
       </Container>
 
-      <div className="border-t border-gold/10 bg-canvas/40">
-        <Container className="flex flex-col gap-2 py-5 text-xs text-graphite sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {year} {SITE.name}. All rights reserved. Est. {SITE.established}.
-          </p>
+     <div className="border-t border-gold/10 bg-canvas/40">
+  <Container className="flex flex-col gap-2 py-5 text-xs text-graphite sm:flex-row sm:items-center sm:justify-between">
+    <p>
+      © {year} {SITE.name}. All rights reserved. Est. {SITE.established}.
+    </p>
 
-          <p className="text-graphite/80">
-            Developed by{" "}
-            
-              href="https://aedevs.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-gold-dark transition-colors hover:text-ink"
-            >
-              AEDEVS
-            </a>
-          </p>
-        </Container>
-      </div>
+    <p className="text-graphite/80">
+      Developed by{" "}
+      <a
+        href="https://aedevs.vercel.app"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-semibold text-gold-dark transition-colors hover:text-ink"
+      >
+        AEDEVS
+      </a>
+    </p>
+  </Container>
+</div>
     </footer>
   );
 }
