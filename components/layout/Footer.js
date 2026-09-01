@@ -59,6 +59,7 @@ export function Footer({
   phoneSecondary = SITE.phoneSecondary,
   address = SITE.address,
   tagline = SITE.tagline,
+  categories = [], // pass the same categories array used elsewhere (e.g. homepage)
 }) {
   const phones = resolvePhones(
     { phone, phone_secondary: phoneSecondary },
@@ -67,12 +68,15 @@ export function Footer({
   const year = new Date().getFullYear();
   const resolvedAddress = SITE.shortLocation;
 
+  // Minimal display — just the first few, no filtering/hiding
+  const footerCategories = categories.slice(0, 5);
+
   return (
     <footer className="relative mt-auto border-t border-gold/20 bg-white">
       {/* subtle gradient accent line */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
 
-      <Container className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr]">
+      <Container className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
         {/* Brand */}
         <div className="sm:col-span-2 lg:col-span-1">
           <Link
@@ -107,7 +111,7 @@ export function Footer({
             <span className="mt-2 block h-px w-8 bg-gold/40" />
             <div className="mt-4 flex items-center gap-3">
               {SOCIAL_LINKS.map(({ label, href, Icon }) => (
-                <a
+                
                   key={label}
                   href={href}
                   target="_blank"
@@ -158,6 +162,42 @@ export function Footer({
           </ul>
         </div>
 
+        {/* Our Services */}
+        <div>
+          <h3 className="font-display text-sm font-semibold uppercase tracking-wide text-ink">
+            Our Services
+          </h3>
+          <span className="mt-2 block h-px w-8 bg-gold/40" />
+          <ul className="mt-4 space-y-2.5">
+            {footerCategories.map((cat) => (
+              <li key={cat.slug}>
+                <Link
+                  href={`/products/${cat.slug}`}
+                  className="focus-gold group inline-flex items-center gap-1 font-semibold rounded-sm text-sm text-graphite transition-colors hover:text-gold-dark"
+                >
+                  <span>{cat.name}</span>
+                  <ArrowUpRight
+                    className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100"
+                    strokeWidth={2}
+                  />
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link
+                href="/products"
+                className="focus-gold group inline-flex items-center gap-1 text-sm font-semibold text-gold-dark hover:underline"
+              >
+                <span>View all products</span>
+                <ArrowUpRight
+                  className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5"
+                  strokeWidth={2}
+                />
+              </Link>
+            </li>
+          </ul>
+        </div>
+
         {/* Contact */}
         <div>
           <h3 className="font-display text-sm font-semibold uppercase tracking-wide text-ink">
@@ -174,9 +214,9 @@ export function Footer({
                 linkClassName="focus-gold rounded-sm text-sm text-graphite transition-colors hover:text-gold-dark"
               />
             </li>
-                    <li className="flex items-start gap-2.5">
+            <li className="flex items-start gap-2.5">
               <MessageCircle className="mt-0.5 h-4 w-4 shrink-0 text-gold-dark" strokeWidth={1.75} />
-              <a
+              
                 href={SITE.whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -191,30 +231,29 @@ export function Footer({
                 {resolvedAddress}
               </span>
             </li>
-          
           </ul>
         </div>
       </Container>
 
-     <div className="border-t border-gold/10 bg-canvas/40">
-  <Container className="flex flex-col gap-2 py-5 text-xs text-graphite sm:flex-row sm:items-center sm:justify-between">
-    <p>
-      © {year} {SITE.name}. All rights reserved. Est. {SITE.established}.
-    </p>
+      <div className="border-t border-gold/10 bg-canvas/40">
+        <Container className="flex flex-col gap-2 py-5 text-xs text-graphite sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {year} {SITE.name}. All rights reserved. Est. {SITE.established}.
+          </p>
 
-    <p className="text-graphite/80">
-      Developed by{" "}
-      <a
-        href="https://aedevs.vercel.app"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-semibold text-gold-dark transition-colors hover:text-ink"
-      >
-        AEDEVS
-      </a>
-    </p>
-  </Container>
-</div>
+          <p className="text-graphite/80">
+            Developed by{" "}
+            
+              href="https://aedevs.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-gold-dark transition-colors hover:text-ink"
+            >
+              AEDEVS
+            </a>
+          </p>
+        </Container>
+      </div>
     </footer>
   );
 }
