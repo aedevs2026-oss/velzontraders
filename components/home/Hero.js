@@ -93,7 +93,7 @@ export function Hero({
   };
 
   const goToContact = () => {
-    router.push("/contact");
+    router.push("#");
   };
 
   return (
