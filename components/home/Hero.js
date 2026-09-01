@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import heroScreen from "../../public/Hero/hero-1.png";
 import heroScreenTwo from "../../public/Hero/hero-2.png";
 import heroScreenThree from "../../public/Hero/hero-3.png";
+import heroScreenFour from "../../public/Hero/hero-4.png";
 import { SITE } from "@/lib/constants";
 import { resolvePhones } from "@/lib/phone";
 
@@ -40,6 +41,16 @@ const heroSlides = [
       "Beyond materials, we coordinate wiring requirements alongside your build, working closely with sellers, builders, and end clients to keep every phase of the project moving smoothly.",
     image: heroScreenThree,
     imageAlt: "Velzon Trade Enterprises wiring coordination support",
+  },
+  {
+    eyebrow: SITE.serviceArea,
+    heading: "VELZON",
+    subheading: "Trade Enterprises",
+    tagline: "TODO: Add tagline for hero-4",
+    description:
+      "TODO: Add description for hero-4 — replace with the copy that matches this image.",
+    image: heroScreenFour,
+    imageAlt: "Velzon Trade Enterprises — TODO: describe this image",
   },
 ];
 
