@@ -2,21 +2,28 @@ import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 import { SITE } from "@/lib/constants";
-import { getSettings } from "@/lib/data/queries";
+import { getCategories, getSettings } from "@/lib/data/queries";
 
 export async function SiteShell({ children }) {
-  const settings = await getSettings();
+  const [settings, categories] = await Promise.all([
+    getSettings(),
+    getCategories(),
+  ]);
 
   return (
     <>
       <Navbar />
+
       <main className="flex-1">{children}</main>
+
       <Footer
         phone={settings.phone}
         phoneSecondary={settings.phone_secondary}
         address={SITE.shortLocation}
         tagline={settings.tagline}
+        categories={categories}
       />
+
       <WhatsAppFloat phone={settings.phone} />
     </>
   );
