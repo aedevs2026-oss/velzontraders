@@ -106,7 +106,7 @@ export function Footer({
                 const href = item.href;
                 const Icon = item.Icon;
                 return (
-                  
+                  <a
                     key={label}
                     href={href}
                     target="_blank"
@@ -202,7 +202,7 @@ export function Footer({
             </li>
             <li className="flex items-start gap-2.5">
               <MessageCircle className="mt-0.5 h-4 w-4 shrink-0 text-gold-dark" strokeWidth={1.75} />
-              
+              <a
                 href={SITE.whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -228,7 +228,7 @@ export function Footer({
           </p>
           <p className="text-graphite/80">
             Developed by{" "}
-            
+            <a
               href="https://aedevs.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
